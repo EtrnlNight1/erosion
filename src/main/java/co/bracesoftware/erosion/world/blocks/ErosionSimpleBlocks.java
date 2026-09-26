@@ -67,10 +67,10 @@ public class ErosionSimpleBlocks
         public static BlockBehaviour.Properties getDefaultBlockProperties()
         {
             return BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .instrument(NoteBlockInstrument.SNARE)
-                    .strength(0.6F)
-                    .sound(SoundType.GRAVEL);
+            .mapColor(MapColor.STONE)
+            .instrument(NoteBlockInstrument.SNARE)
+            .strength(0.6F)
+            .sound(SoundType.GRAVEL);
         }
     }
 
@@ -78,11 +78,11 @@ public class ErosionSimpleBlocks
     {
         public static BlockBehaviour.Properties getDefaultBlockProperties()
         {
-            return BlockBehaviour.Properties.of().
-                strength(1.5f, 6.0f)
-                .requiresCorrectToolForDrops()
-                .sound(ErosionRegistry.SoundTypes.ORE)
-                .mapColor(MapColor.STONE);
+            return BlockBehaviour.Properties.of()
+            .strength(1.5f, 6.0f)
+            .requiresCorrectToolForDrops()
+            .sound(ErosionRegistry.SoundTypes.ORE)
+            .mapColor(MapColor.STONE);
         }
 
         @SuppressWarnings("all")
@@ -140,10 +140,10 @@ public class ErosionSimpleBlocks
         public static BlockBehaviour.Properties getDefaultBlockProperties()
         {
             return BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.DIRT)
-                    .instrument(NoteBlockInstrument.SNARE)
-                    .strength(0.6F)
-                    .sound(SoundType.GRAVEL);
+            .mapColor(MapColor.DIRT)
+            .instrument(NoteBlockInstrument.SNARE)
+            .strength(0.6F)
+            .sound(SoundType.GRAVEL);
         }
         public DirtBlock(BlockBehaviour.Properties properties) {
             super(properties);
