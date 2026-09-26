@@ -14,16 +14,16 @@ public class Text
     }
     public static class InternalClass
     {
-        public Integer Code = 0;
-        public Character Char = '?';
+        public int Code = 0;
+        public char Char = '?';
 
-        public InternalClass(Integer c, char c2)
+        public InternalClass(int c, char c2)
         {
             this.Code = c;
             this.Char = c2;
         }
 
-        public Integer get()
+        public int get()
         {
             return this.Code;
         }
@@ -118,7 +118,7 @@ public class Text
         //firstly colors
         for(int i = 0; i < l.size(); ++i)
         {
-            Integer p = l.get(i);
+            int p = l.get(i);
             for(int k = 0; k < Col.LIST.size(); ++k)
             {
                 if(p == Col.LIST.get(k).Code)
@@ -130,7 +130,7 @@ public class Text
         //then styles
         for(int i = 0; i < l.size(); ++i)
         {
-            Integer p = l.get(i);
+            int p = l.get(i);
             for(int k = 0; k < Style.LIST.size(); ++k)
             {
                 if(p == Style.LIST.get(k).Code)
