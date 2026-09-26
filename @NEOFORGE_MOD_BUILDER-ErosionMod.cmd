@@ -7,6 +7,7 @@ set bin="Erosion-neoforge.jar"
 title %SCRIPT_TITLE%
 :start
 cls
+set /p commit="What did you do? "
 
 echo Generating project version...
 title %SCRIPT_TITLE%: Generating project version...

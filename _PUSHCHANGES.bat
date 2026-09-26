@@ -1,3 +1,3 @@
 git add .
-git commit -m "code refactoring and minor updates"
+git commit -m "%commit%"
 git push
