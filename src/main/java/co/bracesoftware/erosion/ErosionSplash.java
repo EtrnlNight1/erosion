@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -57,8 +56,9 @@ public class ErosionSplash extends JWindow
                 ErosionUtils.Log("Error while loading splash; resource not found: " + rp);
             }
         }
-        catch(IOException e)
+        catch(Exception e)
         {
+            e.printStackTrace();
             ErosionUtils.Log("Error while loading splash -> " + e.getMessage());
         }
 
