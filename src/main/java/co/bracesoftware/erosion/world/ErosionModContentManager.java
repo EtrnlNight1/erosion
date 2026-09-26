@@ -20,7 +20,6 @@ import co.bracesoftware.erosion.data.servergen.ErosionLootGen;
 import co.bracesoftware.erosion.data.servergen.ErosionLootGen.ErosionLootGenSubProvider;
 import co.bracesoftware.erosion.data.servergen.ErosionRecipeGen;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeBlockEntity;
-import co.bracesoftware.erosion.world.ErosionModContentManager.ErosionModContent;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;

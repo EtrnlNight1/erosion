@@ -18,6 +18,16 @@ Each item this mod adds or modifies gets its nicely described tooltip like this,
 <div align="center">
     <img height="300" src="https://raw.githubusercontent.com/bracesoftware/erosion/main/gallery/tooltips2.png">
 </div>
+<div align="center">
+    <img height="300" src="https://raw.githubusercontent.com/bracesoftware/erosion/main/gallery/tooltips3.png">
+</div>
+
+<div align="center">
+    <img height="300" src="https://raw.githubusercontent.com/bracesoftware/erosion/main/gallery/tooltips4.png">
+</div>
+<div align="center">
+    <img height="300" src="https://raw.githubusercontent.com/bracesoftware/erosion/main/gallery/tooltips5.png">
+</div>
 
 ## Creative tab
 <div align="center">
