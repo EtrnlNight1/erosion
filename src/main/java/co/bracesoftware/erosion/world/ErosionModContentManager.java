@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import com.mojang.serialization.Codec;
 import co.bracesoftware.erosion.Erosion;
+import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionUtils;
 import co.bracesoftware.erosion.data.ErosionDataGenerators;
 import co.bracesoftware.erosion.data.clientgen.ErosionBlockStateGen;
@@ -19,10 +20,12 @@ import co.bracesoftware.erosion.data.servergen.ErosionLootGen;
 import co.bracesoftware.erosion.data.servergen.ErosionLootGen.ErosionLootGenSubProvider;
 import co.bracesoftware.erosion.data.servergen.ErosionRecipeGen;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeBlockEntity;
+import co.bracesoftware.erosion.world.ErosionModContentManager.ErosionModContent;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -106,6 +109,7 @@ public final class ErosionModContentManager
     public static final List<Runnable> EROSION_ITEM_TAG_GEN_TASKS = new ArrayList<>();
 
     public static final List<ErosionModContent.ErosionBlock> EROSION_KNOWN_BLOCKS = new ArrayList<>();
+    public static final List<ErosionModContent.ErosionItem> EROSION_CREATIVE_TAB_ITEMS = new ArrayList<>();
 
     public static final ErosionBlockStateGen getBlockStateResourceGenerator()
     {
@@ -315,6 +319,7 @@ public final class ErosionModContentManager
                 ErosionUtils.Log("Setting up item -> " + id.getName());
                 this.itemHolder = EROSION_MOD_ITEMS.register(id.getId(), s);
                 EROSION_ITEM_COUNT++;
+                EROSION_CREATIVE_TAB_ITEMS.add(this);
             }
             
             @Override public Item get()
@@ -490,4 +495,106 @@ public final class ErosionModContentManager
 
         what.run();
     }
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EROSION_TAB = ErosionModContentManager.
+    EROSION_MOD_CREATIVE_MODE_TABS.register(
+        ErosionConfig.CREATIVE_TAB_NAME, () -> CreativeModeTab.builder()
+        .title(Component.translatable(ErosionConfig.CREATIVE_TAB_ID))
+        .icon(() -> ErosionRegistry.Items.KAOLINIZED_GRANITE.getItemHolder().get().getDefaultInstance())
+        .displayItems((p, o) -> {
+            for(var i : EROSION_CREATIVE_TAB_ITEMS)
+            {
+                o.accept(i.get());
+            }
+            //ALL ITEMS GO HERE
+            //SIMPLE BLOCKS
+            /* 
+            output.accept(ErosionRegistry.Items.DRIED_DIRT.getItemHolder().get());
+
+            output.accept(ErosionRegistry.Items.KAOLINIZED_GRANITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CRACKED_STONE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.ALBITIZED_GRANITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.QUARTZ_GRAVEL.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.PROPYLITIZED_DIORITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CRACKED_CALCITE.getItemHolder().get());
+
+            output.accept(ErosionRegistry.Items.LIMONITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CALCITE_MALACHITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.HEMATITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.BORAX_DEPOSIT.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.MAGNETITE_ORE.getItemHolder().get());
+
+            output.accept(ErosionRegistry.Items.RAW_HEMATITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_LIMONITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_MAGNETITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_MALACHITE.getItemHolder().get());
+
+            output.accept(ErosionRegistry.Items.NATIVE_GOLD_DEPOSIT.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.NATIVE_GOLD.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_CASSITERITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.TIN_CHUNK.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.LEAD_CHUNK.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CASSITERITE_DEPOSIT.getItemHolder().get());
+
+            output.accept(ErosionRegistry.Items.NATIVE_SILVER.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.NATIVE_SILVER_DEPOSIT.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.SILVER_CHUNK.getItemHolder().get());
+
+            output.accept(ErosionRegistry.Items.BISMUTH_CHUNK.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.BISMUTHINITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_BISMUTHINITE.getItemHolder().get());
+
+            output.accept(ErosionRegistry.Items.ZINC_CHUNK.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.SPHALERITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_SPHALERITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.MINERAL_RICH_DIRT.getItemHolder().get());
+
+            output.accept(ErosionRegistry.Items.RAW_AZURITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_GOETHITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.AZURITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.GOETHITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.TETRAHEDRITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.ARSENOPYRITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.PYRITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.ANGLESITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.HALITE_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.GALENA_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_TETRAHEDRITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_ARSENOPYRITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_PYRITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_ANGLESITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_GALENA.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RAW_HALITE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RUBY_ORE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.SAPPHIRE_ORE.getItemHolder().get());
+
+            //SIMPLE ITEMS
+            output.accept(ErosionRegistry.Items.FLUX.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.SALT.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.RUBY.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.BORAX.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.DEHYDRATED_BORAX.get());
+            output.accept(ErosionRegistry.Items.BUCKET_OF_SULFURIC_ACID.get());
+            output.accept(ErosionRegistry.Items.BORIC_ACID_CRYSTAL.get());
+            output.accept(ErosionRegistry.Items.SAPPHIRE.get());
+            output.accept(ErosionRegistry.Items.SULFUR_SLAG.get());
+            output.accept(ErosionRegistry.Items.ANTIMONY_SLAG.get());
+            output.accept(ErosionRegistry.Items.DEBRIS.get());
+            output.accept(ErosionRegistry.Items.CRUSHED_EGG_SHELL.get());
+            output.accept(ErosionRegistry.Items.FELDSPAR_POWDER.get());
+
+            //MACHINES
+            output.accept(ErosionRegistry.Items.MATERIAL_PURIFIER.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CRUCIBLE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CHEMICAL_REACTOR.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CHEMICAL_REACTOR_SCRUBBER.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CHEMICAL_REACTOR_MODULE.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.CHEMICAL_REACTOR_COOLING_SYSTEM.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.BASIC_MASK.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.GAS_MASK.getItemHolder().get());
+            output.accept(ErosionRegistry.Items.GAS_FILTER.getItemHolder().get());
+            */
+        })
+        .build()
+    );
 }
