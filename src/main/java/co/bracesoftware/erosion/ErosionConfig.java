@@ -74,6 +74,11 @@ public final class ErosionConfig
             {
                 throw new ErosionWrongConfigGetterOrSetterMethodCalledException("Not an integer!");
             }
+
+            default float getFloat()
+            {
+                throw new ErosionWrongConfigGetterOrSetterMethodCalledException("Not a float!");
+            }
            
             default boolean getBoolean()
             {
@@ -88,6 +93,11 @@ public final class ErosionConfig
             default void setInteger(int value)
             {
                 throw new ErosionWrongConfigGetterOrSetterMethodCalledException("Not an integer!");
+            }
+
+            default void setFloat(float value)
+            {
+                throw new ErosionWrongConfigGetterOrSetterMethodCalledException("Not a float!");
             }
 
             default void setBoolean(boolean value)

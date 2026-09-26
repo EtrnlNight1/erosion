@@ -52,14 +52,16 @@ public class ErosionCommandProcessor
     {
         private final BiConsumer<CommandSourceStack, List<String>> what;
         private final String helpInfo;
+        private final boolean adminCommand;
 
         public ErosionCommand(
             String n, BiConsumer<CommandSourceStack, List<String>> w,
-            String h
+            String h, boolean ww
         ) throws ErosionCommandSetupException
         {
             this.name = n;
             this.what = w;
+            this.adminCommand = ww;
             this.helpInfo = h;
 
             this.setupAntiDuplicationSystem();
@@ -104,23 +106,23 @@ public class ErosionCommandProcessor
     public static final ErosionCommand MOD_STATUS = new ErosionCommand(
         ErosionRegistry.RawRegistry.CommandNames.MOD_STATUS.getId(),
         ErosionCommandProcessor::handleStatus,
-        ErosionConfig.ForCommands.EMPTY_ARGUMENTS
+        ErosionConfig.ForCommands.EMPTY_ARGUMENTS, false
     );
     public static final ErosionCommand RELOAD_CONFIG = new ErosionCommand(
         ErosionRegistry.RawRegistry.CommandNames.RELOAD_CONFIG.getId(),
         ErosionCommandProcessor::reloadCfg,
-        ErosionConfig.ForCommands.EMPTY_ARGUMENTS
+        ErosionConfig.ForCommands.EMPTY_ARGUMENTS, true
     );
 
     public static final ErosionCommand VIEW_CONFIG = new ErosionCommand(
         ErosionRegistry.RawRegistry.CommandNames.VIEW_CONFIG.getId(),
         ErosionCommandProcessor::viewCfg,
-        ErosionConfig.ForCommands.EMPTY_ARGUMENTS
+        ErosionConfig.ForCommands.EMPTY_ARGUMENTS, true
     );
     public static final ErosionCommand SET_CONFIG = new ErosionCommand(
         ErosionRegistry.RawRegistry.CommandNames.SET_CONFIG.getId(),
         ErosionCommandProcessor::setCfg,
-        "< config_identifier value >"
+        "< config_identifier value >", true
     );
 
     public static final List<ErosionCommand> COMMAND_LIST = List.of(
@@ -145,6 +147,16 @@ public class ErosionCommandProcessor
     }
 
     ///////////////////////////
+
+    public static final boolean hasPermsForCommand(CommandSourceStack s)
+    {
+        boolean r = s.hasPermission(2);
+        if(!r)
+        {
+            ErosionUtils.Misc.sendMsg(s, "You do not have required permissions to run this command.");
+        }
+        return r;
+    }
 
     public static void process(
         CommandSourceStack s, List<String> args
@@ -173,6 +185,13 @@ public class ErosionCommandProcessor
         {
             if(args.get(0).equals(cmd.name))
             {
+                if(cmd.adminCommand)
+                {
+                    if(!hasPermsForCommand(s))
+                    {
+                        return;
+                    }
+                }
                 args.remove(0);
                 cmd.call(s, args);
                 return;
@@ -185,7 +204,7 @@ public class ErosionCommandProcessor
 
     // ================== ACTUAL COMMANDS ==================== //
 
-    public static void handleStatus(CommandSourceStack s, List<String> args)
+    public static final void handleStatus(CommandSourceStack s, List<String> args)
     {
         if(!args.isEmpty())
         {
@@ -196,21 +215,14 @@ public class ErosionCommandProcessor
         return;
     }
     
-    public static void reloadCfg(CommandSourceStack s, List<String> args)
+    public static final void reloadCfg(CommandSourceStack s, List<String> args)
     {
         if(!args.isEmpty())
         {
             ErosionUtils.Misc.sendMsg(s, "This command takes in no arguments!");
             return;
         }
-        if(s.getEntity() instanceof Player p)
-        {
-            if(!p.hasPermissions(2))
-            {
-                ErosionUtils.Misc.sendMsg(p, "You are not allowed to use this command.");
-                return;
-            }
-        }
+        
         ErosionUtils.Misc.sendMsg(s, "Reloading mod configuration...");
         ErosionConfig.ServerConfig.LoadModConfig();
         ErosionUtils.Misc.sendMsg(s, "Configuration reloaded.");
@@ -218,7 +230,7 @@ public class ErosionCommandProcessor
         return;
     }
 
-    public static void viewCfg(CommandSourceStack s, List<String> args)
+    public static final void viewCfg(CommandSourceStack s, List<String> args)
     {
         ErosionUtils.Misc.sendMsg(s, "Configuration:");
 
@@ -226,7 +238,7 @@ public class ErosionCommandProcessor
         return;
     }
 
-    public static void printConfig(CommandSourceStack s)
+    public static final void printConfig(CommandSourceStack s)
     {
         for(var c : ErosionConfig.ServerConfig.viewConfiguration())
         {
@@ -234,7 +246,9 @@ public class ErosionCommandProcessor
         }
     }
 
-    public static void setCfg(CommandSourceStack s, List<String> args)
+    
+
+    public static final void setCfg(CommandSourceStack s, List<String> args)
     {
         if(args.size() != 2)
         {

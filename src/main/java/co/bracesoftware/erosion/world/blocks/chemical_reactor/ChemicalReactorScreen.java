@@ -11,9 +11,14 @@ import net.minecraft.world.entity.player.Inventory;
 public class ChemicalReactorScreen extends AbstractContainerScreen<ChemicalReactorMenu> implements IErosionChemicalReactorSystemComponent
 {
     private static final ResourceLocation WINDOW_BG = ResourceLocation
-        .fromNamespaceAndPath(Erosion.MODID, "textures/gui/container/chemical_reactor.png");
+    .fromNamespaceAndPath(
+        Erosion.MODID, "textures/gui/container/chemical_reactor.png"
+    );
+
     private static final ResourceLocation SLOT_SPRITE = ResourceLocation
-        .withDefaultNamespace("container/slot");
+    .withDefaultNamespace(
+        "container/slot"
+    );
 
     public ChemicalReactorScreen(ChemicalReactorMenu m, Inventory pinv, Component t)
     {
