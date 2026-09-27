@@ -9,6 +9,7 @@ import co.bracesoftware.erosion.Erosion;
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionUtils;
 import co.bracesoftware.erosion.data.ErosionDataGenerators;
+import co.bracesoftware.erosion.data.ErosionDataGeneratorsProgInterface;
 import co.bracesoftware.erosion.data.clientgen.ErosionBlockStateGen;
 import co.bracesoftware.erosion.data.clientgen.ErosionItemModelGen;
 import co.bracesoftware.erosion.data.clientgen.ErosionLang;
@@ -20,6 +21,7 @@ import co.bracesoftware.erosion.data.servergen.ErosionLootGen;
 import co.bracesoftware.erosion.data.servergen.ErosionLootGen.ErosionLootGenSubProvider;
 import co.bracesoftware.erosion.data.servergen.ErosionRecipeGen;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeBlockEntity;
+import co.bracesoftware.erosion.world.items.ErosionSimpleItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -30,6 +32,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.CustomRecipe;
@@ -171,6 +174,194 @@ public final class ErosionModContentManager
     public static final ErosionLootGenSubProvider getLootResourceGeneratorSubProvider()
     {
         return ErosionLootGen.ErosionLootGenSubProvider.subProvider;
+    }
+
+    public static final class ErosionModContentBuilders
+    {
+        public static final class OreBlockPairBuilder
+        {
+            private Supplier<? extends Block> oreBlockClassSupplier;
+            private Supplier<? extends Block> rockBlockClassSupplier;
+            private ErosionModContentResourceLocation oreId;
+            private ErosionModContentResourceLocation rockId;
+            private ErosionModContent.OreItemPair from;
+            
+            public OreBlockPairBuilder() {}
+
+            public static OreBlockPairBuilder make()
+            {
+                return new OreBlockPairBuilder();
+            }
+
+            public OreBlockPairBuilder makeOreBlock(final Supplier<? extends Block> s)
+            {
+                this.oreBlockClassSupplier = s;
+                return this;
+            }
+
+            public OreBlockPairBuilder makeRockBlock(final Supplier<? extends Block> s)
+            {
+                this.rockBlockClassSupplier = s;
+                return this;
+            }
+
+            public OreBlockPairBuilder setOreResourceLocation(final ErosionModContentResourceLocation text)
+            {
+                this.oreId = text;
+                return this;
+            }
+
+            public OreBlockPairBuilder setRockResourceLocation(final ErosionModContentResourceLocation text)
+            {
+                this.rockId = text;
+                return this;
+            }
+
+            public OreBlockPairBuilder buildFromOreItemPair(ErosionModContent.OreItemPair s)
+            {
+                this.from = s;
+                return this;
+            }
+
+            public ErosionModContent.OreBlockPair build()
+            {
+                var oreBlock = new ErosionModContent.ErosionBlock(
+                    this.oreId, this.oreBlockClassSupplier
+                );
+                var rockBlock = new ErosionModContent.ErosionBlock(
+                    this.rockId, this.rockBlockClassSupplier
+                );
+
+                oreBlock
+                .blockStateResourceGenerator(() -> {
+                    ErosionDataGeneratorsProgInterface.ErosionBlockState.generateRandomRotations(
+                        ErosionModContentManager.getBlockStateResourceGenerator(),
+                        oreBlock.get()
+                    );
+                })
+                .languageResourceGenerator(() -> {
+                    ErosionModContentManager.getLanguageResourceGenerator()
+                    .add(
+                        oreBlock.get(),
+                        this.oreId.getName()
+                    );
+                })
+                .blockTagResourceGenerator(() -> {
+                    ErosionDataGeneratorsProgInterface.ErosionTags.Blocks.createSimpleGravel(
+                        ErosionModContentManager.getBlockTagResourceGenerator(),
+                        ErosionModContentManager.getBlockTagResourceGeneratorProvider(),
+                        oreBlock.get()
+                    );
+                })
+                .lootResourceGenerator(() -> {
+                    ErosionModContentManager.getLootResourceGeneratorSubProvider()
+                    .add(oreBlock.get(),
+                        b -> ErosionModContentManager.getLootResourceGeneratorSubProvider().createOreDrop(
+                            b, this.from.getDrop().get()
+                        )
+                    );
+                })
+                .addKnownBlock(oreBlock)
+                .dummy();
+
+                rockBlock
+                .lootResourceGenerator(() -> {
+                    ErosionModContentManager.getLootResourceGeneratorSubProvider()
+                    .dropSelf(rockBlock.get());
+                })
+                .blockStateResourceGenerator(() -> {
+                    ErosionDataGeneratorsProgInterface.ErosionBlockState.generateRockWithRandomRotations(
+                        ErosionModContentManager.getBlockStateResourceGenerator(),
+                        this.from.getDrop().get(),
+                        rockBlock.get(),
+                        ErosionDataGeneratorsProgInterface.ErosionBlockState.createRockModel(
+                            ErosionModContentManager.getBlockStateResourceGenerator(),
+                            this.rockId.getId(), //item for texture
+                            this.oreId.getId() //block texture
+                        )
+                    );
+                })
+                .blockTagResourceGenerator(() -> {
+                    ErosionDataGeneratorsProgInterface.ErosionTags.Blocks.createSimpleRock(
+                        ErosionModContentManager.getBlockTagResourceGenerator(),
+                        ErosionModContentManager.getBlockTagResourceGeneratorProvider(),
+                        oreBlock.get()
+                    );
+                })
+                .addKnownBlock(rockBlock)
+                .dummy();
+
+                return new ErosionModContent.OreBlockPair(oreBlock, rockBlock);
+            }
+        }
+        public static final class OreItemPairBuilder
+        {
+            private ErosionModContent.OreBlockPair source;
+            private ErosionModContentResourceLocation oreId;
+            private ErosionModContentResourceLocation rockId;
+
+            public OreItemPairBuilder() {}
+
+            public static OreItemPairBuilder make()
+            {
+                return new OreItemPairBuilder();
+            }
+
+            public OreItemPairBuilder setOreResourceLocation(final ErosionModContentResourceLocation text)
+            {
+                this.oreId = text;
+                return this;
+            }
+
+            public OreItemPairBuilder setRockResourceLocation(final ErosionModContentResourceLocation text)
+            {
+                this.rockId = text;
+                return this;
+            }
+
+            public OreItemPairBuilder buildFromOreBlockPair(final ErosionModContent.OreBlockPair b)
+            {
+                this.source = b;
+                return this;
+            }
+
+            public ErosionModContent.OreItemPair build()
+            {
+                var oreBlockItem = new ErosionModContent.ErosionItem(
+                    this.oreId, () -> new BlockItem(
+                        this.source.getSource().get(), new Item.Properties()
+                    )
+                );
+                var rockBlockItem = new ErosionModContent.ErosionItem(
+                    this.rockId, () -> new ErosionSimpleItems.ErosionRockBlockItem(
+                        this.source.getDrop().get()
+                    )
+                );
+
+                rockBlockItem
+                .itemModelResourceGenerator(() -> {
+                    ErosionModContentManager.getItemModelResourceGenerator()
+                    .basicItem(rockBlockItem.get());
+                })
+                .languageResourceGenerator(() -> {
+                    ErosionModContentManager.getLanguageResourceGenerator()
+                    .add(
+                        rockBlockItem.get(),
+                        this.rockId.getName()
+                    );
+                })
+                .itemTagResourceGenerator(() -> {
+                    ErosionDataGeneratorsProgInterface.ErosionTags.Items.createSimpleRawOre(
+                        ErosionModContentManager.getItemTagResourceGenerator(),
+                        ErosionModContentManager.getItemTagResourceGeneratorProvider(),
+                        rockBlockItem.get()
+                    );
+                })
+                .dummy();
+
+                return new ErosionModContent.OreItemPair(oreBlockItem, rockBlockItem);
+            }
+        }
     }
 
     //MAIN CLASS

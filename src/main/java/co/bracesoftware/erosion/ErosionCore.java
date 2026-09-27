@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 import it.unimi.dsi.fastutil.HashCommon;
 import it.unimi.dsi.fastutil.Hash;
 import co.bracesoftware.erosion.ErosionCore.AlterableMaterial.AlterationPath.AlterationPathType;
-import co.bracesoftware.erosion.ErosionCore.RefinableMaterial;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionRecipeImplException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

@@ -786,77 +786,23 @@ public class ErosionRegistry
         );
 
         // ------------------------------NATIVE COPPER---------------------------------- //
-        public static final ErosionModContent.OreBlockPair NATIVE_COPPER_ORE = new ErosionModContent.OreBlockPair(
-            new ErosionModContent.ErosionBlock(
-                RawRegistry.NATIVE_COPPER_DEPOSIT, () -> new ErosionSimpleBlocks.GravelBlock(
+        public static final ErosionModContent.OreBlockPair NATIVE_COPPER_ORE = ErosionModContentManager
+            .ErosionModContentBuilders.OreBlockPairBuilder.make()
+            .setOreResourceLocation(RawRegistry.NATIVE_COPPER_DEPOSIT)
+            .setRockResourceLocation(RawRegistry.NATIVE_COPPER)
+            .makeOreBlock(
+                () -> new ErosionSimpleBlocks.GravelBlock(
                     ErosionSimpleBlocks.DirtBlock.getDefaultBlockProperties()
                 )
-            ),
-            new ErosionModContent.ErosionBlock(
-                RawRegistry.NATIVE_COPPER, () -> new ErosionSimpleBlocks.RockBlock(
+            )
+            .makeRockBlock(
+                () -> new ErosionSimpleBlocks.RockBlock(
                     ErosionSimpleBlocks.RockBlock.getDefaultBlockProperties()
                 )
             )
-        ); static {
-            NATIVE_COPPER_ORE.getSource()
-            .blockStateResourceGenerator(() -> {
-                ErosionDataGeneratorsProgInterface.ErosionBlockState.generateRandomRotations(
-                    ErosionModContentManager.getBlockStateResourceGenerator(),
-                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
-                );
-            })
-            .languageResourceGenerator(() -> {
-                ErosionModContentManager.getLanguageResourceGenerator()
-                .add(
-                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get(),
-                    ErosionRegistry.RawRegistry.NATIVE_COPPER_DEPOSIT.getName()
-                );
-            })
-            .blockTagResourceGenerator(() -> {
-                ErosionDataGeneratorsProgInterface.ErosionTags.Blocks.createSimpleGravel(
-                    ErosionModContentManager.getBlockTagResourceGenerator(),
-                    ErosionModContentManager.getBlockTagResourceGeneratorProvider(),
-                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
-                );
-            })
-            .lootResourceGenerator(() -> {
-                ErosionModContentManager.getLootResourceGeneratorSubProvider()
-                .add(ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get(),
-                    b -> ErosionModContentManager.getLootResourceGeneratorSubProvider().createOreDrop(
-                        b, ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
-                    )
-                );
-            })
-            .addKnownBlock(NATIVE_COPPER_ORE.getSource())
-            .dummy();
+            .buildFromOreItemPair(Items.NATIVE_COPPER_ORE)
+        .build();
 
-            NATIVE_COPPER_ORE.getDrop()
-            .lootResourceGenerator(() -> {
-                ErosionModContentManager.getLootResourceGeneratorSubProvider()
-                .dropSelf(NATIVE_COPPER_ORE.getDrop().get());
-            })
-            .blockStateResourceGenerator(() -> {
-                ErosionDataGeneratorsProgInterface.ErosionBlockState.generateRockWithRandomRotations(
-                    ErosionModContentManager.getBlockStateResourceGenerator(),
-                    ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get(),
-                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getDrop().get(),
-                    ErosionDataGeneratorsProgInterface.ErosionBlockState.createRockModel(
-                        ErosionModContentManager.getBlockStateResourceGenerator(),
-                        ErosionRegistry.RawRegistry.NATIVE_COPPER.getId(), //item for texture
-                        ErosionRegistry.RawRegistry.NATIVE_COPPER_DEPOSIT.getId() //block texture
-                    )
-                );
-            })
-            .blockTagResourceGenerator(() -> {
-                ErosionDataGeneratorsProgInterface.ErosionTags.Blocks.createSimpleRock(
-                    ErosionModContentManager.getBlockTagResourceGenerator(),
-                    ErosionModContentManager.getBlockTagResourceGeneratorProvider(),
-                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getDrop().get()
-                );
-            })
-            .addKnownBlock(NATIVE_COPPER_ORE.getDrop())
-            .dummy();
-        }
         /////////////////////////////////////////////////////////////////////////////////////
         public static final ErosionModContent.ErosionBlock CASSITERITE_DEPOSIT = new ErosionModContent.ErosionBlock(
             RawRegistry.CASSITERITE_DEPOSIT, () -> new ErosionSimpleBlocks.GravelBlock(
@@ -1192,36 +1138,12 @@ public class ErosionRegistry
             )
         );
         // ----------------------------------- NATIVE COPPER --------------------------------------------
-        public static final ErosionModContent.OreItemPair NATIVE_COPPER_ORE = new ErosionModContent.OreItemPair(
-            new ErosionModContent.ErosionItem(
-                RawRegistry.NATIVE_COPPER_DEPOSIT, () -> new BlockItem(
-                    Blocks.NATIVE_COPPER_ORE.getSource().get(), new Item.Properties()
-                )
-            ),
-            new ErosionModContent.ErosionItem(
-                RawRegistry.NATIVE_COPPER, () -> new ErosionSimpleItems.ErosionRockBlockItem(
-                    Blocks.NATIVE_COPPER_ORE.getDrop().get()
-                )
-            )
-        ); static {
-            NATIVE_COPPER_ORE.getDrop()
-            .itemModelResourceGenerator(() -> {
-                ErosionModContentManager.getItemModelResourceGenerator()
-                .basicItem(ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get());
-            })
-            .languageResourceGenerator(() -> {
-                ErosionModContentManager.getLanguageResourceGenerator()
-                .add(ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get(), ErosionRegistry.RawRegistry.NATIVE_COPPER.getName());
-            })
-            .itemTagResourceGenerator(() -> {
-                ErosionDataGeneratorsProgInterface.ErosionTags.Items.createSimpleRawOre(
-                    ErosionModContentManager.getItemTagResourceGenerator(),
-                    ErosionModContentManager.getItemTagResourceGeneratorProvider(),
-                    ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
-                );
-            })
-            .dummy();
-        }
+        public static final ErosionModContent.OreItemPair NATIVE_COPPER_ORE = ErosionModContentManager
+            .ErosionModContentBuilders.OreItemPairBuilder.make()
+            .buildFromOreBlockPair(Blocks.NATIVE_COPPER_ORE)
+            .setOreResourceLocation(RawRegistry.NATIVE_COPPER_DEPOSIT)
+            .setRockResourceLocation(RawRegistry.NATIVE_COPPER)
+        .build();
         // ----------------------------------------------------------------------------------------------
         
         // SIMPLE ITEMS
