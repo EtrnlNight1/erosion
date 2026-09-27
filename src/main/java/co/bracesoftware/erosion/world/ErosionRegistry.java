@@ -788,8 +788,7 @@ public class ErosionRegistry
         // ------------------------------NATIVE COPPER---------------------------------- //
         public static final ErosionModContent.OreBlockPair NATIVE_COPPER_ORE = ErosionModContentManager
             .ErosionModContentBuilders.OreBlockPairBuilder.make()
-            .setOreResourceLocation(RawRegistry.NATIVE_COPPER_DEPOSIT)
-            .setRockResourceLocation(RawRegistry.NATIVE_COPPER)
+            .buildFromOreItemPair(() -> Items.NATIVE_COPPER_ORE)
             .makeOreBlock(
                 () -> new ErosionSimpleBlocks.GravelBlock(
                     ErosionSimpleBlocks.DirtBlock.getDefaultBlockProperties()
@@ -800,7 +799,8 @@ public class ErosionRegistry
                     ErosionSimpleBlocks.RockBlock.getDefaultBlockProperties()
                 )
             )
-            .buildFromOreItemPair(() -> Items.NATIVE_COPPER_ORE)
+            .setOreResourceLocation(RawRegistry.NATIVE_COPPER_DEPOSIT)
+            .setRockResourceLocation(RawRegistry.NATIVE_COPPER)
         .build();
 
         /////////////////////////////////////////////////////////////////////////////////////

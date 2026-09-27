@@ -130,7 +130,7 @@ public final class ErosionConfig
             }
         }
 
-        public static class BooleanConfig extends BasicConfig<Boolean>
+        public static final class BooleanConfig extends BasicConfig<Boolean>
         {
             private final boolean defaultVal;
             private boolean value;

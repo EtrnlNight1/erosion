@@ -20,7 +20,6 @@ public class ChemicalReactorSystemCore
                 return true;
             }
 
-
             //if it is smth else, it has to have air on top
             if(!(this instanceof ChemicalReactorModuleBlock))
             {

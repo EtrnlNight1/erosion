@@ -3,6 +3,7 @@ package co.bracesoftware.erosion.world.blocks;
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionBlockExceptions.ErosionBlockWithTipImpl;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeBlock;
+import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeFallingBlock;
 import co.bracesoftware.erosion.world.ErosionRegistry;
 import java.util.EnumMap;
 import java.util.Map;
@@ -13,10 +14,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.level.*;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -35,7 +34,6 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -45,23 +43,20 @@ public class ErosionSimpleBlocks
 {
     public interface IErosionBlockWithTip
     {
-        default void onBlockAimedOn(ServerPlayer p, BlockState bs, BlockPos bp) throws ErosionBlockWithTipImpl
+        default void onBlockAimedOn(
+            ServerPlayer p, BlockState bs, BlockPos bp
+        ) throws ErosionBlockWithTipImpl
         {
-            throw new ErosionBlockWithTipImpl("Class implements `ErosionBlockWithTip` but does not define the `onBlockAimedOn` method!");
+            throw new ErosionBlockWithTipImpl("Class implements `IErosionBlockWithTip` but does not define the `onBlockAimedOn` method!");
         }
     }
-    public static class GravelBlock extends FallingBlock
+    public static class GravelBlock extends ErosionNetworkSafeFallingBlock<GravelBlock>
     {
-        public static final MapCodec<GravelBlock> CODEC = simpleCodec(GravelBlock::new);
-
         public GravelBlock(BlockBehaviour.Properties p)
         {
-            super(p);
-        }
-
-        @Override
-        protected MapCodec<? extends FallingBlock> codec() {
-            return CODEC;
+            super(p, GravelBlock::new);
+            this.letMinecraftHandleInteractingWithThisBlock(true);
+            this.thisBlockImplementsNoLogic(true);
         }
 
         public static BlockBehaviour.Properties getDefaultBlockProperties()
@@ -106,47 +101,46 @@ public class ErosionSimpleBlocks
         }
     }
 
-    public static class DirtBlock extends FallingBlock
+    public static class DirtBlock extends ErosionNetworkSafeFallingBlock<DirtBlock>
     {
-        public static final MapCodec<DirtBlock> CODEC = simpleCodec(DirtBlock::new);
-
-        @Override
-        protected MapCodec<? extends FallingBlock> codec() {
-            return CODEC;
-        }
-
-        @Override 
-        protected ItemInteractionResult useItemOn(
-            ItemStack is, BlockState bs,
-            Level l, BlockPos bp, Player p,
-            InteractionHand ih, BlockHitResult bhr
-        )
+        public static Block.Properties getDefaultBlockProperties()
         {
-            if(is.canPerformAction(ItemAbilities.HOE_TILL))
-            {
-                if(!l.isClientSide())
-                {
-                    l.setBlockAndUpdate(bp, Blocks.FARMLAND.defaultBlockState());
-                    var s = (ih == InteractionHand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-                    is.hurtAndBreak(1, p, s);
-                    l.playSound(null, bp, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0f, 1.0f);
-                }
-                return ItemInteractionResult.sidedSuccess(l.isClientSide());
-            }
-
-            return super.useItemOn(is, bs, l, bp, p, ih, bhr);
-        }
-
-        public static BlockBehaviour.Properties getDefaultBlockProperties()
-        {
-            return BlockBehaviour.Properties.of()
+            return Block.Properties.of()
             .mapColor(MapColor.DIRT)
             .instrument(NoteBlockInstrument.SNARE)
             .strength(0.6F)
             .sound(SoundType.GRAVEL);
         }
-        public DirtBlock(BlockBehaviour.Properties properties) {
-            super(properties);
+
+        public DirtBlock(Block.Properties p)
+        {
+            super(p, DirtBlock::new);
+            this.setServerLogic(new DirtBlockServerLogic());
+            this.letMinecraftHandleInteractingWithThisBlock(true);
+        }
+
+        public static final class DirtBlockServerLogic extends ErosionNetworkSafeBlockSidedLogic
+        {
+            @Override public boolean useItemOn(ErosionBlockInteractionPacket p)
+            {
+                if(p.getItemStack().canPerformAction(ItemAbilities.HOE_TILL))
+                {
+                    p.getServerLevel().setBlockAndUpdate(p.getBlockPos(), Blocks.FARMLAND.defaultBlockState());
+                    var s = (p.getInteractionHand() == InteractionHand.MAIN_HAND)
+                    ? EquipmentSlot.MAINHAND
+                    : EquipmentSlot.OFFHAND;
+                    p.getItemStack().hurtAndBreak(1, p.getServerPlayer(), s);
+                    p.getServerLevel().playSound(
+                        null,
+                        p.getBlockPos(),
+                        SoundEvents.HOE_TILL,
+                        SoundSource.BLOCKS,
+                        1.0f, 1.0f
+                    );
+                    return true;
+                }
+                return false;
+            }
         }
     }
 
