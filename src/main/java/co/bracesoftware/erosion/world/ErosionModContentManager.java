@@ -176,6 +176,37 @@ public final class ErosionModContentManager
     //MAIN CLASS
     public static class ErosionModContent<T> implements Supplier<T>
     {
+        //wrappers around the wrappers
+        public static final class OreBlockPair
+        {
+            private final ErosionBlock source;
+            private final ErosionBlock drop;
+
+            public OreBlockPair(ErosionBlock s, ErosionBlock d)
+            {
+                this.source = s;
+                this.drop = d;
+            }
+
+            public final ErosionBlock getSource() { return this.source; }
+            public final ErosionBlock getDrop() { return this.drop; }
+        }
+        public static final class OreItemPair
+        {
+            private final ErosionItem source;
+            private final ErosionItem drop;
+
+            public OreItemPair(ErosionItem s, ErosionItem d)
+            {
+                this.source = s;
+                this.drop = d;
+            }
+
+            public final ErosionItem getSource() { return this.source; }
+            public final ErosionItem getDrop() { return this.drop; }
+        }
+
+        //internal stuff
         protected DeferredBlock<Block> blockHolder;
         protected DeferredItem<Item> itemHolder;
         protected Supplier<BlockEntityType<? extends ErosionNetworkSafeBlockEntity<?>>> blockEntityHolder;
@@ -183,7 +214,6 @@ public final class ErosionModContentManager
         protected DeferredHolder<MenuType<?>, MenuType<? extends AbstractContainerMenu>> menuHolder;
         protected Object serializerHolder;
         protected DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> booleanDataComponentHolder;
-        public boolean building = false;
 
         public Runnable blockStateGenerator;
         public Runnable languageGenerator;
@@ -200,71 +230,61 @@ public final class ErosionModContentManager
             return null;
         }
 
-        public final ErosionModContent<T> ErosionModContentBuilder()
+        public final ErosionModContent<T> dummy()
         {
-            this.building = true;
             return this;
         }
 
         public final ErosionModContent<T> blockStateResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.blockStateGenerator = r;
             EROSION_BLOCK_STATE_GEN_TASKS.add(this.blockStateGenerator);
             return this;
         }
         public final ErosionModContent<T> languageResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.languageGenerator = r;
             EROSION_LANG_GEN_TASKS.add(this.languageGenerator);
             return this;
         }
         public final ErosionModContent<T> itemModelResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.itemModelGenerator = r;
             EROSION_ITEM_MODEL_GEN_TASKS.add(this.itemModelGenerator);
             return this;
         }
         public final ErosionModContent<T> soundResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.soundGenerator = r;
             EROSION_SOUND_GEN_TASKS.add(this.soundGenerator);
             return this;
         }
         public final ErosionModContent<T> advancementResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.advGenerator = r;
             EROSION_ADVANCEMENT_GEN_TASKS.add(this.advGenerator);
             return this;
         }
         public final ErosionModContent<T> recipeResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.recipeGenerator = r;
             EROSION_RECIPE_GEN_TASKS.add(this.recipeGenerator);
             return this;
         }
         public final ErosionModContent<T> lootResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.lootGenerator = r;
             EROSION_LOOT_GEN_TASKS.add(this.lootGenerator);
             return this;
         }
         public final ErosionModContent<T> blockTagResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.blockTaggen = r;
             EROSION_BLOCK_TAG_GEN_TASKS.add(this.blockTaggen);
             return this;
         }
         public final ErosionModContent<T> itemTagResourceGenerator(Runnable r)
         {
-            if(!this.building) return this;
             this.itemTaggen = r;
             EROSION_ITEM_TAG_GEN_TASKS.add(this.itemTaggen);
             return this;
@@ -272,7 +292,6 @@ public final class ErosionModContentManager
 
         public final ErosionModContent<T> addKnownBlock(ErosionBlock e)
         {
-            if(!this.building) return this;
             EROSION_KNOWN_BLOCKS.add(e);
             return this;
         }

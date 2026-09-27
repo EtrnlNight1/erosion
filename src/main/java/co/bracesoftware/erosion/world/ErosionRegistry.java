@@ -98,6 +98,10 @@ public class ErosionRegistry
         public static final ErosionModContentResourceLocation NATIVE_GOLD_DEPOSIT = new ErosionModContentResourceLocation("native_gold_deposit", "Native Gold Deposit");
         public static final ErosionModContentResourceLocation CASSITERITE_DEPOSIT = new ErosionModContentResourceLocation("cassiterite_deposit", "Cassiterite Deposit");
         public static final ErosionModContentResourceLocation NATIVE_SILVER_DEPOSIT = new ErosionModContentResourceLocation("native_silver_deposit", "Native Silver Deposit");
+        public static final ErosionModContentResourceLocation NATIVE_COPPER_DEPOSIT = new ErosionModContentResourceLocation(
+            "native_copper_deposit",
+            "Native Copper Deposit"
+        );
 
         public static final ErosionModContentResourceLocation BISMUTHINITE_ORE = new ErosionModContentResourceLocation("bismuthinite_ore", "Bismuthinite Ore");
         public static final ErosionModContentResourceLocation SPHALERITE_ORE = new ErosionModContentResourceLocation("sphalerite_ore", "Sphalerite Ore");
@@ -137,6 +141,11 @@ public class ErosionRegistry
         public static final ErosionModContentResourceLocation RAW_CASSITERITE = new ErosionModContentResourceLocation("raw_cassiterite", "Raw Cassiterite Rock");
         public static final ErosionModContentResourceLocation TIN_CHUNK = new ErosionModContentResourceLocation("tin_chunk", "Tin Chunk");
         public static final ErosionModContentResourceLocation LEAD_CHUNK = new ErosionModContentResourceLocation("lead_chunk", "Lead Chunk");
+
+        public static final ErosionModContentResourceLocation NATIVE_COPPER = new ErosionModContentResourceLocation(
+            "native_copper",
+            "Native Copper Rock"
+        );
 
         public static final ErosionModContentResourceLocation RAW_BISMUTHINITE = new ErosionModContentResourceLocation("raw_bismuthinite", "Raw Bismuthinite Rock");
         public static final ErosionModContentResourceLocation BISMUTH_CHUNK = new ErosionModContentResourceLocation("bismuth_chunk", "Bismuth Chunk");
@@ -392,7 +401,7 @@ public class ErosionRegistry
                 .requiresCorrectToolForDrops()
             )
         ); static {
-            MATERIAL_PURIFIER.ErosionModContentBuilder()
+            MATERIAL_PURIFIER
             .languageResourceGenerator(() -> {
                 ErosionModContentManager.getLanguageResourceGenerator()
                 .add(MATERIAL_PURIFIER.get(), RawRegistry.MATERIAL_PURIFIER.getName());
@@ -438,7 +447,8 @@ public class ErosionRegistry
             .lootResourceGenerator(() -> {
                 ErosionModContentManager.getLootResourceGeneratorSubProvider().dropSelf(ErosionRegistry.Blocks.MATERIAL_PURIFIER.get());
             })
-            .addKnownBlock(MATERIAL_PURIFIER);
+            .addKnownBlock(MATERIAL_PURIFIER)
+            .dummy();
         }
         //////////////////////////////////////////////////////////////////////////////
         public static final ErosionModContent.ErosionBlock CRUCIBLE = new ErosionModContent.ErosionBlock(
@@ -447,7 +457,7 @@ public class ErosionRegistry
                 .requiresCorrectToolForDrops()
             )
         ); static {
-            CRUCIBLE.ErosionModContentBuilder()
+            CRUCIBLE
             .languageResourceGenerator(() -> {
                 ErosionModContentManager.getLanguageResourceGenerator()
                 .add(CRUCIBLE.get(), RawRegistry.CRUCIBLE.getName());
@@ -545,7 +555,8 @@ public class ErosionRegistry
             .lootResourceGenerator(() -> {
                 ErosionModContentManager.getLootResourceGeneratorSubProvider().dropSelf(ErosionRegistry.Blocks.CRUCIBLE.get());
             })
-            .addKnownBlock(CRUCIBLE);
+            .addKnownBlock(CRUCIBLE)
+            .dummy();
         }
         //======================= CHEMICAL REACTOR SYS
         public static final ErosionModContent.ErosionBlock CHEMICAL_REACTOR = new ErosionModContent.ErosionBlock(
@@ -553,7 +564,7 @@ public class ErosionRegistry
                 BlockBehaviour.Properties.of().strength(1.5f, 6.0f)
                 .requiresCorrectToolForDrops()
             )); static {
-            CHEMICAL_REACTOR.ErosionModContentBuilder()
+            CHEMICAL_REACTOR
             .blockStateResourceGenerator(() -> {
                 var BLOCKID = ErosionRegistry.RawRegistry.CHEMICAL_REACTOR.getId();
 
@@ -578,7 +589,8 @@ public class ErosionRegistry
             .lootResourceGenerator(() -> {
                 ErosionModContentManager.getLootResourceGeneratorSubProvider().dropSelf(ErosionRegistry.Blocks.CHEMICAL_REACTOR.get());
             })
-            .addKnownBlock(CHEMICAL_REACTOR);
+            .addKnownBlock(CHEMICAL_REACTOR)
+            .dummy();
         }
         /*
             Chemical Reactor Scrubber
@@ -589,7 +601,7 @@ public class ErosionRegistry
                 BlockBehaviour.Properties.of().strength(1.5f, 6.0f)
                 .requiresCorrectToolForDrops()
             )); static {
-            CHEMICAL_REACTOR_SCRUBBER.ErosionModContentBuilder()
+            CHEMICAL_REACTOR_SCRUBBER
             .blockStateResourceGenerator(() -> {
                 var BLOCKID = ErosionRegistry.RawRegistry.CHEMICAL_REACTOR_SCRUBBER.getId();
 
@@ -613,7 +625,8 @@ public class ErosionRegistry
             .lootResourceGenerator(() -> {
                 ErosionModContentManager.getLootResourceGeneratorSubProvider().dropSelf(ErosionRegistry.Blocks.CHEMICAL_REACTOR_SCRUBBER.get());
             })
-            .addKnownBlock(CHEMICAL_REACTOR_SCRUBBER);
+            .addKnownBlock(CHEMICAL_REACTOR_SCRUBBER)
+            .dummy();
         }
         /*
             Module
@@ -624,7 +637,7 @@ public class ErosionRegistry
                 BlockBehaviour.Properties.of().strength(1.5f, 6.0f)
                 .requiresCorrectToolForDrops()
             )); static {
-            CHEMICAL_REACTOR_MODULE.ErosionModContentBuilder()
+            CHEMICAL_REACTOR_MODULE
             .blockStateResourceGenerator(() -> {
                 var BLOCKID = ErosionRegistry.RawRegistry.CHEMICAL_REACTOR_MODULE.getId();
 
@@ -650,7 +663,8 @@ public class ErosionRegistry
             .lootResourceGenerator(() -> {
                 ErosionModContentManager.getLootResourceGeneratorSubProvider().dropSelf(ErosionRegistry.Blocks.CHEMICAL_REACTOR_MODULE.get());
             })
-            .addKnownBlock(CHEMICAL_REACTOR_MODULE);
+            .addKnownBlock(CHEMICAL_REACTOR_MODULE)
+            .dummy();
         }
         /*
             Cooling System
@@ -661,7 +675,7 @@ public class ErosionRegistry
                 BlockBehaviour.Properties.of().strength(1.5f, 6.0f)
                 .requiresCorrectToolForDrops()
             )); static {
-            CHEMICAL_REACTOR_COOLING_SYSTEM.ErosionModContentBuilder()
+            CHEMICAL_REACTOR_COOLING_SYSTEM
             .blockStateResourceGenerator(() -> {
                 var BLOCKID = ErosionRegistry.RawRegistry.CHEMICAL_REACTOR_COOLING_SYSTEM.getId();
 
@@ -686,7 +700,8 @@ public class ErosionRegistry
             .lootResourceGenerator(() -> {
                 ErosionModContentManager.getLootResourceGeneratorSubProvider().dropSelf(ErosionRegistry.Blocks.CHEMICAL_REACTOR_COOLING_SYSTEM.get());
             })
-            .addKnownBlock(CHEMICAL_REACTOR_COOLING_SYSTEM);
+            .addKnownBlock(CHEMICAL_REACTOR_COOLING_SYSTEM)
+            .dummy();
         }
         //----------------------------------------------
         //SIMPLE BLOCKS
@@ -769,6 +784,76 @@ public class ErosionRegistry
                 ErosionSimpleBlocks.DirtBlock.getDefaultBlockProperties()
             )
         );
+
+        // ------------------------------NATIVE COPPER---------------------------------- //
+        public static final ErosionModContent.OreBlockPair NATIVE_COPPER_ORE = new ErosionModContent.OreBlockPair(
+            new ErosionModContent.ErosionBlock(
+                RawRegistry.NATIVE_COPPER_DEPOSIT, () -> new ErosionSimpleBlocks.GravelBlock(
+                    ErosionSimpleBlocks.DirtBlock.getDefaultBlockProperties()
+                )
+            ),
+            new ErosionModContent.ErosionBlock(
+                RawRegistry.NATIVE_COPPER, () -> new ErosionSimpleBlocks.RockBlock(
+                    ErosionSimpleBlocks.RockBlock.getDefaultBlockProperties()
+                )
+            )
+        ); static {
+            NATIVE_COPPER_ORE.getSource()
+            .blockStateResourceGenerator(() -> {
+                ErosionDataGeneratorsProgInterface.ErosionBlockState.generateRandomRotations(
+                    ErosionModContentManager.getBlockStateResourceGenerator(),
+                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
+                );
+            })
+            .languageResourceGenerator(() -> {
+                ErosionModContentManager.getLanguageResourceGenerator()
+                .add(
+                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get(),
+                    ErosionRegistry.RawRegistry.NATIVE_COPPER_DEPOSIT.getName()
+                );
+            })
+            .blockTagResourceGenerator(() -> {
+                ErosionDataGeneratorsProgInterface.ErosionTags.Blocks.createSimpleGravel(
+                    ErosionModContentManager.getBlockTagResourceGenerator(),
+                    ErosionModContentManager.getBlockTagResourceGeneratorProvider(),
+                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
+                );
+            })
+            .lootResourceGenerator(() -> {
+                ErosionModContentManager.getLootResourceGeneratorSubProvider()
+                .add(ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get(),
+                    b -> ErosionModContentManager.getLootResourceGeneratorSubProvider().createOreDrop(
+                        b, ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
+                    )
+                );
+            })
+            .addKnownBlock(NATIVE_COPPER_ORE.getSource())
+            .dummy();
+
+            NATIVE_COPPER_ORE.getDrop()
+            .blockStateResourceGenerator(() -> {
+                ErosionDataGeneratorsProgInterface.ErosionBlockState.generateRockWithRandomRotations(
+                    ErosionModContentManager.getBlockStateResourceGenerator(),
+                    ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get(),
+                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getDrop().get(),
+                    ErosionDataGeneratorsProgInterface.ErosionBlockState.createRockModel(
+                        ErosionModContentManager.getBlockStateResourceGenerator(),
+                        ErosionRegistry.RawRegistry.NATIVE_COPPER.getId(), //item for texture
+                        ErosionRegistry.RawRegistry.NATIVE_COPPER_DEPOSIT.getId() //block texture
+                    )
+                );
+            })
+            .blockTagResourceGenerator(() -> {
+                ErosionDataGeneratorsProgInterface.ErosionTags.Blocks.createSimpleRock(
+                    ErosionModContentManager.getBlockTagResourceGenerator(),
+                    ErosionModContentManager.getBlockTagResourceGeneratorProvider(),
+                    ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getDrop().get()
+                );
+            })
+            .addKnownBlock(NATIVE_COPPER_ORE.getDrop())
+            .dummy();
+        }
+        /////////////////////////////////////////////////////////////////////////////////////
         public static final ErosionModContent.ErosionBlock CASSITERITE_DEPOSIT = new ErosionModContent.ErosionBlock(
             RawRegistry.CASSITERITE_DEPOSIT, () -> new ErosionSimpleBlocks.GravelBlock(
                 ErosionSimpleBlocks.DirtBlock.getDefaultBlockProperties()
@@ -1102,6 +1187,38 @@ public class ErosionRegistry
                 Blocks.NATIVE_SILVER_DEPOSIT.get(), new Item.Properties()
             )
         );
+        // ----------------------------------- NATIVE COPPER --------------------------------------------
+        public static final ErosionModContent.OreItemPair NATIVE_COPPER_ORE = new ErosionModContent.OreItemPair(
+            new ErosionModContent.ErosionItem(
+                RawRegistry.NATIVE_COPPER_DEPOSIT, () -> new BlockItem(
+                    Blocks.NATIVE_COPPER_ORE.getSource().get(), new Item.Properties()
+                )
+            ),
+            new ErosionModContent.ErosionItem(
+                RawRegistry.NATIVE_COPPER, () -> new ErosionSimpleItems.ErosionRockBlockItem(
+                    Blocks.NATIVE_COPPER_ORE.getDrop().get()
+                )
+            )
+        ); static {
+            NATIVE_COPPER_ORE.getDrop()
+            .itemModelResourceGenerator(() -> {
+                ErosionModContentManager.getItemModelResourceGenerator()
+                .basicItem(ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get());
+            })
+            .languageResourceGenerator(() -> {
+                ErosionModContentManager.getLanguageResourceGenerator()
+                .add(ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get(), ErosionRegistry.RawRegistry.NATIVE_COPPER.getName());
+            })
+            .itemTagResourceGenerator(() -> {
+                ErosionDataGeneratorsProgInterface.ErosionTags.Items.createSimpleRawOre(
+                    ErosionModContentManager.getItemTagResourceGenerator(),
+                    ErosionModContentManager.getItemTagResourceGeneratorProvider(),
+                    ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
+                );
+            })
+            .dummy();
+        }
+        // ----------------------------------------------------------------------------------------------
         
         // SIMPLE ITEMS
         public static final ErosionModContent.ErosionItem FELDSPAR_POWDER = new ErosionModContent.ErosionItem(

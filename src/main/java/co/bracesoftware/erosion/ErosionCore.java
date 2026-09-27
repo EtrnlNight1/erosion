@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import it.unimi.dsi.fastutil.HashCommon;
 import it.unimi.dsi.fastutil.Hash;
 import co.bracesoftware.erosion.ErosionCore.AlterableMaterial.AlterationPath.AlterationPathType;
+import co.bracesoftware.erosion.ErosionCore.RefinableMaterial;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionRecipeImplException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -1015,14 +1016,16 @@ public class ErosionCore
                         ErosionRegistry.Blocks.NATIVE_GOLD_DEPOSIT.get(),
                         ErosionRegistry.Blocks.CASSITERITE_DEPOSIT.get(),
                         ErosionRegistry.Blocks.NATIVE_SILVER_DEPOSIT.get(),
-                        ErosionRegistry.Blocks.MINERAL_RICH_DIRT.get()
+                        ErosionRegistry.Blocks.MINERAL_RICH_DIRT.get(),
+                        ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
                     ),
                     () -> List.of(
                         Items.MUD,
                         ErosionRegistry.Items.NATIVE_GOLD.get(),
                         ErosionRegistry.Items.RAW_CASSITERITE.get(),
                         ErosionRegistry.Items.NATIVE_SILVER.get(),
-                        ErosionRegistry.Items.MINERAL_RICH_DIRT.get()
+                        ErosionRegistry.Items.MINERAL_RICH_DIRT.get(),
+                        ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
                     ),
                     new AlterationRules(List.of(
                         AlterationRules.CONTACT_WITH_WATER
@@ -1054,14 +1057,16 @@ public class ErosionCore
                         ErosionRegistry.Blocks.NATIVE_GOLD_DEPOSIT.get(),
                         ErosionRegistry.Blocks.CASSITERITE_DEPOSIT.get(),
                         ErosionRegistry.Blocks.NATIVE_SILVER_DEPOSIT.get(),
-                        ErosionRegistry.Blocks.MINERAL_RICH_DIRT.get()
+                        ErosionRegistry.Blocks.MINERAL_RICH_DIRT.get(),
+                        ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
                     ),
                     () -> List.of(
                         Items.MUD,
                         ErosionRegistry.Items.NATIVE_SILVER.get(),
                         ErosionRegistry.Items.RAW_CASSITERITE.get(),
                         ErosionRegistry.Items.NATIVE_GOLD.get(),
-                        ErosionRegistry.Items.MINERAL_RICH_DIRT.get()
+                        ErosionRegistry.Items.MINERAL_RICH_DIRT.get(),
+                        ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
                     ),
                     new AlterationRules(List.of(
                         AlterationRules.CONTACT_WITH_WATER
@@ -1091,14 +1096,16 @@ public class ErosionCore
                         ErosionRegistry.Blocks.NATIVE_GOLD_DEPOSIT.get(),
                         ErosionRegistry.Blocks.CASSITERITE_DEPOSIT.get(),
                         ErosionRegistry.Blocks.NATIVE_SILVER_DEPOSIT.get(),
-                        ErosionRegistry.Blocks.MINERAL_RICH_DIRT.get()
+                        ErosionRegistry.Blocks.MINERAL_RICH_DIRT.get(),
+                        ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
                     ),
                     () -> List.of(
                         Items.MUD,
                         ErosionRegistry.Items.NATIVE_GOLD.get(),
                         ErosionRegistry.Items.RAW_CASSITERITE.get(),
                         ErosionRegistry.Items.NATIVE_SILVER.get(),
-                        ErosionRegistry.Items.MINERAL_RICH_DIRT.get()
+                        ErosionRegistry.Items.MINERAL_RICH_DIRT.get(),
+                        ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
                     ),
                     new AlterationRules(List.of(
                         AlterationRules.CONTACT_WITH_WATER
@@ -1129,13 +1136,15 @@ public class ErosionCore
                         ErosionRegistry.Blocks.QUARTZ_GRAVEL.get(),
                         ErosionRegistry.Blocks.CASSITERITE_DEPOSIT.get(),
                         ErosionRegistry.Blocks.NATIVE_SILVER_DEPOSIT.get(),
-                        ErosionRegistry.Blocks.MINERAL_RICH_DIRT.get()
+                        ErosionRegistry.Blocks.MINERAL_RICH_DIRT.get(),
+                        ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
                     ),
                     () -> List.of(
                         ErosionRegistry.Items.QUARTZ_GRAVEL.get(),
                         ErosionRegistry.Items.RAW_CASSITERITE.get(),
                         ErosionRegistry.Items.NATIVE_SILVER.get(),
-                        ErosionRegistry.Items.MINERAL_RICH_DIRT.get()
+                        ErosionRegistry.Items.MINERAL_RICH_DIRT.get(),
+                        ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
                     ),
                     new AlterationRules(List.of(
                         AlterationRules.CONTACT_WITH_WATER
@@ -1154,13 +1163,15 @@ public class ErosionCore
                         ErosionRegistry.Blocks.QUARTZ_GRAVEL.get(),
                         ErosionRegistry.Blocks.CASSITERITE_DEPOSIT.get(),
                         Blocks.GRAVEL,
-                        ErosionRegistry.Blocks.NATIVE_SILVER_DEPOSIT.get()
+                        ErosionRegistry.Blocks.NATIVE_SILVER_DEPOSIT.get(),
+                        ErosionRegistry.Blocks.NATIVE_COPPER_ORE.getSource().get()
                     ),
                     () -> List.of(
                         ErosionRegistry.Items.QUARTZ_GRAVEL.get(),
                         ErosionRegistry.Items.RAW_CASSITERITE.get(),
                         Items.GRAVEL,
-                        ErosionRegistry.Items.NATIVE_SILVER.get()
+                        ErosionRegistry.Items.NATIVE_SILVER.get(),
+                        ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
                     ),
                     new AlterationRules(List.of(
                         AlterationRules.CONTACT_WITH_WATER
@@ -1989,6 +2000,33 @@ public class ErosionCore
         );
         //-------------------------------------------------------
 
+        //-------------------------------------------------------
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible NATIVE_COPPER = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.NATIVE_COPPER.getName(),
+            () -> ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get(),
+            () -> List.of(
+                Items.RAW_COPPER
+            ), List.of(
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL,
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.CRUSHED_EGG_SHELL
+            ), () -> List.of(
+            ), List.of(
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial NATIVE_COPPER_DEPOSIT = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.NATIVE_COPPER_DEPOSIT.getName(),
+            () -> ErosionRegistry.Items.NATIVE_COPPER_ORE.getSource().get(),
+            () -> List.of(
+                ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
+            )
+        );
+        //-------------------------------------------------------
+
         public static final RefinableMaterial RUBY_ORE = new RefinableMaterial.MaterialPurifier(
             ErosionRegistry.RawRegistry.RUBY_ORE.getName(),
             () -> ErosionRegistry.Items.RUBY_ORE.get(),
@@ -2195,7 +2233,9 @@ public class ErosionCore
         RefinableMaterials.GALENA_ORE,
         RefinableMaterials.RAW_GALENA,
         RefinableMaterials.HALITE_ORE,
-        RefinableMaterials.RAW_HALITE
+        RefinableMaterials.RAW_HALITE,
+        RefinableMaterials.NATIVE_COPPER,
+        RefinableMaterials.NATIVE_COPPER_DEPOSIT
     );
     private static final List<CrucibleCatalyst> CRUCIBLE_CATALYST_LIST_ORIGINAL = List.of(
         CrucibleCatalysts.FLUX,
@@ -2661,6 +2701,10 @@ public class ErosionCore
             ))),
             Map.entry(ErosionRegistry.Items.NATIVE_SILVER.get(), new ChemicalInfo(List.of(
                 "Native elemental silver (Ag)",
+                "Contains impurities"
+            ))),
+            Map.entry(ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get(), new ChemicalInfo(List.of(
+                "Native elemental copper (Cu)",
                 "Contains impurities"
             ))),
             Map.entry(ErosionRegistry.Items.TIN_CHUNK.get(), new ChemicalInfo(List.of(
