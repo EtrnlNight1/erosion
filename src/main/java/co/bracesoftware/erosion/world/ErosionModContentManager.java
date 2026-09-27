@@ -184,7 +184,7 @@ public final class ErosionModContentManager
             private Supplier<? extends Block> rockBlockClassSupplier;
             private ErosionModContentResourceLocation oreId;
             private ErosionModContentResourceLocation rockId;
-            private ErosionModContent.OreItemPair from;
+            private Supplier<ErosionModContent.OreItemPair> source;
             
             public OreBlockPairBuilder() {}
 
@@ -217,9 +217,9 @@ public final class ErosionModContentManager
                 return this;
             }
 
-            public OreBlockPairBuilder buildFromOreItemPair(ErosionModContent.OreItemPair s)
+            public OreBlockPairBuilder buildFromOreItemPair(final Supplier<ErosionModContent.OreItemPair> s)
             {
-                this.from = s;
+                this.source = s;
                 return this;
             }
 
@@ -257,7 +257,7 @@ public final class ErosionModContentManager
                     ErosionModContentManager.getLootResourceGeneratorSubProvider()
                     .add(oreBlock.get(),
                         b -> ErosionModContentManager.getLootResourceGeneratorSubProvider().createOreDrop(
-                            b, this.from.getDrop().get()
+                            b, this.source.get().getDrop().get()
                         )
                     );
                 })
@@ -272,7 +272,7 @@ public final class ErosionModContentManager
                 .blockStateResourceGenerator(() -> {
                     ErosionDataGeneratorsProgInterface.ErosionBlockState.generateRockWithRandomRotations(
                         ErosionModContentManager.getBlockStateResourceGenerator(),
-                        this.from.getDrop().get(),
+                        this.source.get().getDrop().get(),
                         rockBlock.get(),
                         ErosionDataGeneratorsProgInterface.ErosionBlockState.createRockModel(
                             ErosionModContentManager.getBlockStateResourceGenerator(),
@@ -296,7 +296,7 @@ public final class ErosionModContentManager
         }
         public static final class OreItemPairBuilder
         {
-            private ErosionModContent.OreBlockPair source;
+            private Supplier<ErosionModContent.OreBlockPair> source;
             private ErosionModContentResourceLocation oreId;
             private ErosionModContentResourceLocation rockId;
 
@@ -319,7 +319,7 @@ public final class ErosionModContentManager
                 return this;
             }
 
-            public OreItemPairBuilder buildFromOreBlockPair(final ErosionModContent.OreBlockPair b)
+            public OreItemPairBuilder buildFromOreBlockPair(final Supplier<ErosionModContent.OreBlockPair> b)
             {
                 this.source = b;
                 return this;
@@ -329,12 +329,12 @@ public final class ErosionModContentManager
             {
                 var oreBlockItem = new ErosionModContent.ErosionItem(
                     this.oreId, () -> new BlockItem(
-                        this.source.getSource().get(), new Item.Properties()
+                        this.source.get().getSource().get(), new Item.Properties()
                     )
                 );
                 var rockBlockItem = new ErosionModContent.ErosionItem(
                     this.rockId, () -> new ErosionSimpleItems.ErosionRockBlockItem(
-                        this.source.getDrop().get()
+                        this.source.get().getDrop().get()
                     )
                 );
 
