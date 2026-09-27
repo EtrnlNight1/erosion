@@ -126,34 +126,34 @@ public class ErosionRegistry
         public static final ErosionModContentResourceLocation ANTIMONY_SLAG = new ErosionModContentResourceLocation("antimony_slag", "Antimony Slag");
         public static final ErosionModContentResourceLocation DEBRIS = new ErosionModContentResourceLocation("debris", "Debris");
         public static final ErosionModContentResourceLocation CRUSHED_EGG_SHELL = new ErosionModContentResourceLocation("crushed_egg_shell", "Crushed Egg Shell");
-        public static final ErosionModContentResourceLocation RAW_LIMONITE = new ErosionModContentResourceLocation("raw_limonite", "Raw Limonite");
-        public static final ErosionModContentResourceLocation RAW_HEMATITE = new ErosionModContentResourceLocation("raw_hematite", "Raw Hematite");
-        public static final ErosionModContentResourceLocation RAW_MAGNETITE = new ErosionModContentResourceLocation("raw_magnetite", "Raw Magnetite");
-        public static final ErosionModContentResourceLocation RAW_MALACHITE = new ErosionModContentResourceLocation("raw_malachite", "Raw Malachite");
+        public static final ErosionModContentResourceLocation RAW_LIMONITE = new ErosionModContentResourceLocation("raw_limonite", "Raw Limonite Rock");
+        public static final ErosionModContentResourceLocation RAW_HEMATITE = new ErosionModContentResourceLocation("raw_hematite", "Raw Hematite Rock");
+        public static final ErosionModContentResourceLocation RAW_MAGNETITE = new ErosionModContentResourceLocation("raw_magnetite", "Raw Magnetite Rock");
+        public static final ErosionModContentResourceLocation RAW_MALACHITE = new ErosionModContentResourceLocation("raw_malachite", "Raw Malachite Rock");
 
-        public static final ErosionModContentResourceLocation NATIVE_GOLD = new ErosionModContentResourceLocation("native_gold", "Native Gold");
-        public static final ErosionModContentResourceLocation NATIVE_SILVER = new ErosionModContentResourceLocation("native_silver", "Native Silver");
+        public static final ErosionModContentResourceLocation NATIVE_GOLD = new ErosionModContentResourceLocation("native_gold", "Native Gold Rock");
+        public static final ErosionModContentResourceLocation NATIVE_SILVER = new ErosionModContentResourceLocation("native_silver", "Native Silver Rock");
         public static final ErosionModContentResourceLocation SILVER_CHUNK = new ErosionModContentResourceLocation("silver_chunk", "Silver Chunk");
-        public static final ErosionModContentResourceLocation RAW_CASSITERITE = new ErosionModContentResourceLocation("raw_cassiterite", "Raw Cassiterite");
+        public static final ErosionModContentResourceLocation RAW_CASSITERITE = new ErosionModContentResourceLocation("raw_cassiterite", "Raw Cassiterite Rock");
         public static final ErosionModContentResourceLocation TIN_CHUNK = new ErosionModContentResourceLocation("tin_chunk", "Tin Chunk");
         public static final ErosionModContentResourceLocation LEAD_CHUNK = new ErosionModContentResourceLocation("lead_chunk", "Lead Chunk");
 
-        public static final ErosionModContentResourceLocation RAW_BISMUTHINITE = new ErosionModContentResourceLocation("raw_bismuthinite", "Raw Bismuthinite");
+        public static final ErosionModContentResourceLocation RAW_BISMUTHINITE = new ErosionModContentResourceLocation("raw_bismuthinite", "Raw Bismuthinite Rock");
         public static final ErosionModContentResourceLocation BISMUTH_CHUNK = new ErosionModContentResourceLocation("bismuth_chunk", "Bismuth Chunk");
 
-        public static final ErosionModContentResourceLocation RAW_SPHALERITE = new ErosionModContentResourceLocation("raw_sphalerite", "Raw Sphalerite");
+        public static final ErosionModContentResourceLocation RAW_SPHALERITE = new ErosionModContentResourceLocation("raw_sphalerite", "Raw Sphalerite Rock");
         public static final ErosionModContentResourceLocation ZINC_CHUNK = new ErosionModContentResourceLocation("zinc_chunk", "Zinc Chunk");
 
-        public static final ErosionModContentResourceLocation RAW_AZURITE = new ErosionModContentResourceLocation("raw_azurite", "Raw Azurite");
-        public static final ErosionModContentResourceLocation RAW_GOETHITE = new ErosionModContentResourceLocation("raw_dehydrated_limonite", "Raw Dehydrated Limonite");
+        public static final ErosionModContentResourceLocation RAW_AZURITE = new ErosionModContentResourceLocation("raw_azurite", "Raw Azurite Rock");
+        public static final ErosionModContentResourceLocation RAW_GOETHITE = new ErosionModContentResourceLocation("raw_dehydrated_limonite", "Raw Dehydrated Limonite Rock");
         public static final ErosionModContentResourceLocation RUBY = new ErosionModContentResourceLocation("ruby", "Ruby");
         public static final ErosionModContentResourceLocation SAPPHIRE = new ErosionModContentResourceLocation("sapphire", "Sapphire");
-        public static final ErosionModContentResourceLocation RAW_TETRAHEDRITE = new ErosionModContentResourceLocation("raw_tetrahedrite", "Raw Tetrahedrite");
-        public static final ErosionModContentResourceLocation RAW_ARSENOPYRITE = new ErosionModContentResourceLocation("raw_arsenopyrite", "Raw Arsenopyrite");
-        public static final ErosionModContentResourceLocation RAW_PYRITE = new ErosionModContentResourceLocation("raw_pyrite", "Raw Pyrite");
-        public static final ErosionModContentResourceLocation RAW_ANGLESITE = new ErosionModContentResourceLocation("raw_anglesite", "Raw Anglesite");
-        public static final ErosionModContentResourceLocation RAW_GALENA = new ErosionModContentResourceLocation("raw_galena", "Raw Galena");
-        public static final ErosionModContentResourceLocation RAW_HALITE = new ErosionModContentResourceLocation("raw_halite", "Raw Halite");
+        public static final ErosionModContentResourceLocation RAW_TETRAHEDRITE = new ErosionModContentResourceLocation("raw_tetrahedrite", "Raw Tetrahedrite Rock");
+        public static final ErosionModContentResourceLocation RAW_ARSENOPYRITE = new ErosionModContentResourceLocation("raw_arsenopyrite", "Raw Arsenopyrite Rock");
+        public static final ErosionModContentResourceLocation RAW_PYRITE = new ErosionModContentResourceLocation("raw_pyrite", "Raw Pyrite Rock");
+        public static final ErosionModContentResourceLocation RAW_ANGLESITE = new ErosionModContentResourceLocation("raw_anglesite", "Raw Anglesite Rock");
+        public static final ErosionModContentResourceLocation RAW_GALENA = new ErosionModContentResourceLocation("raw_galena", "Raw Galena Rock");
+        public static final ErosionModContentResourceLocation RAW_HALITE = new ErosionModContentResourceLocation("raw_halite", "Raw Halite Rock");
 
         public static final ErosionModContentResourceLocation BORAX = new ErosionModContentResourceLocation("borax", "Borax");
         public static final ErosionModContentResourceLocation DEHYDRATED_BORAX = new ErosionModContentResourceLocation("dehydrated_borax", "Dehydrated Borax");

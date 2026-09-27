@@ -1,7 +1,6 @@
 package co.bracesoftware.erosion;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,10 +14,10 @@ public class ErosionClusterHandler
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Post event)
     {
-        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        var server = ServerLifecycleHooks.getCurrentServer();
         if(server == null) return;
 
-        ServerLevel overworld = server.overworld();
+        var overworld = server.overworld();
         
         int simDistanceChunks = server.getPlayerList().getSimulationDistance();
         int maxRadius = simDistanceChunks * ErosionConfig.CHUNK_SIZE;
@@ -51,7 +50,7 @@ public class ErosionClusterHandler
             if(attempts >= 15) continue;
 
             int baseOffsetY = ErosionMod.RANDOM.nextInt(ErosionConfig.CHUNK_SIZE * 2) - ErosionConfig.CHUNK_SIZE;
-            BlockPos clusterCenter = playerPos.offset(baseOffsetX, baseOffsetY, baseOffsetZ);
+            var clusterCenter = playerPos.offset(baseOffsetX, baseOffsetY, baseOffsetZ);
 
             for(int x = -clusterRadius; x <= clusterRadius; x++)
             {
@@ -61,7 +60,7 @@ public class ErosionClusterHandler
                     {
                         if(x * x + y * y + z * z <= clusterRadiusSq)
                         {
-                            BlockPos targetPos = clusterCenter.offset(x, y, z);
+                            var targetPos = clusterCenter.offset(x, y, z);
                             for(var f : ErosionRetrogen.RETROGEN_FEATURES)
                             {
                                 ErosionRetrogen.applyFeatureToChunk(level, targetPos, f);
