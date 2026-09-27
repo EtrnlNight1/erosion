@@ -285,7 +285,7 @@ public final class ErosionModContentManager
                     ErosionDataGeneratorsProgInterface.ErosionTags.Blocks.createSimpleRock(
                         ErosionModContentManager.getBlockTagResourceGenerator(),
                         ErosionModContentManager.getBlockTagResourceGeneratorProvider(),
-                        oreBlock.get()
+                        rockBlock.get()
                     );
                 })
                 .addKnownBlock(rockBlock)
