@@ -831,6 +831,10 @@ public class ErosionRegistry
             .dummy();
 
             NATIVE_COPPER_ORE.getDrop()
+            .lootResourceGenerator(() -> {
+                ErosionModContentManager.getLootResourceGeneratorSubProvider()
+                .dropSelf(NATIVE_COPPER_ORE.getDrop().get());
+            })
             .blockStateResourceGenerator(() -> {
                 ErosionDataGeneratorsProgInterface.ErosionBlockState.generateRockWithRandomRotations(
                     ErosionModContentManager.getBlockStateResourceGenerator(),
