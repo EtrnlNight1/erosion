@@ -19,7 +19,7 @@ import net.neoforged.fml.ModList;
 //@EventBusSubscriber(modid = Erosion.MODID)
 public class ErosionModCompat
 {
-    public static class CompatibleMod
+    public static final class CompatibleMod
     {
         private String modid;
         private String name;
@@ -128,7 +128,7 @@ public class ErosionModCompat
         CompatibleMods.BUTCHERY
     );
 
-    public static class JsonRecipeGenerator
+    public static final class JsonRecipeGenerator
     {   
         public static String getItemNameFromNamespaceAndPath(String namespace, String path)
         {

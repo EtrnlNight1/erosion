@@ -24,7 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-public class ErosionUtils
+public final class ErosionUtils
 {
     public static int getTicksRemainingUntil(long ct, int interval)
     {

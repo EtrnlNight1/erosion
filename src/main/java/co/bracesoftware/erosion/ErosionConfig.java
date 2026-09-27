@@ -68,7 +68,7 @@ public final class ErosionConfig
         public static final String CONFIG_FOLDER = "erosion_config/";
         public static final String CONFIG_FILE_EXT = ".sys_cfg";
 
-        public interface IErosionConfigGettersAndSetters
+        public static interface IErosionConfigGettersAndSetters
         {
             default int getInteger()
             {
@@ -111,7 +111,8 @@ public final class ErosionConfig
             }
         }
 
-        public static abstract class BasicConfig<T> implements IErosionConfigGettersAndSetters
+        public static abstract sealed class BasicConfig<T> implements IErosionConfigGettersAndSetters
+        permits BooleanConfig
         {
             public String name;
             public String id;
