@@ -51,7 +51,7 @@ This huge comment is dedicated to:
         -                   for being the first rock to be able to be processed in a material purifier
         -                   for being the last content to be configured using the old datagen sys
         * Native Copper Ore
-        -                   for being THE FIRST BLOCK SET TO BE ADDED TO THE MOD USING ErosionModContentManager datagen sys
+        -                   for being THE FIRST BLOCK SET TO BE ADDED TO THE MOD USING ErosionModContentManager builder sys
     SOURCE CODE:
         * ErosionNetworkSafeVariants, and the whole erosion.data package
         -                   for making my life easier
