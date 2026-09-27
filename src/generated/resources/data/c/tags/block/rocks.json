@@ -1,5 +1,6 @@
 {
   "values": [
+    "erosion:native_copper",
     "erosion:raw_limonite",
     "erosion:raw_hematite",
     "erosion:raw_magnetite",
