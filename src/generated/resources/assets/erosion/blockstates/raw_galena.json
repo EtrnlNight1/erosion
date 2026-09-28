@@ -32,6 +32,14 @@
       "model": "erosion:block/raw_galena_var3",
       "y": 90
     },
+    "facing=east,variant=4,waterlogged=false": {
+      "model": "erosion:block/raw_galena_var4",
+      "y": 90
+    },
+    "facing=east,variant=4,waterlogged=true": {
+      "model": "erosion:block/raw_galena_var4",
+      "y": 90
+    },
     "facing=north,variant=0,waterlogged=false": {
       "model": "erosion:block/raw_galena_var0"
     },
@@ -55,6 +63,12 @@
     },
     "facing=north,variant=3,waterlogged=true": {
       "model": "erosion:block/raw_galena_var3"
+    },
+    "facing=north,variant=4,waterlogged=false": {
+      "model": "erosion:block/raw_galena_var4"
+    },
+    "facing=north,variant=4,waterlogged=true": {
+      "model": "erosion:block/raw_galena_var4"
     },
     "facing=south,variant=0,waterlogged=false": {
       "model": "erosion:block/raw_galena_var0",
@@ -88,6 +102,14 @@
       "model": "erosion:block/raw_galena_var3",
       "y": 180
     },
+    "facing=south,variant=4,waterlogged=false": {
+      "model": "erosion:block/raw_galena_var4",
+      "y": 180
+    },
+    "facing=south,variant=4,waterlogged=true": {
+      "model": "erosion:block/raw_galena_var4",
+      "y": 180
+    },
     "facing=west,variant=0,waterlogged=false": {
       "model": "erosion:block/raw_galena_var0",
       "y": 270
@@ -118,6 +140,14 @@
     },
     "facing=west,variant=3,waterlogged=true": {
       "model": "erosion:block/raw_galena_var3",
+      "y": 270
+    },
+    "facing=west,variant=4,waterlogged=false": {
+      "model": "erosion:block/raw_galena_var4",
+      "y": 270
+    },
+    "facing=west,variant=4,waterlogged=true": {
+      "model": "erosion:block/raw_galena_var4",
       "y": 270
     }
   }
