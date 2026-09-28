@@ -24,6 +24,14 @@
       "model": "erosion:block/native_gold_var2",
       "y": 90
     },
+    "facing=east,variant=3,waterlogged=false": {
+      "model": "erosion:block/native_gold_var3",
+      "y": 90
+    },
+    "facing=east,variant=3,waterlogged=true": {
+      "model": "erosion:block/native_gold_var3",
+      "y": 90
+    },
     "facing=north,variant=0,waterlogged=false": {
       "model": "erosion:block/native_gold_var0"
     },
@@ -41,6 +49,12 @@
     },
     "facing=north,variant=2,waterlogged=true": {
       "model": "erosion:block/native_gold_var2"
+    },
+    "facing=north,variant=3,waterlogged=false": {
+      "model": "erosion:block/native_gold_var3"
+    },
+    "facing=north,variant=3,waterlogged=true": {
+      "model": "erosion:block/native_gold_var3"
     },
     "facing=south,variant=0,waterlogged=false": {
       "model": "erosion:block/native_gold_var0",
@@ -66,6 +80,14 @@
       "model": "erosion:block/native_gold_var2",
       "y": 180
     },
+    "facing=south,variant=3,waterlogged=false": {
+      "model": "erosion:block/native_gold_var3",
+      "y": 180
+    },
+    "facing=south,variant=3,waterlogged=true": {
+      "model": "erosion:block/native_gold_var3",
+      "y": 180
+    },
     "facing=west,variant=0,waterlogged=false": {
       "model": "erosion:block/native_gold_var0",
       "y": 270
@@ -88,6 +110,14 @@
     },
     "facing=west,variant=2,waterlogged=true": {
       "model": "erosion:block/native_gold_var2",
+      "y": 270
+    },
+    "facing=west,variant=3,waterlogged=false": {
+      "model": "erosion:block/native_gold_var3",
+      "y": 270
+    },
+    "facing=west,variant=3,waterlogged=true": {
+      "model": "erosion:block/native_gold_var3",
       "y": 270
     }
   }
