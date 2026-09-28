@@ -193,12 +193,13 @@ public final class ErosionSimpleBlocks
             ErosionUtils.ModelRendering.createBoxCentered(2,4,4,3,0,3),
             ErosionUtils.ModelRendering.createBoxCentered(2,3,7,3,0,3),
             Shapes.or(
-                ErosionUtils.ModelRendering.createBoxCentered(1,3,3,-4,1,-4),
-                ErosionUtils.ModelRendering.createBoxCentered(1,4,5,2,0,2)
+                ErosionUtils.ModelRendering.createBoxCentered(1,3,3,4,1,4),
+                ErosionUtils.ModelRendering.createBoxCentered(1,4,5,2,0,2),
+                ErosionUtils.ModelRendering.createBoxCentered(1,1,1,1)
             ),
             Shapes.or(
-                ErosionUtils.ModelRendering.createBoxCentered(1,5,6,0,0,1),
-                ErosionUtils.ModelRendering.createBoxCentered(2, 3, 4, 2,1,3)
+                ErosionUtils.ModelRendering.createBoxCentered(2,5,6,0,0,1),
+                ErosionUtils.ModelRendering.createBoxCentered(1, 3, 4, 2,1,3)
             )
         );
 
