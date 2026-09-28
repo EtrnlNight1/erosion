@@ -272,6 +272,13 @@ public final class ErosionSimpleBlocks
             return;
         }
 
+        public final BlockState getDefaultBlockStateWithRandomModel()
+        {
+            int v = ErosionMod.RANDOM.nextInt(NORTH_SHAPES.size());
+            return this.defaultBlockState()
+            .setValue(VARIANT, v);
+        }
+
         @Override
         public BlockState getStateForPlacement(BlockPlaceContext c)
         {

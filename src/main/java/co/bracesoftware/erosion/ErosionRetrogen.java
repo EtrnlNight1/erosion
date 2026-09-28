@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.io.Writer;
 import java.io.Reader;
 import co.bracesoftware.erosion.world.ErosionRegistry;
+import co.bracesoftware.erosion.world.blocks.ErosionSimpleBlocks.RockBlock;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -82,13 +83,13 @@ public class ErosionRetrogen
     public static final RetrogenFeature PLACE_ROCKS = new RetrogenFeature(
         ErosionRegistry.RawRegistry.ErosionRetrogenFeatures.PLACE_ROCKS.getId(),
         ErosionRegistry.RawRegistry.ErosionRetrogenFeatures.PLACE_ROCKS.getName(),
-        () -> new ArrayList<>(List.of(
+        () -> new ArrayList<Block>(List.of(
             Blocks.SHORT_GRASS,
             Blocks.FERN,
             Blocks.DEAD_BUSH,
             Blocks.SEAGRASS
         )),
-        () -> new ArrayList<>(List.of(
+        () -> new ArrayList<Block>(List.of(
             ErosionRegistry.Blocks.RAW_HEMATITE.get(),
             ErosionRegistry.Blocks.RAW_LIMONITE.get(),
             ErosionRegistry.Blocks.RAW_MAGNETITE.get(),
@@ -215,9 +216,9 @@ public class ErosionRetrogen
 
         for(int i = 0; i < v.size(); i++)
         {
-            BlockPos pos = v.get(i);
-            Block randomRock = f.toPlace.get(ErosionMod.RANDOM.nextInt(f.toPlace.size()));
-            l.setBlock(pos, randomRock.defaultBlockState(), 2);
+            var pos = v.get(i);
+            var rr = (RockBlock) f.toPlace.get(ErosionMod.RANDOM.nextInt(f.toPlace.size()));
+            l.setBlock(pos, rr.getDefaultBlockStateWithRandomModel(), 2);
             RetrogenFeature.RETROGEN_PERFORMED++;
         }
 
