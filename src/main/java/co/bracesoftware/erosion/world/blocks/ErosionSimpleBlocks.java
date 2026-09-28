@@ -7,6 +7,7 @@ import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.Erosio
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeFallingBlock;
 import co.bracesoftware.erosion.world.ErosionRegistry;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -147,6 +149,7 @@ public final class ErosionSimpleBlocks
     {
         public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
         public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+        public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, 2);
 
         public static final int SHAPE_FIRSTDIM_X1 = 5;
         public static final int SHAPE_FIRSTDIM_Y1 = 0;
@@ -184,20 +187,31 @@ public final class ErosionSimpleBlocks
             )
         );
 
-        private static final VoxelShape NORTH_SHAPE = Shapes.or(
-            Block.box(SHAPE_FIRSTDIM_X1, SHAPE_FIRSTDIM_Y1, SHAPE_FIRSTDIM_Z1, SHAPE_FIRSTDIM_X2, SHAPE_FIRSTDIM_Y2, SHAPE_FIRSTDIM_Z2),
-            Block.box(SHAPE_SECONDDIM_X1, SHAPE_SECONDDIM_Y1, SHAPE_SECONDDIM_Z1, SHAPE_SECONDDIM_X2, SHAPE_SECONDDIM_Y2, SHAPE_SECONDDIM_Z2),
-            Block.box(SHAPE_THIRDDIM_X1, SHAPE_THIRDDIM_Y1, SHAPE_THIRDDIM_Z1, SHAPE_THIRDDIM_X2, SHAPE_THIRDDIM_Y2, SHAPE_THIRDDIM_Z2)
+        public static final List<VoxelShape> NORTH_SHAPES = List.of(
+            Shapes.or(
+                Block.box(SHAPE_FIRSTDIM_X1, SHAPE_FIRSTDIM_Y1, SHAPE_FIRSTDIM_Z1, SHAPE_FIRSTDIM_X2, SHAPE_FIRSTDIM_Y2, SHAPE_FIRSTDIM_Z2),
+                Block.box(SHAPE_SECONDDIM_X1, SHAPE_SECONDDIM_Y1, SHAPE_SECONDDIM_Z1, SHAPE_SECONDDIM_X2, SHAPE_SECONDDIM_Y2, SHAPE_SECONDDIM_Z2),
+                Block.box(SHAPE_THIRDDIM_X1, SHAPE_THIRDDIM_Y1, SHAPE_THIRDDIM_Z1, SHAPE_THIRDDIM_X2, SHAPE_THIRDDIM_Y2, SHAPE_THIRDDIM_Z2)
+            ),
+            Block.box(11,0,1,15,2,5),
+            Block.box(1,0,10,4,2,15)
         );
 
-        private static final Map<Direction, VoxelShape> SHAPES = Util.make(
-            new EnumMap<>(Direction.class), map -> {
-                map.put(Direction.NORTH, NORTH_SHAPE);
-                map.put(Direction.SOUTH, rotateShape(NORTH_SHAPE, 2));
-                map.put(Direction.WEST,  rotateShape(NORTH_SHAPE, 3));
-                map.put(Direction.EAST,  rotateShape(NORTH_SHAPE, 1));
-            }
-        );
+        public static final Map<Direction, VoxelShape> createRotatedShapeVariants(VoxelShape b)
+        {
+            return Util.make(new EnumMap<>(Direction.class), map -> {
+                map.put(Direction.NORTH, b);
+                map.put(Direction.SOUTH, rotateShape(b, 2));
+                map.put(Direction.WEST,  rotateShape(b, 3));
+                map.put(Direction.EAST,  rotateShape(b, 1));
+            });
+        }
+
+        public static final List<Map<Direction, VoxelShape>> SHAPES = NORTH_SHAPES
+        .stream()
+        .map(RockBlock::createRotatedShapeVariants)
+        .toList();
+
 
         private static VoxelShape rotateShape(VoxelShape shape, int times)
         {
@@ -231,6 +245,7 @@ public final class ErosionSimpleBlocks
                 this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(WATERLOGGED, false)
+                .setValue(VARIANT, 0)
             );
             this.setServerLogic(new RockBlockServerLogic());
         }
@@ -238,7 +253,7 @@ public final class ErosionSimpleBlocks
         @Override
         protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b)
         {
-            b.add(FACING, WATERLOGGED);
+            b.add(FACING, WATERLOGGED, VARIANT);
             return;
         }
 
@@ -248,10 +263,12 @@ public final class ErosionSimpleBlocks
             FluidState f = c.getLevel().getFluidState(c.getClickedPos());
             boolean w = f.getType() == Fluids.WATER;
             Direction r = Direction.Plane.HORIZONTAL.getRandomDirection(c.getLevel().getRandom());
+            int v = c.getLevel().getRandom().nextInt(NORTH_SHAPES.size());
             
             return this.defaultBlockState()
             .setValue(FACING, r)
-            .setValue(WATERLOGGED, w);
+            .setValue(WATERLOGGED, w)
+            .setValue(VARIANT, v);
         }
 
         @Override
@@ -269,7 +286,10 @@ public final class ErosionSimpleBlocks
         )
         {
             if(ErosionConfig.SOMETHING_WENT_WRONG) return OLD_SHAPE_IF_SOMETHING_GOES_WRONG;
-            return SHAPES.getOrDefault(bs.getValue(FACING), NORTH_SHAPE);
+
+            int v = bs.getValue(VARIANT);
+            var facing = bs.getValue(FACING);
+            return SHAPES.get(v).getOrDefault(facing, NORTH_SHAPES.get(v));
         }
 
         public static class RockBlockServerLogic extends ErosionNetworkSafeBlockSidedLogic

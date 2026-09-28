@@ -3,6 +3,7 @@ package co.bracesoftware.erosion.data;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -379,7 +380,7 @@ public class ErosionDataGeneratorsProgInterface
             }
         }
 
-        public static BlockModelBuilder createRockModel(
+        @Deprecated public static BlockModelBuilder createRockModelOld(
             ErosionBlockStateGen g,
             String modelName, String texturePath
         )
@@ -405,6 +406,36 @@ public class ErosionDataGeneratorsProgInterface
             .to(RockBlock.SHAPE_THIRDDIM_X2, RockBlock.SHAPE_THIRDDIM_Y2, RockBlock.SHAPE_THIRDDIM_Z2)
             .allFaces((direction, builder) -> builder.texture("#texture"))
             .end();
+        }
+
+        public static List<BlockModelBuilder> createRockModel(
+            ErosionBlockStateGen g,
+            String modelName, String texturePath
+        )
+        {
+            var m = new ArrayList<BlockModelBuilder>();
+
+            for(int i = 0; i < ErosionSimpleBlocks.RockBlock.NORTH_SHAPES.size(); i++)
+            {
+                var variantModelName = modelName + "_var" + i;
+                var shape = ErosionSimpleBlocks.RockBlock.NORTH_SHAPES.get(i);
+
+                var builder = g.models().withExistingParent(variantModelName, g.mcLoc("block/block"))
+                    .texture("particle", g.modLoc("block/" + texturePath))
+                    .texture("texture", g.modLoc("block/" + texturePath));
+
+                shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
+                    builder.element()
+                        .from((float) (minX * 16.0), (float) (minY * 16.0), (float) (minZ * 16.0))
+                        .to((float) (maxX * 16.0), (float) (maxY * 16.0), (float) (maxZ * 16.0))
+                        .allFaces((direction, faceBuilder) -> faceBuilder.texture("#texture"))
+                        .end();
+                });
+
+                m.add(builder);
+            }
+
+            return m;
         }
 
         public static void generateRandomRotations(ErosionBlockStateGen g, Block b)
@@ -440,21 +471,12 @@ public class ErosionDataGeneratorsProgInterface
             g.simpleBlockItem(b, model);
             return;
         }
-        public static void generateRockWithRandomRotations(
+
+        @Deprecated public static void generateRockWithRandomRotationsOld(
             ErosionBlockStateGen g,
             Item it, Block b, BlockModelBuilder m
         )
         {
-            if(ErosionConfig.SOMETHING_WENT_WRONG) g.getVariantBuilder(b)
-            .forAllStates(
-                s -> new ConfiguredModel[] {
-                    new ConfiguredModel(m, 0, 0, false),
-                    new ConfiguredModel(m, 0, 90, false),
-                    new ConfiguredModel(m, 0, 180, false),
-                    new ConfiguredModel(m, 0, 270, false)
-                }
-            );
-
             g.getVariantBuilder(b)
             .forAllStates(
                 s -> {
@@ -468,6 +490,29 @@ public class ErosionDataGeneratorsProgInterface
             );
 
             g.simpleBlockItem(b, m);
+            g.itemModels().basicItem(it);
+            return;
+        }
+        public static void generateRockWithRandomRotations(
+            ErosionBlockStateGen g,
+            Item it, Block b, List<BlockModelBuilder> models
+        )
+        {
+            g.getVariantBuilder(b)
+            .forAllStates(
+                s -> {
+                    Direction d = s.getValue(ErosionSimpleBlocks.RockBlock.FACING);
+                    int v = s.getValue(ErosionSimpleBlocks.RockBlock.VARIANT);
+                    int y = (int) d.toYRot();
+                    
+                    return ConfiguredModel.builder()
+                    .modelFile(models.get(v))
+                    .rotationY((y + 180) % 360)
+                    .build();
+                }
+            );
+
+            g.simpleBlockItem(b, models.get(0));
             g.itemModels().basicItem(it);
             return;
         }
