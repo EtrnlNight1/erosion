@@ -87,7 +87,8 @@ public class ErosionRetrogen
             Blocks.SHORT_GRASS,
             Blocks.FERN,
             Blocks.DEAD_BUSH,
-            Blocks.SEAGRASS
+            Blocks.SEAGRASS,
+            Blocks.TALL_SEAGRASS
         )),
         () -> new ArrayList<Block>(List.of(
             ErosionRegistry.Blocks.RAW_HEMATITE.get(),
@@ -217,8 +218,15 @@ public class ErosionRetrogen
         for(int i = 0; i < v.size(); i++)
         {
             var pos = v.get(i);
-            var rr = (RockBlock) f.toPlace.get(ErosionMod.RANDOM.nextInt(f.toPlace.size()));
-            l.setBlock(pos, rr.getDefaultBlockStateWithRandomModel(), 2);
+            var b = f.toPlace.get(ErosionMod.RANDOM.nextInt(f.toPlace.size()));
+            if(b instanceof RockBlock rr)//rocks have their own random shi
+            {
+                l.setBlock(pos, rr.getDefaultBlockStateWithRandomModel(), 2);
+            }
+            else//other blocks just do this
+            {
+                l.setBlock(pos, b.defaultBlockState(), 2);
+            }
             RetrogenFeature.RETROGEN_PERFORMED++;
         }
 
