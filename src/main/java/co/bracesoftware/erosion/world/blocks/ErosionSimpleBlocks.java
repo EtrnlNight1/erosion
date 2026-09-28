@@ -200,7 +200,7 @@ public final class ErosionSimpleBlocks
 
         public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
         public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-        public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, NORTH_SHAPES.size());
+        public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, NORTH_SHAPES.size() - 1);
 
         public static final Map<Direction, VoxelShape> createRotatedShapeVariants(VoxelShape b)
         {
