@@ -22,6 +22,7 @@ import java.util.List;
 import co.bracesoftware.erosion.Erosion;
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionCustomEntityExceptions.ErosionGasInitException;
+import co.bracesoftware.erosion.ErosionMod;
 import co.bracesoftware.erosion.ErosionUtils;
 import co.bracesoftware.erosion.ErosionClient.ErosionScreenMessage;
 import co.bracesoftware.erosion.world.ErosionRegistry;
@@ -251,9 +252,9 @@ public class ErosionCustomEntitySys
             
             for(int i = 0; i < t.getGasParticleCount(); i++)
             {
-                double ox = (l.random.nextDouble() * 2.0 - 1.0) * t.getGasDiffusionRadius();
-                double oy = (l.random.nextDouble() * 2.0 - 1.0) * (t.getGasDiffusionRadius() * 0.5);
-                double oz = (l.random.nextDouble() * 2.0 - 1.0) * t.getGasDiffusionRadius();
+                double ox = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * t.getGasDiffusionRadius();
+                double oy = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * (t.getGasDiffusionRadius() * 0.5);
+                double oz = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * t.getGasDiffusionRadius();
 
                 double x = p.getX() + 0.5 + ox;
                 double y = p.getY() + 0.5 + oy;

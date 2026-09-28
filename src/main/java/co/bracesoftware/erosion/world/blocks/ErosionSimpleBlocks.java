@@ -2,6 +2,7 @@ package co.bracesoftware.erosion.world.blocks;
 
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionBlockExceptions.ErosionBlockWithTipImpl;
+import co.bracesoftware.erosion.ErosionMod;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeBlock;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeFallingBlock;
 import co.bracesoftware.erosion.world.ErosionRegistry;
@@ -37,9 +38,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.ItemAbilities;
 
-public class ErosionSimpleBlocks
+public final class ErosionSimpleBlocks
 {
-    public interface IErosionBlockWithTip
+    public static interface IErosionBlockWithTip
     {
         default void onBlockAimedOn(
             ServerPlayer p, BlockState bs, BlockPos bp
@@ -285,7 +286,7 @@ public class ErosionSimpleBlocks
                     SoundEvents.ITEM_PICKUP,
                     SoundSource.PLAYERS,
                     0.2F,
-                    (p.getServerLevel().random.nextFloat() - p.getServerLevel().random.nextFloat()) * 0.2F + 1.0F
+                    (ErosionMod.RANDOM.nextFloat() - ErosionMod.RANDOM.nextFloat()) * 0.2F + 1.0F
                 );
                 
                 var r = p.getBlockState().getValue(WATERLOGGED)
@@ -336,11 +337,14 @@ public class ErosionSimpleBlocks
                 return;
             }
 
-            if(!l.isClientSide && s.getValue(FACING) == Direction.NORTH && l.random.nextFloat() < 0.75f)
+            if(
+                !l.isClientSide && s.getValue(FACING) == Direction.NORTH &&
+                ErosionMod.RANDOM.nextFloat() < 0.75f)
             { 
-                Direction r = Direction.Plane.HORIZONTAL.getRandomDirection(l.random);
+                Direction r = Direction.Plane.HORIZONTAL.getRandomDirection(ErosionMod.RANDOM);
                 l.setBlock(p, s.setValue(FACING, r), 2);
             }
+            return;
         }
     }
 }

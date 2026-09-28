@@ -50,7 +50,7 @@ public final class ErosionMod
     
     //Objects for working whatever
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static final RandomSource RANDOM = RandomSource.create();
+    public static final RandomSource RANDOM = RandomSource.createNewThreadLocalInstance();
 
     //setup
     @SubscribeEvent 
