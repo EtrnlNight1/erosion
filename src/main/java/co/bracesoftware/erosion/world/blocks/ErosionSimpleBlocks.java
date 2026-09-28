@@ -194,7 +194,7 @@ public final class ErosionSimpleBlocks
             ErosionUtils.ModelRendering.createBox(2,3,7,3,0,3),
             Shapes.or(
                 ErosionUtils.ModelRendering.createBox(3,2,3,3,0,3),
-                ErosionUtils.ModelRendering.createBox(1,4,4,-3,0,-3)
+                ErosionUtils.ModelRendering.createBox(1,4,5,3,0,3)
             )
         );
 
