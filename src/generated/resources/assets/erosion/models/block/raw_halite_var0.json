@@ -57,12 +57,44 @@
       "from": [
         8,
         0,
-        9
+        10
       ],
       "to": [
         12,
         1,
         12
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#texture"
+        },
+        "east": {
+          "texture": "#texture"
+        },
+        "north": {
+          "texture": "#texture"
+        },
+        "south": {
+          "texture": "#texture"
+        },
+        "up": {
+          "texture": "#texture"
+        },
+        "west": {
+          "texture": "#texture"
+        }
+      },
+      "from": [
+        11,
+        0,
+        9
+      ],
+      "to": [
+        12,
+        1,
+        10
       ]
     },
     {
@@ -99,7 +131,7 @@
     }
   ],
   "textures": {
-    "particle": "erosion:block/native_gold_deposit",
-    "texture": "erosion:block/native_gold_deposit"
+    "particle": "erosion:block/halite_ore",
+    "texture": "erosion:block/halite_ore"
   }
 }

@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#texture"
+        },
+        "east": {
+          "texture": "#texture"
+        },
+        "north": {
+          "texture": "#texture"
+        },
+        "south": {
+          "texture": "#texture"
+        },
+        "up": {
+          "texture": "#texture"
+        },
+        "west": {
+          "texture": "#texture"
+        }
+      },
+      "from": [
+        11,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        5
+      ]
+    }
+  ],
+  "textures": {
+    "particle": "erosion:block/native_silver_deposit",
+    "texture": "erosion:block/native_silver_deposit"
+  }
+}
