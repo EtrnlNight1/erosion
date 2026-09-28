@@ -3,6 +3,7 @@ package co.bracesoftware.erosion.world;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import com.mojang.serialization.Codec;
 import co.bracesoftware.erosion.Erosion;
@@ -185,6 +186,7 @@ public final class ErosionModContentManager
             private ErosionModContentResourceLocation oreId;
             private ErosionModContentResourceLocation rockId;
             private Supplier<ErosionModContent.OreItemPair> source;
+            private BiConsumer<ErosionModContent.ErosionBlock, ErosionModContent.ErosionBlock> custom;
             
             public OreBlockPairBuilder() {}
 
@@ -223,6 +225,14 @@ public final class ErosionModContentManager
                 return this;
             }
 
+            public OreBlockPairBuilder setCustomTaskOnInit(
+                final BiConsumer<ErosionModContent.ErosionBlock, ErosionModContent.ErosionBlock> c
+            )
+            {
+                this.custom = c;
+                return this;
+            }
+
             public ErosionModContent.OreBlockPair build()
             {
                 var oreBlock = new ErosionModContent.ErosionBlock(
@@ -231,6 +241,8 @@ public final class ErosionModContentManager
                 var rockBlock = new ErosionModContent.ErosionBlock(
                     this.rockId, this.rockBlockClassSupplier
                 );
+
+                this.custom.accept(oreBlock, rockBlock);
 
                 oreBlock
                 .blockStateResourceGenerator(() -> {
@@ -299,6 +311,7 @@ public final class ErosionModContentManager
             private Supplier<ErosionModContent.OreBlockPair> source;
             private ErosionModContentResourceLocation oreId;
             private ErosionModContentResourceLocation rockId;
+            private BiConsumer<ErosionModContent.ErosionItem, ErosionModContent.ErosionItem> custom;
 
             public OreItemPairBuilder() {}
 
@@ -325,6 +338,14 @@ public final class ErosionModContentManager
                 return this;
             }
 
+            public OreItemPairBuilder setCustomTaskOnInit(
+                final BiConsumer<ErosionModContent.ErosionItem, ErosionModContent.ErosionItem> c
+            )
+            {
+                this.custom = c;
+                return this;
+            }
+
             public ErosionModContent.OreItemPair build()
             {
                 var oreBlockItem = new ErosionModContent.ErosionItem(
@@ -337,6 +358,8 @@ public final class ErosionModContentManager
                         this.source.get().getDrop().get()
                     )
                 );
+
+                this.custom.accept(oreBlockItem, rockBlockItem);
 
                 rockBlockItem
                 .itemModelResourceGenerator(() -> {

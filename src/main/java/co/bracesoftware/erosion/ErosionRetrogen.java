@@ -21,7 +21,6 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -185,6 +184,7 @@ public class ErosionRetrogen
         {
             return;
         }
+
         long cp = ChunkPos.asLong(p.getX() >> 4, p.getZ() >> 4);
         var m = ErosionRegistry.DataAttachments.RETROGEN_DATA;
 
@@ -196,14 +196,15 @@ public class ErosionRetrogen
                 return;
             }
         }
-        List<BlockPos> v = new ArrayList<>();
-        List<BlockPos> v2 = getRandomSurfacePositionsAround(
+        
+        var v = new ArrayList<BlockPos>();
+        var v2 = getRandomSurfacePositionsAround(
             l, p, 4, RetrogenFeature.MAX_REPLACEMENTS_PER_CHUNK
         );
 
         for(var pos : v2)
         {
-            BlockState state = l.getBlockState(pos);
+            var state = l.getBlockState(pos);
             if(f.toReplace.contains(state.getBlock()))
             {
                 v.add(pos);
