@@ -242,7 +242,7 @@ public final class ErosionModContentManager
                     this.rockId, this.rockBlockClassSupplier
                 );
 
-                this.custom.accept(oreBlock, rockBlock);
+                if(this.custom != null) this.custom.accept(oreBlock, rockBlock);
 
                 oreBlock
                 .blockStateResourceGenerator(() -> {
@@ -359,7 +359,7 @@ public final class ErosionModContentManager
                     )
                 );
 
-                this.custom.accept(oreBlockItem, rockBlockItem);
+                if(this.custom != null) this.custom.accept(oreBlockItem, rockBlockItem);
 
                 rockBlockItem
                 .itemModelResourceGenerator(() -> {
