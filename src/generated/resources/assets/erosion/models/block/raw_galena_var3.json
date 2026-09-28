@@ -55,14 +55,46 @@
         }
       },
       "from": [
-        2,
+        7,
         1,
-        2
+        7
       ],
       "to": [
-        5,
+        8,
         2,
-        5
+        8
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#texture"
+        },
+        "east": {
+          "texture": "#texture"
+        },
+        "north": {
+          "texture": "#texture"
+        },
+        "south": {
+          "texture": "#texture"
+        },
+        "up": {
+          "texture": "#texture"
+        },
+        "west": {
+          "texture": "#texture"
+        }
+      },
+      "from": [
+        10,
+        1,
+        10
+      ],
+      "to": [
+        13,
+        2,
+        13
       ]
     }
   ],
