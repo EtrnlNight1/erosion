@@ -190,15 +190,15 @@ public final class ErosionSimpleBlocks
                 Block.box(SHAPE_SECONDDIM_X1, SHAPE_SECONDDIM_Y1, SHAPE_SECONDDIM_Z1, SHAPE_SECONDDIM_X2, SHAPE_SECONDDIM_Y2, SHAPE_SECONDDIM_Z2),
                 Block.box(SHAPE_THIRDDIM_X1, SHAPE_THIRDDIM_Y1, SHAPE_THIRDDIM_Z1, SHAPE_THIRDDIM_X2, SHAPE_THIRDDIM_Y2, SHAPE_THIRDDIM_Z2)
             ),
-            ErosionUtils.ModelRendering.createBox(2,4,4,3,0,3),
-            ErosionUtils.ModelRendering.createBox(2,3,7,3,0,3),
+            ErosionUtils.ModelRendering.createBoxCentered(2,4,4,3,0,3),
+            ErosionUtils.ModelRendering.createBoxCentered(2,3,7,3,0,3),
             Shapes.or(
-                ErosionUtils.ModelRendering.createBox(2,3,3,3,1,3),
-                ErosionUtils.ModelRendering.createBox(1,4,5,3,0,3)
+                ErosionUtils.ModelRendering.createBoxCentered(2,3,3,3,1,3),
+                ErosionUtils.ModelRendering.createBoxCentered(1,4,5,2,0,2)
             ),
             Shapes.or(
-                ErosionUtils.ModelRendering.createBoxCentered(1,5,6,0),
-                ErosionUtils.ModelRendering.createBox(2, 3, 4, 2,1,1)
+                ErosionUtils.ModelRendering.createBoxCentered(1,5,6,0,0,1),
+                ErosionUtils.ModelRendering.createBoxCentered(2, 3, 4, 2,1,3)
             )
         );
 

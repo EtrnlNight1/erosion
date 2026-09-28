@@ -260,10 +260,18 @@ public final class ErosionUtils
         }
 
         public static final VoxelShape createBoxCentered(
+            int h, int w, int l,
+            int x, int y, int z
+        )
+        {
+            return createBox(h, w, l, (16 - w) / 2 + x, y, (16 - l) / 2 + z);
+        }
+
+        public static final VoxelShape createBoxCentered(
             int h, int w, int l, int y
         )
         {
-            return createBox(h, w, l, (16 - w) / 2, y, (16 - l) / 2);
+            return createBoxCentered(h,w,l,0,y,0);
         }
     }
 }
