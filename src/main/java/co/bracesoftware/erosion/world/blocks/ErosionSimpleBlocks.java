@@ -3,6 +3,7 @@ package co.bracesoftware.erosion.world.blocks;
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionBlockExceptions.ErosionBlockWithTipImpl;
 import co.bracesoftware.erosion.ErosionMod;
+import co.bracesoftware.erosion.ErosionUtils;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeBlock;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeFallingBlock;
 import co.bracesoftware.erosion.world.ErosionRegistry;
@@ -147,10 +148,6 @@ public final class ErosionSimpleBlocks
 
     public static class RockBlock extends ErosionNetworkSafeBlock implements SimpleWaterloggedBlock
     {
-        public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-        public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-        public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, 2);
-
         public static final int SHAPE_FIRSTDIM_X1 = 5;
         public static final int SHAPE_FIRSTDIM_Y1 = 0;
         public static final int SHAPE_FIRSTDIM_Z1 = 4;
@@ -193,9 +190,17 @@ public final class ErosionSimpleBlocks
                 Block.box(SHAPE_SECONDDIM_X1, SHAPE_SECONDDIM_Y1, SHAPE_SECONDDIM_Z1, SHAPE_SECONDDIM_X2, SHAPE_SECONDDIM_Y2, SHAPE_SECONDDIM_Z2),
                 Block.box(SHAPE_THIRDDIM_X1, SHAPE_THIRDDIM_Y1, SHAPE_THIRDDIM_Z1, SHAPE_THIRDDIM_X2, SHAPE_THIRDDIM_Y2, SHAPE_THIRDDIM_Z2)
             ),
-            Block.box(11,0,1,15,2,5),
-            Block.box(1,0,10,4,2,15)
+            ErosionUtils.ModelRendering.createBox(2,4,4,3,0,3),
+            ErosionUtils.ModelRendering.createBox(2,3,7,3,0,3),
+            Shapes.or(
+                ErosionUtils.ModelRendering.createBox(3,2,3,3,0,3),
+                ErosionUtils.ModelRendering.createBox(1,4,4,-3,0,-3)
+            )
         );
+
+        public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+        public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+        public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, NORTH_SHAPES.size());
 
         public static final Map<Direction, VoxelShape> createRotatedShapeVariants(VoxelShape b)
         {

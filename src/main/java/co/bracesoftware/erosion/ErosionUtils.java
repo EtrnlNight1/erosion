@@ -22,6 +22,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public final class ErosionUtils
@@ -240,5 +242,28 @@ public final class ErosionUtils
     public static String getCurrentMethodName()
     {
         return Thread.currentThread().getStackTrace()[2].getMethodName();
+    }
+
+    public static final class ModelRendering
+    {
+        public static final VoxelShape createBox(
+            int h, int w, int l, 
+            int x, int y, int z
+        )
+        {
+            return Block.box(
+                x,y,z,
+                x + w,
+                y + h,
+                z + l
+            );
+        }
+
+        public static final VoxelShape createBoxCentered(
+            int h, int w, int l, int y
+        )
+        {
+            return createBox(h, w, l, (16 - w) / 2, y, (16 - l) / 2);
+        }
     }
 }
