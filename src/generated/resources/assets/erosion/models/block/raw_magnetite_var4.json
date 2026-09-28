@@ -56,45 +56,13 @@
       },
       "from": [
         8,
-        1,
-        12
-      ],
-      "to": [
-        11,
         2,
-        13
-      ]
-    },
-    {
-      "faces": {
-        "down": {
-          "texture": "#texture"
-        },
-        "east": {
-          "texture": "#texture"
-        },
-        "north": {
-          "texture": "#texture"
-        },
-        "south": {
-          "texture": "#texture"
-        },
-        "up": {
-          "texture": "#texture"
-        },
-        "west": {
-          "texture": "#texture"
-        }
-      },
-      "from": [
-        10,
-        1,
         9
       ],
       "to": [
-        11,
-        2,
-        12
+        12,
+        3,
+        13
       ]
     }
   ],
