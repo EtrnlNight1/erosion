@@ -14,6 +14,7 @@ public final class ErosionClientData
     public static int PENDING_DELAYED = 0;
 
     public static int ALTERATION_RATE = 0;
+    public static int HIGHEST_ALTERATION_RATE = 0;
 
     public static class ConfigFromServer
     {
@@ -38,6 +39,10 @@ public final class ErosionClientData
         ErosionClientData.ACTIVE_TASKS = activetasks;
         ErosionClientData.PENDING_DELAYED = pendingdelayed;
         ErosionClientData.ALTERATION_RATE = rate;
+        if(ErosionClientData.ALTERATION_RATE > ErosionClientData.HIGHEST_ALTERATION_RATE)
+        {
+            ErosionClientData.HIGHEST_ALTERATION_RATE = ErosionClientData.ALTERATION_RATE;
+        }
     }
 
     public static String formatModStatusString(int pending, long performed, int pendingfast, long performed2, int pendingdelayed)

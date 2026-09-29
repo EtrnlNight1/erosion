@@ -6,6 +6,7 @@ import co.bracesoftware.erosion.ErosionRetrogen;
 import co.bracesoftware.erosion.ErosionUtils;
 import co.bracesoftware.libs.minecraft_text_formatter.*;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
@@ -19,7 +20,7 @@ public class ErosionDebugOverlay
         Text.Col.GRAY
     );
     
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onDebugText(CustomizeGuiOverlayEvent.DebugText e)
     {
         e.getRight().add("");
@@ -94,7 +95,12 @@ public class ErosionDebugOverlay
             Text.Format(Text.Col.GRAY) +
             ", alteration rate: " + 
             Text.Format(Text.Col.DARK_AQUA) +
-            ErosionClientData.ALTERATION_RATE + "/s"
+            ErosionClientData.ALTERATION_RATE + "/s" +
+            // ------------------------------------------------ //
+            Text.Format(Text.Col.GRAY) +
+            ", with highest of " +
+            Text.Format(Text.Col.DARK_PURPLE) +
+            ErosionClientData.HIGHEST_ALTERATION_RATE + "/s"
         );
 
         e.getLeft().add(
