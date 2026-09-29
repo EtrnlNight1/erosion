@@ -210,7 +210,7 @@ public final class ErosionMod
                 ErosionCore.getPerformedAlterationsPriority(),
                 ErosionConfig.ServerConfig.AGRESSIVE_GEOCHEMICAL_ALTERATION.getBoolean(),
                 ErosionRetrogen.RetrogenFeature.RETROGEN_PERFORMED,
-                ErosionCore.getPendingAgainSize(),
+                ErosionCore.getPendingDelayedSize(),
                 ErosionUtils.getTicksRemainingUntil(
                     tick, ErosionUtils.minutesToTick(
                         ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS

@@ -11,6 +11,7 @@ public class ErosionClientData
     public static int CLIENT_UNTIL = 0; 
     public static String CACHED_STATUS_STRING = "No data yet!";
     public static int ACTIVE_TASKS = 0;
+    public static int PENDING_DELAYED = 0;
     public static class ConfigFromServer
     {
         public static boolean AGGRESIVE_GEOCHEMICAL_ALTERATION = false;
@@ -24,34 +25,35 @@ public class ErosionClientData
     public static void updateModStatus(
         int pending, long performed, int pendingfast, long performed2,
         boolean agal,
-        int retrogen, int pendingagain,int until,int activetasks
+        int retrogen, int pendingdelayed,int until,int activetasks
     )
     {
-        ErosionClientData.CACHED_STATUS_STRING = formatModStatusString(pending, performed, pendingfast, performed2,pendingagain);
+        ErosionClientData.CACHED_STATUS_STRING = formatModStatusString(pending, performed, pendingfast, performed2,pendingdelayed);
         ConfigFromServer.AGGRESIVE_GEOCHEMICAL_ALTERATION = agal;
         ErosionRetrogen.RetrogenFeature.RETROGEN_PERFORMED = retrogen;
         ErosionClientData.CLIENT_UNTIL = until;
         ErosionClientData.ACTIVE_TASKS = activetasks;
+        ErosionClientData.PENDING_DELAYED = pendingdelayed;
     }
 
-    public static String formatModStatusString(int pending, long performed, int pendingfast, long performed2, int pendingagain)
+    public static String formatModStatusString(int pending, long performed, int pendingfast, long performed2, int pendingdelayed)
     {
         int max = ErosionConfig.MAX_PENDING_SIZE;
-        int maxfast = ErosionConfig.MAX_PENDING_FAST_SIZE + ErosionConfig.MAX_PENDING_AGAIN_SIZE;
+        int maxfast = ErosionConfig.MAX_PENDING_FAST_SIZE + ErosionConfig.MAX_PENDING_DELAYED_SIZE;
         double consumption = (
             ErosionCore.PENDING.getUsedMemory() +
             ErosionCore.PENDING_FAST.getUsedMemory() +
-            ErosionCore.PENDING_AGAIN.getUsedMemory()
+            ErosionCore.PENDING_DELAYED.getUsedMemory()
         ) / 1024.0;
         double maxAllocated = (
             ErosionCore.PENDING.getMaxAllocatedMemory() +
             ErosionCore.PENDING_FAST.getMaxAllocatedMemory() +
-            ErosionCore.PENDING_AGAIN.getMaxAllocatedMemory()
+            ErosionCore.PENDING_DELAYED.getMaxAllocatedMemory()
         ) / 1024.0;
 
         return String.format(
             "Pending: %d/%d, +%d/%d with high priority (%.2f/%.2f KiB) | Performed: %d, +%d with high priority",
-            pending, max, pendingfast + pendingagain, maxfast, consumption, maxAllocated, performed, performed2
+            pending, max, pendingfast + pendingdelayed, maxfast, consumption, maxAllocated, performed, performed2
         );
     }
 }

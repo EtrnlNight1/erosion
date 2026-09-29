@@ -40,6 +40,12 @@ public class ErosionDebugOverlay
         );
         e.getLeft().add(
             MAIN_STYLE +
+            "Delayed geochemical alterations in favor of server performance: " + 
+            Text.Format(Text.Col.DARK_PURPLE) +
+            ErosionClientData.PENDING_DELAYED
+        );
+        e.getLeft().add(
+            MAIN_STYLE +
             Text.Format(Text.Col.AQUA) + 
             ErosionConfig.ServerConfig.AGRESSIVE_GEOCHEMICAL_ALTERATION.getName() + ": " + 
             (

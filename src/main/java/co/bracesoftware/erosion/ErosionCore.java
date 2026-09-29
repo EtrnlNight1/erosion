@@ -185,7 +185,7 @@ public class ErosionCore
 
     public static final AlterationPacketList PENDING = new AlterationPacketList(ErosionConfig.MAX_PENDING_SIZE);
     public static final AlterationPacketList PENDING_FAST = new AlterationPacketList(ErosionConfig.MAX_PENDING_FAST_SIZE);
-    public static final AlterationPacketList PENDING_AGAIN = new AlterationPacketList(ErosionConfig.MAX_PENDING_FAST_SIZE);
+    public static final AlterationPacketList PENDING_DELAYED = new AlterationPacketList(ErosionConfig.MAX_PENDING_DELAYED_SIZE);
 
     public static final Map<Item, List<Component>> ITEM_DESCRIPTIONS = new HashMap<>();
     public static final Map<Item, Integer> CATALYST_SUCCESS_CHANCE = new HashMap<>();
@@ -3316,17 +3316,23 @@ public class ErosionCore
         {
             Pending = PENDING_FAST;
         }
-        
-        if(ErosionUtils.Misc.randomWithChanceToBe(true, 20))
+
+        boolean g = ErosionUtils.Misc.randomWithChanceToBe(true, 20);
+        if(g)
         {
-            Pending = PENDING_AGAIN;
+            Pending = PENDING_DELAYED;
+        }
+
+        if(g && Pending != PENDING && PENDING.isEmpty())
+        {
+            Pending = PENDING; //fill an empty channel instead
         }
 
         long lp = pos.asLong();
         if(
             PENDING.contains(lp) ||
             PENDING_FAST.contains(lp) ||
-            PENDING_AGAIN.contains(lp)
+            PENDING_DELAYED.contains(lp)
         )
         {
             return;
@@ -3342,7 +3348,7 @@ public class ErosionCore
         {
             if(p.rules.checkIfAllConditionsAreMet(level, pos))
             {
-                if(Pending != PENDING_AGAIN) if(Pending.size() >= (priority ? ErosionConfig.MAX_PENDING_FAST_SIZE : ErosionConfig.MAX_PENDING_SIZE))
+                if(Pending != PENDING_DELAYED) if(Pending.size() >= (priority ? ErosionConfig.MAX_PENDING_FAST_SIZE : ErosionConfig.MAX_PENDING_SIZE))
                 {
                     Pending.remove(0);
                 }
@@ -3403,7 +3409,7 @@ public class ErosionCore
         if(tick % ErosionUtils.minutesToTick(ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS) == 0)
         {
             processPendingCore(
-                PENDING_AGAIN, l,
+                PENDING_DELAYED, l,
                 ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK * 2,
                 false
             );
@@ -3411,7 +3417,7 @@ public class ErosionCore
             Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
                 int m = ErosionMod.RANDOM.nextInt(20);
                 processPendingCore(
-                    PENDING_AGAIN, l,
+                    PENDING_DELAYED, l,
                     ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK + m,
                     false
                 );
@@ -3420,7 +3426,7 @@ public class ErosionCore
             Task.schedule(ErosionMod.RANDOM.nextInt(100), () -> {
                 int m = ErosionMod.RANDOM.nextInt(6);
                 processPendingCore(
-                    PENDING_AGAIN, l,
+                    PENDING_DELAYED, l,
                     ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK - m,
                     false
                 );
@@ -3586,9 +3592,9 @@ public class ErosionCore
     {
         return PENDING_FAST.size();
     }
-    public static int getPendingAgainSize()
+    public static int getPendingDelayedSize()
     {
-        return PENDING_AGAIN.size();
+        return PENDING_DELAYED.size();
     }
 
     public static int getPerformedAlterations()

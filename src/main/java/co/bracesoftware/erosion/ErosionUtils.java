@@ -99,14 +99,14 @@ public final class ErosionUtils
             ErosionCore.getPerformedAlterations(),
             ErosionCore.getPendingFastSize(),
             ErosionCore.getPerformedAlterationsPriority(),
-            ErosionCore.getPendingAgainSize()
+            ErosionCore.getPendingDelayedSize()
         ));
         return ErosionClientData.formatModStatusString(
             ErosionCore.getPendingSize(),
             ErosionCore.getPerformedAlterations(),
             ErosionCore.getPendingFastSize(),
             ErosionCore.getPerformedAlterationsPriority(),
-            ErosionCore.getPendingAgainSize()
+            ErosionCore.getPendingDelayedSize()
         );
     }
     public static String formatCompact(double value)

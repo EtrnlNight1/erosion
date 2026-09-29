@@ -15,7 +15,7 @@ public final record ErosionStatusSyncPacket(
     long performed2,
     boolean agal,
     int retrogen,
-    int pendingagain,
+    int pendingdelayed,
     int until,
     int activetasks
 ) implements CustomPacketPayload
@@ -28,7 +28,7 @@ public final record ErosionStatusSyncPacket(
             ByteBufCodecs.VAR_LONG.encode(buf, packet.performed2());
             ByteBufCodecs.BOOL.encode(buf, packet.agal());
             ByteBufCodecs.INT.encode(buf, packet.retrogen());
-            ByteBufCodecs.INT.encode(buf, packet.pendingagain());
+            ByteBufCodecs.INT.encode(buf, packet.pendingdelayed());
             ByteBufCodecs.INT.encode(buf, packet.until());
             ByteBufCodecs.INT.encode(buf, packet.activetasks());
         },
@@ -60,7 +60,7 @@ public final record ErosionStatusSyncPacket(
                 data.performed2(),
                 data.agal(),
                 data.retrogen(),
-                data.pendingagain(),
+                data.pendingdelayed(),
                 data.until(),
                 data.activetasks()
             );
