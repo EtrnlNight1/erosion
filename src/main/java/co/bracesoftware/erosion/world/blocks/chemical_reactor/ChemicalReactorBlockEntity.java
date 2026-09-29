@@ -14,6 +14,7 @@ implements IErosionChemicalReactorSystemComponent
     public boolean coolingSysCached = false;
     public long cachedScrubberPos = 0;
     public long cachedCoolingSystemPos = 0;
+    
     public static class DataRawName
     {
         public static final String CACHED_SCRUBBER_POS = "scrubber_cache";

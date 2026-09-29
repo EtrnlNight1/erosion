@@ -3320,7 +3320,7 @@ public class ErosionCore
             Pending = PENDING_AGAIN;
         }
         //some more quantum physics sim xD
-        else if(ErosionUtils.Misc.randomWithChanceToBe(true, 30))
+        else if(ErosionUtils.Misc.randomWithChanceToBe(true, 50))
         {
             Pending = PENDING_AGAIN;
         }
@@ -3329,7 +3329,7 @@ public class ErosionCore
         {
             return;
         }
-        BlockState state = level.getBlockState(pos);
+        var state = level.getBlockState(pos);
 
         if(!isAlterable(state)) return;
         var l = ALTERATION_INVERTED.get(state.getBlock());
@@ -3347,7 +3347,7 @@ public class ErosionCore
                 else
                 {
                     int proc = 0;
-                    while(!(proc != ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK / 3))
+                    while(proc < (ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK / 3))
                     {
                         if(Pending.isEmpty()) break;
                         gpos = Pending.getAndRemove(0);
@@ -3355,8 +3355,9 @@ public class ErosionCore
                         tryAlterBlock(level, gpos, priority);
                     }
                 }
+                
                 Pending.add(pos, p.product.get(ErosionMod.RANDOM.nextInt(p.product.size())));
-                if(ErosionConfig.isDebugOn()) ErosionUtils.Log("Added candidate: " + pos);
+                if(ErosionConfig.isDebugOn()) ErosionUtils.Log("Added candidate `" + pos + "` to -> " + Pending.hashCode());
                 return;
             }
         }
