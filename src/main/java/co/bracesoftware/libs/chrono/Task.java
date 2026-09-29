@@ -11,7 +11,7 @@ public class Task
     private static final List<Task> ACTIVE = new ArrayList<>();
 
     private int delay;
-    private Runnable task;
+    private final Runnable task;
 
     public Task(int d, Runnable t)
     {
