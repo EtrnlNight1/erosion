@@ -163,20 +163,12 @@ public final class ErosionMod
             ErosionCore.addCandidate(level, pos);
         });
 
-        if(ErosionMod.RANDOM.nextBoolean())
-        {
-            return;
-        }
-
         for(var direction : Direction.values())
         {
-            int d = ErosionMod.RANDOM.nextInt(150);
-            Task.schedule(d, () -> {
-                ErosionCore.addCandidate(
-                    level,
-                    pos.relative(direction)
-                );
-            });
+            ErosionCore.addCandidate(
+                level,
+                pos.relative(direction)
+            );
         }
         return;
     }

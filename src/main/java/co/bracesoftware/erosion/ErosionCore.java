@@ -3490,7 +3490,11 @@ public class ErosionCore
 
     public static boolean hasWaterNearby(ServerLevel l, BlockPos p)
     {
-        return isFluidNearby(l, p, Fluids.WATER, Fluids.FLOWING_WATER);
+        if(ErosionUtils.Misc.randomWithChanceToBe(true, 20))
+        {
+            return isFluidNearby(l, p, Fluids.FLOWING_WATER);
+        }
+        return isFluidNearby(l, p, Fluids.WATER);
     }
 
     public static boolean highPressure(ServerLevel l, BlockPos p)
@@ -3526,7 +3530,11 @@ public class ErosionCore
 
     public static boolean hasLavaNearby(ServerLevel l, BlockPos p)
     {
-        return isFluidNearby(l, p, Fluids.LAVA, Fluids.FLOWING_LAVA);
+        if(ErosionUtils.Misc.randomWithChanceToBe(true, 20))
+        {
+            return isFluidNearby(l, p, Fluids.FLOWING_LAVA);
+        }
+        return isFluidNearby(l, p, Fluids.LAVA);
     }
 
     protected static final boolean isFluidNearby(ServerLevel l, BlockPos p, Fluid... t)
