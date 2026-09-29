@@ -44,6 +44,7 @@ public class ErosionDebugOverlay
             Text.Format(Text.Col.DARK_PURPLE) +
             ErosionClientData.PENDING_DELAYED
         );
+        /* 
         e.getLeft().add(
             MAIN_STYLE +
             Text.Format(Text.Col.AQUA) + 
@@ -56,6 +57,20 @@ public class ErosionDebugOverlay
                 )
             )
         );
+        */
+        e.getLeft().add(
+            MAIN_STYLE +
+            "Configuration:"
+        );
+        var ls = ErosionConfig.ServerConfig.viewConfigurationAsListOfStrings();
+
+        for(var s : ls)
+        {
+            e.getLeft().add(
+                "   " + s
+            );
+        }
+
         e.getLeft().add(
             MAIN_STYLE +
             "Retrogen blocks generated: " + 
@@ -69,11 +84,22 @@ public class ErosionDebugOverlay
             Text.Format(Text.Col.DARK_AQUA) +
             ErosionUtils.tickToFormattedTime(ErosionClientData.CLIENT_UNTIL)
         );
-        e.getLeft().add(
-            MAIN_STYLE +
+
+        var ff = (
+            Text.Format(Text.Col.GRAY) +
             "Active tasks: " + 
             Text.Format(Text.Col.GREEN) +
-            ErosionClientData.ACTIVE_TASKS
+            ErosionClientData.ACTIVE_TASKS+
+            // ------------------------------------------------ //
+            Text.Format(Text.Col.GRAY) +
+            ", alteration rate: " + 
+            Text.Format(Text.Col.DARK_AQUA) +
+            ErosionClientData.ALTERATION_RATE + "/s"
+        );
+
+        e.getLeft().add(
+            MAIN_STYLE +
+            ff
         );
         return;
     }

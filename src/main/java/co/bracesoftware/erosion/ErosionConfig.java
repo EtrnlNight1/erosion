@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionConfigException.ErosionWrongConfigGetterOrSetterMethodCalledException;
+import co.bracesoftware.libs.minecraft_text_formatter.Comptofs;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -212,9 +213,14 @@ public final class ErosionConfig
             "Aggressive geochemical alteration/bulk processing on different events",
             false
         );
+        public static final BooleanConfig ADAPTIVE_DATA_CLEANING = new BooleanConfig(
+            "adaptive_data_cleaning",
+            "Automatically erase unreachable data",
+            true
+        );
 
         public static final List<? extends BasicConfig<?>> MOD_CONFIG = List.of(
-            AGRESSIVE_GEOCHEMICAL_ALTERATION
+            AGRESSIVE_GEOCHEMICAL_ALTERATION, ADAPTIVE_DATA_CLEANING
         );
 
         public static void LoadModConfig()
@@ -262,7 +268,7 @@ public final class ErosionConfig
             return;
         }
 
-        public static List<Component> viewConfiguration()
+        public static final List<Component> viewConfiguration()
         {
             var l = new ArrayList<Component>();
             for(var g : ErosionConfig.ServerConfig.MOD_CONFIG)
@@ -278,6 +284,19 @@ public final class ErosionConfig
                 );
             }
             return l;
+        }
+
+        public static final List<String> viewConfigurationAsListOfStrings()
+        {
+            var lc = viewConfiguration();
+            var ls = new ArrayList<String>();
+
+            for(var c : lc)
+            {
+                ls.add(Comptofs.toString(c));
+            }
+
+            return ls;
         }
     }
     

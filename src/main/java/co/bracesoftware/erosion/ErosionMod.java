@@ -29,6 +29,7 @@ import co.bracesoftware.erosion.world.ErosionRegistry;
 import co.bracesoftware.erosion.world.blocks.material_purifier.MaterialPurifierBlockEntity;
 import co.bracesoftware.erosion.network.server.ErosionAimedAtBlockPosPacket;
 import co.bracesoftware.erosion.network.server.ErosionScreenMessagePacket;
+import co.bracesoftware.erosion.network.server.ErosionServerData;
 import co.bracesoftware.erosion.network.server.ErosionStatusSyncPacket;
 import co.bracesoftware.libs.chrono.Task;
 import co.bracesoftware.libs.minecraft_text_formatter.Text;
@@ -201,6 +202,8 @@ public final class ErosionMod
         int tick = e.getServer().getTickCount();
         ErosionCore.processPendingPriority(e.getServer().getLevel(Level.OVERWORLD));
         
+        ErosionServerData.ALTERATION_RATE++;
+
         if(tick % 20 == 0)
         {
             ErosionStatusSyncPacket packet = new ErosionStatusSyncPacket(
@@ -216,7 +219,8 @@ public final class ErosionMod
                         ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS
                     )
                 ),
-                Task.getActiveTasks()
+                Task.getActiveTasks(),
+                ErosionServerData.ALTERATION_RATE
             );
 
             var pl = e.getServer().getPlayerList().getPlayers();
@@ -224,6 +228,8 @@ public final class ErosionMod
             {
                 PacketDistributor.sendToPlayer(p, packet);
             }
+
+            ErosionServerData.ALTERATION_RATE = 0;
         }
         return;
     }

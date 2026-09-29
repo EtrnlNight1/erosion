@@ -6,12 +6,15 @@ import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionCore;
 import co.bracesoftware.erosion.ErosionRetrogen;
 
-public class ErosionClientData
+public final class ErosionClientData
 {
     public static int CLIENT_UNTIL = 0; 
     public static String CACHED_STATUS_STRING = "No data yet!";
     public static int ACTIVE_TASKS = 0;
     public static int PENDING_DELAYED = 0;
+
+    public static int ALTERATION_RATE = 0;
+
     public static class ConfigFromServer
     {
         public static boolean AGGRESIVE_GEOCHEMICAL_ALTERATION = false;
@@ -25,7 +28,7 @@ public class ErosionClientData
     public static void updateModStatus(
         int pending, long performed, int pendingfast, long performed2,
         boolean agal,
-        int retrogen, int pendingdelayed,int until,int activetasks
+        int retrogen, int pendingdelayed,int until,int activetasks, int rate
     )
     {
         ErosionClientData.CACHED_STATUS_STRING = formatModStatusString(pending, performed, pendingfast, performed2,pendingdelayed);
@@ -34,6 +37,7 @@ public class ErosionClientData
         ErosionClientData.CLIENT_UNTIL = until;
         ErosionClientData.ACTIVE_TASKS = activetasks;
         ErosionClientData.PENDING_DELAYED = pendingdelayed;
+        ErosionClientData.ALTERATION_RATE = rate;
     }
 
     public static String formatModStatusString(int pending, long performed, int pendingfast, long performed2, int pendingdelayed)

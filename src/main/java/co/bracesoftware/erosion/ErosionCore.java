@@ -86,12 +86,14 @@ public class ErosionCore
         private final LongArrayList pos;
         private final LongArrayList block;
         private final LongOpenHashSet posHash;
+        public final int capacity;
 
-        public AlterationPacketList(int capacity)
+        public AlterationPacketList(int c)
         {
-            this.posHash = new LongOpenHashSet(capacity);
-            this.pos = new LongArrayList(capacity);
-            this.block = new LongArrayList(capacity);
+            this.capacity = c;
+            this.posHash = new LongOpenHashSet(c);
+            this.pos = new LongArrayList(c);
+            this.block = new LongArrayList(c);
         }
 
         public void add(AlterationPacket p)
@@ -99,6 +101,11 @@ public class ErosionCore
             this.pos.add(p.pos.asLong());
             this.posHash.add(p.pos.asLong());
             this.block.add(BlockConverter.blockToLong(p.block));
+        }
+
+        public boolean isFull()
+        {
+            return this.size() >= this.capacity * 2;
         }
 
         public void add(BlockPos p, Block b)
@@ -3366,6 +3373,14 @@ public class ErosionCore
                 
                 Pending.add(pos, p.product.get(ErosionMod.RANDOM.nextInt(p.product.size())));
                 if(ErosionConfig.isDebugOn()) ErosionUtils.Log("Added candidate `" + pos + "` to -> " + Pending.hashCode());
+
+                if(ErosionConfig.ServerConfig.ADAPTIVE_DATA_CLEANING.getBoolean())
+                {
+                    if(PENDING_DELAYED.isFull())
+                    {
+                        PENDING_DELAYED.clear();
+                    }
+                }
                 return;
             }
         }
