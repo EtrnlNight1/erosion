@@ -10,6 +10,7 @@ public class ErosionClientData
 {
     public static int CLIENT_UNTIL = 0; 
     public static String CACHED_STATUS_STRING = "No data yet!";
+    public static int ACTIVE_TASKS = 0;
     public static class ConfigFromServer
     {
         public static boolean AGGRESIVE_GEOCHEMICAL_ALTERATION = false;
@@ -23,13 +24,14 @@ public class ErosionClientData
     public static void updateModStatus(
         int pending, long performed, int pendingfast, long performed2,
         boolean agal,
-        int retrogen, int pendingagain,int until
+        int retrogen, int pendingagain,int until,int activetasks
     )
     {
         ErosionClientData.CACHED_STATUS_STRING = formatModStatusString(pending, performed, pendingfast, performed2,pendingagain);
         ConfigFromServer.AGGRESIVE_GEOCHEMICAL_ALTERATION = agal;
         ErosionRetrogen.RetrogenFeature.RETROGEN_PERFORMED = retrogen;
         ErosionClientData.CLIENT_UNTIL = until;
+        ErosionClientData.ACTIVE_TASKS = activetasks;
     }
 
     public static String formatModStatusString(int pending, long performed, int pendingfast, long performed2, int pendingagain)

@@ -38,14 +38,14 @@ public class Task
         --this.delay;
     }
 
-    public static void schedule(int d, Runnable t)
+    public static final void schedule(int d, Runnable t)
     {
         PENDING.add(new Task(d,t));
         return;
     }
 
     //call dis on every tick
-    public static void processPending()
+    public static final void processPending()
     {
         if(!PENDING.isEmpty())
         {
@@ -63,5 +63,10 @@ public class Task
 
         ACTIVE.removeIf(Task::isCompleted);
         return;
+    }
+
+    public static final int getActiveTasks()
+    {
+        return ACTIVE.size();
     }
 }

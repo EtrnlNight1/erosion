@@ -151,12 +151,22 @@ public final class ErosionMod
             return;
         }
 
+        if(ErosionMod.RANDOM.nextBoolean())
+        {
+            return;
+        }
+
         var pos = event.getPos();
 
         int delay = ErosionMod.RANDOM.nextInt(100);
         Task.schedule(delay, () -> {
             ErosionCore.addCandidate(level, pos);
         });
+
+        if(ErosionMod.RANDOM.nextBoolean())
+        {
+            return;
+        }
 
         for(var direction : Direction.values())
         {
@@ -216,7 +226,8 @@ public final class ErosionMod
                     tick, ErosionUtils.minutesToTick(
                         ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS
                     )
-                )
+                ),
+                Task.getActiveTasks()
             );
 
             var pl = e.getServer().getPlayerList().getPlayers();

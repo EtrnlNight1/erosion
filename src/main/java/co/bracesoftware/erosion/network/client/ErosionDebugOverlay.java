@@ -63,6 +63,12 @@ public class ErosionDebugOverlay
             Text.Format(Text.Col.DARK_AQUA) +
             ErosionUtils.tickToFormattedTime(ErosionClientData.CLIENT_UNTIL)
         );
+        e.getLeft().add(
+            MAIN_STYLE +
+            "Active tasks: " + 
+            Text.Format(Text.Col.GREEN) +
+            ErosionUtils.tickToFormattedTime(ErosionClientData.ACTIVE_TASKS)
+        );
         return;
     }
 }
