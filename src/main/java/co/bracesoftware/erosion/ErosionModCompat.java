@@ -142,10 +142,10 @@ public class ErosionModCompat
             Map<String, String> patternDefinition
         )
         {
-            JsonObject recipeJson = new JsonObject();
+            var recipeJson = new JsonObject();
 
-            JsonArray conditions = new JsonArray();
-            JsonObject itemCondition = new JsonObject();
+            var conditions = new JsonArray();
+            var itemCondition = new JsonObject();
             itemCondition.addProperty("type", "neoforge:item_exists");
             itemCondition.addProperty("item", outputitem);
             conditions.add(itemCondition);
@@ -154,14 +154,14 @@ public class ErosionModCompat
             recipeJson.addProperty("type", "minecraft:crafting_shaped");
             recipeJson.addProperty("category", "misc");
 
-            JsonArray p = new JsonArray();
+            var p = new JsonArray();
             for(String row : pattern)
             {
                 p.add(row);
             }
             recipeJson.add("pattern", p);
 
-            JsonObject key = new JsonObject();
+            var key = new JsonObject();
             for(Map.Entry<String, String> entry : patternDefinition.entrySet())
             {
                 JsonObject ingredient = new JsonObject();
@@ -170,16 +170,16 @@ public class ErosionModCompat
             }
             recipeJson.add("key", key);
 
-            JsonObject result = new JsonObject();
+            var result = new JsonObject();
             result.addProperty("count", 1);
             result.addProperty("id", outputitem);
             recipeJson.add("result", result);
 
             try
             {
-                String n = ErosionUtils.getResourcesFolder() + "data/" + Erosion.MODID + "/recipe/" + recipeName + ".json";
+                var n = ErosionUtils.getResourcesFolder() + "data/" + Erosion.MODID + "/recipe/" + recipeName + ".json";
                 ErosionUtils.Log("Created recipe -> " + n);
-                Path path = Path.of(n);
+                var path = Path.of(n);
 
                 java.nio.file.Files.createDirectories(path.getParent());
                 try(FileWriter writer = new FileWriter(path.toFile()))

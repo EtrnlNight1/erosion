@@ -153,14 +153,20 @@ public final class ErosionMod
 
         var pos = event.getPos();
 
-        ErosionCore.addCandidate(level, pos);
+        int delay = ErosionMod.RANDOM.nextInt(100);
+        Task.schedule(delay, () -> {
+            ErosionCore.addCandidate(level, pos);
+        });
 
         for(var direction : Direction.values())
         {
-            ErosionCore.addCandidate(
-                level,
-                pos.relative(direction)
-            );
+            int d = ErosionMod.RANDOM.nextInt(150);
+            Task.schedule(d, () -> {
+                ErosionCore.addCandidate(
+                    level,
+                    pos.relative(direction)
+                );
+            });
         }
         return;
     }
