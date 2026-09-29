@@ -42,8 +42,7 @@ public final record ErosionStatusSyncPacket(
         )
     );
 
-    @Override
-    public Type<ErosionStatusSyncPacket> type()
+    @Override public Type<ErosionStatusSyncPacket> type()
     {
         return ErosionRegistry.DataPackets.MOD_STATUS_SYNC;
     }

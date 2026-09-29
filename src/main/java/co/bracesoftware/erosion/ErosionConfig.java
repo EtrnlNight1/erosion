@@ -148,7 +148,7 @@ public final class ErosionConfig
 
             public static void saveToFile(String f, boolean b)
             {
-                try(FileWriter writer = new FileWriter(f))
+                try(var writer = new FileWriter(f))
                 {
                     writer.write(Boolean.toString(b));
                 }
@@ -160,7 +160,7 @@ public final class ErosionConfig
 
             public static boolean readFromFile(String f, boolean defaultVal)
             {
-                try(BufferedReader reader = new BufferedReader(new FileReader(f)))
+                try(var reader = new BufferedReader(new FileReader(f)))
                 {
                     return Boolean.parseBoolean(reader.readLine());
                 }

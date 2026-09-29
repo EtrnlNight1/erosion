@@ -8,7 +8,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record ErosionScreenMessagePacket(
+public final record ErosionScreenMessagePacket(
     String text, int col
 ) implements CustomPacketPayload
 {
@@ -18,8 +18,7 @@ public record ErosionScreenMessagePacket(
         ErosionScreenMessagePacket::new
     );
 
-    @Override
-    public Type<ErosionScreenMessagePacket> type()
+    @Override public Type<ErosionScreenMessagePacket> type()
     {
         return ErosionRegistry.DataPackets.SCREEN_MESSAGE_PACKET;
     }

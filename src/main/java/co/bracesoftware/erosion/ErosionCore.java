@@ -28,6 +28,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -3434,13 +3437,12 @@ public class ErosionCore
 
     // =================================================== //
 
-    public static boolean hasWaterNearbyOLD(ServerLevel level, BlockPos pos)
+    @Deprecated public static boolean hasWaterNearbyOLD(ServerLevel l, BlockPos pos)
     {
-        for (Direction direction : Direction.values())
+        for(var d : Direction.values())
         {
-            BlockPos nearby = pos.relative(direction);
-
-            if (level.getFluidState(nearby).is(Fluids.WATER))
+            var nearby = pos.relative(d);
+            if(l.getFluidState(nearby).is(Fluids.WATER))
             {
                 return true;
             }
@@ -3449,30 +3451,9 @@ public class ErosionCore
         return false;
     }
 
-    public static boolean hasWaterNearby(ServerLevel level, BlockPos pos)
+    public static boolean hasWaterNearby(ServerLevel l, BlockPos p)
     {
-        int radius = 4;
-        int radiusSq = radius * radius;
-
-        for (int x = -radius; x <= radius; x++)
-        {
-            for (int y = -radius; y <= radius; y++)
-            {
-                for (int z = -radius; z <= radius; z++)
-                {
-                    if (x * x + y * y + z * z > radiusSq) continue;
-
-                    BlockPos nearby = pos.offset(x, y, z);
-
-                    if (level.getFluidState(nearby).is(Fluids.WATER))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return isFluidNearby(l, p, FluidTags.WATER);
     }
 
     public static boolean highPressure(ServerLevel l, BlockPos p)
@@ -3506,29 +3487,33 @@ public class ErosionCore
         return false;
     }
 
-    public static boolean hasLavaNearby(ServerLevel level, BlockPos pos)
+    public static boolean hasLavaNearby(ServerLevel l, BlockPos p)
     {
-        int radius = 4;
-        int radiusSq = radius * radius;
+        return isFluidNearby(l, p, FluidTags.LAVA);
+    }
 
-        for (int x = -radius; x <= radius; x++)
+    protected static final boolean isFluidNearby(ServerLevel l, BlockPos p, TagKey<Fluid> t)
+    {
+        int r = 4;
+        int sq = r * r;
+
+        for(int x = -r; x <= r; x++)
         {
-            for (int y = -radius; y <= radius; y++)
+            for(int y = -r; y <= r; y++)
             {
-                for (int z = -radius; z <= radius; z++)
+                for(int z = -r; z <= r; z++)
                 {
-                    if (x * x + y * y + z * z > radiusSq) continue;
+                    if(x * x + y * y + z * z > sq) continue;
 
-                    BlockPos nearby = pos.offset(x, y, z);
+                    var nearby = p.offset(x, y, z);
 
-                    if (level.getFluidState(nearby).is(Fluids.LAVA))
+                    if(l.getFluidState(nearby).is(t))
                     {
                         return true;
                     }
                 }
             }
         }
-
         return false;
     }
 
