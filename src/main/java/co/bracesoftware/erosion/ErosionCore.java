@@ -38,6 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -3489,7 +3490,7 @@ public class ErosionCore
 
     public static boolean hasWaterNearby(ServerLevel l, BlockPos p)
     {
-        return isFluidNearby(l, p, FluidTags.WATER);
+        return isFluidNearby(l, p, Fluids.WATER, Fluids.FLOWING_WATER);
     }
 
     public static boolean highPressure(ServerLevel l, BlockPos p)
@@ -3525,10 +3526,10 @@ public class ErosionCore
 
     public static boolean hasLavaNearby(ServerLevel l, BlockPos p)
     {
-        return isFluidNearby(l, p, FluidTags.LAVA);
+        return isFluidNearby(l, p, Fluids.LAVA, Fluids.FLOWING_LAVA);
     }
 
-    protected static final boolean isFluidNearby(ServerLevel l, BlockPos p, TagKey<Fluid> t)
+    protected static final boolean isFluidNearby(ServerLevel l, BlockPos p, Fluid... t)
     {
         int r = 4;
         int sq = r * r;
@@ -3543,7 +3544,7 @@ public class ErosionCore
 
                     var nearby = p.offset(x, y, z);
 
-                    if(l.getFluidState(nearby).is(t))
+                    for(int i = 0; i < t.length; i++) if(l.getFluidState(nearby).is(t[i]))
                     {
                         return true;
                     }

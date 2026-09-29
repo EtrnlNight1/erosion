@@ -67,7 +67,7 @@ public class ErosionDebugOverlay
             MAIN_STYLE +
             "Active tasks: " + 
             Text.Format(Text.Col.GREEN) +
-            ErosionUtils.tickToFormattedTime(ErosionClientData.ACTIVE_TASKS)
+            ErosionClientData.ACTIVE_TASKS
         );
         return;
     }
