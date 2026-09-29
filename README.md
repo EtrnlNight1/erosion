@@ -54,20 +54,20 @@ There are nice minerals that spawn in real-time as your rivers erode the soil.
 This mod adds malachite, limonite, magnetite, hematite, bismuthinite, cassiterite, pyrite, and more!
 
 <div align="center">
-    <img height="300" src="https://raw.githubusercontent.com/bracesoftware/erosion/main/gallery/malachite.png">
+    <img height="300" src="https://raw.githubusercontent.com/bracesoftware/erosion/main/gallery/rocks.png">
 </div>
 
 ## Compatible mods
 I highly recommend following mods for a bigger level of immersiveness:
 - Create (Zinc Chunks can be crafted into Raw Zinc)
-- Oreganized (same but for Silver)
+- Oreganized (same but for Silver and Lead)
 - This Rocks! (Forge version) (just adds a bigger variety of spawn)
 - Overgeared: A Blacksmith Mod
 - Streams Reflowing
 
 ## Can I run this?
 Although geochemical alteration of blocks and spawning of mineral rocks is a live process that is happening as you explore your world, the mod is very optimized and works seamlessly on Intel Pentium server while maintaining 20 TPS!
-- The mod consumes very few resources thanks to the FastUtil library. All important into can be obtained on the F3 menu.
+- The mod consumes very few resources thanks to the FastUtil library. All important info about the mod and its systems can be obtained on the F3 menu.
 - This mod uses its own retrogeneration and feature placement system which is different from the default Minecraft's one. It uses several queues combined with carefully forged selection system to process processes and features, so your world will not lag!
 - However if you want your world to lag, you can turn on aggressive queue processing in the `erosion_config` folder and then use `/erosion reload_config`.
 
