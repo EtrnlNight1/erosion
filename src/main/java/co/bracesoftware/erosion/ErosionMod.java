@@ -151,11 +151,11 @@ public final class ErosionMod
             return;
         }
 
-        BlockPos pos = event.getPos();
+        var pos = event.getPos();
 
         ErosionCore.addCandidate(level, pos);
 
-        for (Direction direction : Direction.values())
+        for(var direction : Direction.values())
         {
             ErosionCore.addCandidate(
                 level,

@@ -3325,7 +3325,12 @@ public class ErosionCore
             Pending = PENDING_AGAIN;
         }
 
-        if(Pending.contains(pos.asLong()))
+        long lp = pos.asLong();
+        if(
+            PENDING.contains(lp) ||
+            PENDING_FAST.contains(lp) ||
+            PENDING_AGAIN.contains(lp)
+        )
         {
             return;
         }
@@ -3378,6 +3383,7 @@ public class ErosionCore
         
     private static void processPendingCore(AlterationPacketList l, ServerLevel level, int count, boolean priority)
     {
+        if(count <= 0) return;
         if(l.isEmpty()) return;
         int processedThisTick = 0;
 
@@ -3405,7 +3411,7 @@ public class ErosionCore
                 false
             );
             //some more quantum physics hhahahahhahahah
-            if(false) Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
+            Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
                 int m = ErosionMod.RANDOM.nextInt(20);
                 processPendingCore(
                     PENDING_AGAIN, l,
@@ -3414,7 +3420,7 @@ public class ErosionCore
                 );
             });
 
-            if(false) Task.schedule(ErosionMod.RANDOM.nextInt(100), () -> {
+            Task.schedule(ErosionMod.RANDOM.nextInt(100), () -> {
                 int m = ErosionMod.RANDOM.nextInt(6);
                 processPendingCore(
                     PENDING_AGAIN, l,
