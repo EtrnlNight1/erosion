@@ -57,6 +57,11 @@ public final class ErosionConfig
         public static final int COUNT_PER_TICK = 5;
     }
 
+    public static final class GeochemicalAlteration
+    {
+        public static final int CHECK_FOR_FLOWING_FLUID_PERCENT = 30;
+    }
+
     public static final class Libs
     {
         public static final int MAX_WORDS_PER_COMPONENT_LINE = 6;

@@ -29,8 +29,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -38,7 +36,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -3490,7 +3487,9 @@ public class ErosionCore
 
     public static boolean hasWaterNearby(ServerLevel l, BlockPos p)
     {
-        if(ErosionUtils.Misc.randomWithChanceToBe(true, 20))
+        if(ErosionUtils.Misc.randomWithChanceToBe(true, 
+            ErosionConfig.GeochemicalAlteration.CHECK_FOR_FLOWING_FLUID_PERCENT
+        ))
         {
             return isFluidNearby(l, p, Fluids.FLOWING_WATER);
         }
@@ -3530,7 +3529,9 @@ public class ErosionCore
 
     public static boolean hasLavaNearby(ServerLevel l, BlockPos p)
     {
-        if(ErosionUtils.Misc.randomWithChanceToBe(true, 20))
+        if(ErosionUtils.Misc.randomWithChanceToBe(true, 
+            ErosionConfig.GeochemicalAlteration.CHECK_FOR_FLOWING_FLUID_PERCENT
+        ))
         {
             return isFluidNearby(l, p, Fluids.FLOWING_LAVA);
         }
