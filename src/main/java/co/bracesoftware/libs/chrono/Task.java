@@ -2,10 +2,12 @@ package co.bracesoftware.libs.chrono;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Task
 {
-    private static final List<Task> PENDING = new ArrayList<>();
+    private static final Queue<Task> PENDING = new ConcurrentLinkedQueue<>();
     private static final List<Task> ACTIVE = new ArrayList<>();
 
     private int delay;
@@ -47,10 +49,10 @@ public class Task
     //call dis on every tick
     public static final void processPending()
     {
-        if(!PENDING.isEmpty())
+        Task ptask;
+        while((ptask = PENDING.poll()) != null)
         {
-            ACTIVE.addAll(PENDING);
-            PENDING.clear();
+            ACTIVE.add(ptask);
         }
 
         for(int i = 0; i < ACTIVE.size(); i++)
