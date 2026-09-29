@@ -2,7 +2,6 @@ package co.bracesoftware.erosion;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -104,24 +103,27 @@ public final class ErosionMod
             return;
         }
 
-        BlockPos pos = event.getPos();
-        BlockPos liquidPos = event.getLiquidPos();
+        Task.schedule(ErosionConfig.EVENT_DELAY, () -> {
+            var pos = event.getPos();
+            var liquidPos = event.getLiquidPos();
 
-        ErosionCore.addCandidate(level, pos);
-        ErosionCore.addCandidate(level, liquidPos);
+            ErosionCore.addCandidate(level, pos);
+            ErosionCore.addCandidate(level, liquidPos);
 
-        for(Direction direction : Direction.values())
-        {
-            ErosionCore.addCandidate(
-                    level,
-                    pos.relative(direction)
-            );
+            for(var d : Direction.values())
+            {
+                ErosionCore.addCandidate(
+                        level,
+                        pos.relative(d)
+                );
 
-            ErosionCore.addCandidate(
-                    level,
-                    liquidPos.relative(direction)
-            );
-        }
+                ErosionCore.addCandidate(
+                        level,
+                        liquidPos.relative(d)
+                );
+            }
+        });
+        
         return;
     }
 
@@ -144,17 +146,19 @@ public final class ErosionMod
             return;
         }
 
-        var pos = event.getPos();
+        Task.schedule(ErosionConfig.EVENT_DELAY, () -> {
+            var pos = event.getPos();
 
-        ErosionCore.addCandidate(level, pos);
+            ErosionCore.addCandidate(level, pos);
 
-        for(var direction : Direction.values())
-        {
-            ErosionCore.addCandidate(
-                level,
-                pos.relative(direction)
-            );
-        }
+            for(var d : Direction.values())
+            {
+                ErosionCore.addCandidate(
+                    level,
+                    pos.relative(d)
+                );
+            }
+        });
         return;
     }
 
