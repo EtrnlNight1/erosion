@@ -7,6 +7,8 @@ import co.bracesoftware.erosion.world.items.ErosionSimpleItems;
 import co.bracesoftware.libs.chrono.Task;
 import co.bracesoftware.libs.minecraft_text_formatter.Emojis;
 import co.bracesoftware.erosion.api.eventbus.*;
+import co.bracesoftware.erosion.network.server.ErosionServerData;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -3480,6 +3482,7 @@ public class ErosionCore
 
         level.setBlock(p.pos, s, 3);
         level.sendBlockUpdated(p.pos, state, s, 3);
+        ErosionServerData.ALTERATION_RATE++;
 
         if(ErosionConfig.isDebugOn()) ErosionUtils.Log(
             "Erosion performed: "

@@ -201,8 +201,6 @@ public final class ErosionMod
         Task.processPending();
         int tick = e.getServer().getTickCount();
         ErosionCore.processPendingPriority(e.getServer().getLevel(Level.OVERWORLD));
-        
-        ErosionServerData.ALTERATION_RATE++;
 
         if(tick % 20 == 0)
         {
