@@ -3390,7 +3390,7 @@ public class ErosionCore
     }
 
     @SubscribeEvent
-    public static void onLevelTick(LevelTickEvent.Post e)
+    public static final void onLevelTick(LevelTickEvent.Post e)
     {
         if(!(e.getLevel() instanceof ServerLevel l)) return;
         if(l.dimension() != Level.OVERWORLD) return;
@@ -3398,10 +3398,28 @@ public class ErosionCore
         int tick = e.getLevel().getServer().getTickCount();
         if(tick % ErosionUtils.minutesToTick(ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS) == 0)
         {
-            processPendingCore(PENDING_AGAIN, l, ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK * 2, false);
+            processPendingCore(
+                PENDING_AGAIN, l,
+                ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK * 2,
+                false
+            );
             //some more quantum physics hhahahahhahahah
             Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
-                processPendingCore(PENDING_AGAIN, l, ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK, false);
+                int m = ErosionMod.RANDOM.nextInt(20);
+                processPendingCore(
+                    PENDING_AGAIN, l,
+                    ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK + m,
+                    false
+                );
+            });
+
+            Task.schedule(ErosionMod.RANDOM.nextInt(100), () -> {
+                int m = ErosionMod.RANDOM.nextInt(6);
+                processPendingCore(
+                    PENDING_AGAIN, l,
+                    ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK - m,
+                    false
+                );
             });
         }
         return;
