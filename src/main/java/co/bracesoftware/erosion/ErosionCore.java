@@ -3405,7 +3405,7 @@ public class ErosionCore
                 false
             );
             //some more quantum physics hhahahahhahahah
-            Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
+            if(false) Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
                 int m = ErosionMod.RANDOM.nextInt(20);
                 processPendingCore(
                     PENDING_AGAIN, l,
@@ -3414,7 +3414,7 @@ public class ErosionCore
                 );
             });
 
-            Task.schedule(ErosionMod.RANDOM.nextInt(100), () -> {
+            if(false) Task.schedule(ErosionMod.RANDOM.nextInt(100), () -> {
                 int m = ErosionMod.RANDOM.nextInt(6);
                 processPendingCore(
                     PENDING_AGAIN, l,
