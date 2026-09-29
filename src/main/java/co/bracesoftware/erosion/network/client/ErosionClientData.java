@@ -53,7 +53,7 @@ public class ErosionClientData
 
         return String.format(
             "Pending: %d/%d, +%d/%d with high priority (%.2f/%.2f KiB) | Performed: %d, +%d with high priority",
-            pending, max, pendingfast + pendingdelayed, maxfast, consumption, maxAllocated, performed, performed2
+            pending + pendingdelayed, max, pendingfast, maxfast, consumption, maxAllocated, performed, performed2
         );
     }
 }

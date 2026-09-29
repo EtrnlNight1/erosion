@@ -3309,7 +3309,7 @@ public class ErosionCore
 
     // =================================================== //
 
-    private static void addCandidateMain(ServerLevel level, BlockPos pos, boolean priority)
+    private static final void addCandidateMain(ServerLevel level, BlockPos pos, boolean priority)
     {
         var Pending = PENDING;
         if(priority)
@@ -3408,28 +3408,9 @@ public class ErosionCore
         int tick = e.getLevel().getServer().getTickCount();
         if(tick % ErosionUtils.minutesToTick(ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS) == 0)
         {
-            processPendingCore(
-                PENDING_DELAYED, l,
-                ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK * 2,
-                false
-            );
-            //some more quantum physics hhahahahhahahah
-            Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
-                int m = ErosionMod.RANDOM.nextInt(20);
-                processPendingCore(
-                    PENDING_DELAYED, l,
-                    ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK + m,
-                    false
-                );
-            });
-
-            Task.schedule(ErosionMod.RANDOM.nextInt(100), () -> {
-                int m = ErosionMod.RANDOM.nextInt(6);
-                processPendingCore(
-                    PENDING_DELAYED, l,
-                    ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK - m,
-                    false
-                );
+            processDelayedAlterations(l);
+            Task.schedule(679, () -> {
+                processDelayedAlterations(l);
             });
         }
         return;
@@ -3443,6 +3424,34 @@ public class ErosionCore
     public static void processPendingPriority(ServerLevel l)
     {
         processPendingCore(PENDING_FAST, l, ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK + 1, true);//lmao
+    }
+
+    public static final void processDelayedAlterations(ServerLevel l)
+    {
+        processPendingCore(
+            PENDING_DELAYED, l,
+            ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK * 2,
+            false
+        );
+        
+        //some more quantum physics hhahahahhahahah
+        Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
+            int m = ErosionMod.RANDOM.nextInt(20);
+            processPendingCore(
+                PENDING_DELAYED, l,
+                ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK + m,
+                false
+            );
+        });
+
+        Task.schedule(ErosionMod.RANDOM.nextInt(100), () -> {
+            int m = ErosionMod.RANDOM.nextInt(6);
+            processPendingCore(
+                PENDING_DELAYED, l,
+                ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK - m,
+                false
+            );
+        });
     }
 
     // =================================================== //
