@@ -4,6 +4,7 @@ import co.bracesoftware.erosion.world.ErosionRegistry;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.ChemicalReactorMenu;
 import co.bracesoftware.erosion.world.custom.ErosionCustomEntitySys.GasType;
 import co.bracesoftware.erosion.world.items.ErosionSimpleItems;
+import co.bracesoftware.libs.chrono.Task;
 import co.bracesoftware.libs.minecraft_text_formatter.Emojis;
 import co.bracesoftware.erosion.api.eventbus.*;
 import java.util.ArrayList;
@@ -3313,7 +3314,13 @@ public class ErosionCore
         {
             Pending = PENDING_FAST;
         }
+        
         if(ErosionUtils.isPlayerNearby(level, pos, 6))
+        {
+            Pending = PENDING_AGAIN;
+        }
+        //some more quantum physics sim xD
+        else if(ErosionUtils.Misc.randomWithChanceToBe(true, 30))
         {
             Pending = PENDING_AGAIN;
         }
@@ -3392,6 +3399,10 @@ public class ErosionCore
         if(tick % ErosionUtils.minutesToTick(ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS) == 0)
         {
             processPendingCore(PENDING_AGAIN, l, ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK * 2, false);
+            //some more quantum physics hhahahahhahahah
+            Task.schedule(ErosionMod.RANDOM.nextInt(300), () -> {
+                processPendingCore(PENDING_AGAIN, l, ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK, false);
+            });
         }
         return;
     }
