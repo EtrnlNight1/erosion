@@ -50,16 +50,20 @@ public class ErosionCore
 
     private static AlterationPacket gpos = null;
 
+    @SuppressWarnings("all")
     private static class AlterationPacket
     {
-        public BlockPos pos = null;
-        public Block block = null;
+        private BlockPos pos = null;
+        private Block block = null;
 
         public AlterationPacket(BlockPos a, Block b)
         {
             this.pos = a;
             this.block = b;
         }
+
+        public BlockPos getBlockPos() { return this.pos; }
+        public Block getBlock() { return this.block; }
     }
 
     public static class AlterationPacketList
@@ -3313,12 +3317,7 @@ public class ErosionCore
             Pending = PENDING_FAST;
         }
         
-        if(ErosionUtils.isPlayerNearby(level, pos, 6))
-        {
-            Pending = PENDING_AGAIN;
-        }
-        //some more quantum physics sim xD
-        else if(ErosionUtils.Misc.randomWithChanceToBe(true, 50))
+        if(ErosionUtils.Misc.randomWithChanceToBe(true, 20))
         {
             Pending = PENDING_AGAIN;
         }
@@ -3442,9 +3441,9 @@ public class ErosionCore
 
     // =================================================== //
 
-    private static void tryAlterBlock(ServerLevel level, AlterationPacket p, boolean priority)
+    private static final void tryAlterBlockCore(ServerLevel level, AlterationPacket p, boolean priority)
     {
-        BlockState state = level.getBlockState(p.pos);
+        var state = level.getBlockState(p.pos);
         if(!isAlterable(state)) return;
         
         var s = p.block.defaultBlockState();
@@ -3459,6 +3458,20 @@ public class ErosionCore
 
         if(priority) PERFORMED_FAST++;
         else PERFORMED++;
+        return;
+    }
+
+    public static final void tryAlterBlock(ServerLevel l, AlterationPacket p, boolean priority)
+    {
+        if(ErosionUtils.isPlayerNearby(l, p.pos, 6))
+        {
+            int d = ErosionMod.RANDOM.nextInt(500) + 100;
+            Task.schedule(d, () -> {
+                tryAlterBlock(l, p, priority);
+            });
+            return;
+        }
+        tryAlterBlockCore(l, p, priority);
         return;
     }
 

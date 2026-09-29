@@ -3,6 +3,8 @@ package co.bracesoftware.erosion;
 import org.slf4j.Logger;
 import co.bracesoftware.erosion.ErosionRetrogen.RetrogenDataManager;
 import co.bracesoftware.erosion.world.ErosionRegistry;
+import co.bracesoftware.libs.chrono.Task;
+
 import com.mojang.logging.LogUtils;
 import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.IEventBus;
@@ -156,6 +158,8 @@ public class Erosion
                     ErosionRegistry.DataAttachments.RETROGEN_DATA = ErosionRetrogen.RetrogenDataManager.loadRetrogenData(
                         s, ErosionRegistry.RawRegistry.RETROGEN_DATA.getId()
                     );
+
+                    Task.clearTasks();
                     return;
                 },
                 () -> {

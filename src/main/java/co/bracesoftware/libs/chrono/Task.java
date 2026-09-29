@@ -69,4 +69,10 @@ public class Task
     {
         return ACTIVE.size();
     }
+
+    public static final void clearTasks()
+    {
+        ACTIVE.clear();
+        PENDING.clear();
+    }
 }

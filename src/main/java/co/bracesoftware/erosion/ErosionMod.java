@@ -158,10 +158,7 @@ public final class ErosionMod
 
         var pos = event.getPos();
 
-        int delay = ErosionMod.RANDOM.nextInt(100);
-        Task.schedule(delay, () -> {
-            ErosionCore.addCandidate(level, pos);
-        });
+        ErosionCore.addCandidate(level, pos);
 
         for(var direction : Direction.values())
         {
