@@ -1,5 +1,6 @@
 package co.bracesoftware.erosion;
 
+import co.bracesoftware.erosion.network.client.ErosionClientData;
 import co.bracesoftware.erosion.network.server.ErosionAimedAtBlockPosPacket;
 import co.bracesoftware.erosion.world.ErosionRegistry;
 import co.bracesoftware.erosion.world.blocks.ErosionSimpleBlocks.IErosionBlockWithTip;
@@ -12,6 +13,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -285,5 +287,18 @@ public class ErosionClient
             }
         }
         return;
+    }
+
+    @SubscribeEvent 
+    public static void onLogin(ClientPlayerNetworkEvent.LoggingIn e)
+    {
+        Erosion.SML.LoadModFor(Erosion.SML.ModSides.CLIENT);
+        ErosionClientData.HIGHEST_ALTERATION_RATE = 0;
+    }
+
+    @SubscribeEvent 
+    public static void onLogout(ClientPlayerNetworkEvent.LoggingOut e)
+    {
+        Erosion.SML.UnloadModFor(Erosion.SML.ModSides.CLIENT);
     }
 }

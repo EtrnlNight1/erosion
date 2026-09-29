@@ -12,7 +12,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
@@ -63,18 +62,6 @@ public final class ErosionMod
     public static void onServerStop(ServerStoppingEvent e)
     {
         Erosion.SML.UnloadModFor(Erosion.SML.ModSides.SERVER);
-    }
-
-    @SubscribeEvent 
-    public static void onLogin(ClientPlayerNetworkEvent.LoggingIn e)
-    {
-        Erosion.SML.LoadModFor(Erosion.SML.ModSides.CLIENT);
-    }
-
-    @SubscribeEvent 
-    public static void onLogout(ClientPlayerNetworkEvent.LoggingOut e)
-    {
-        Erosion.SML.UnloadModFor(Erosion.SML.ModSides.CLIENT);
     }
 
     @SubscribeEvent
