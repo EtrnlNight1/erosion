@@ -1,0 +1,21 @@
+{
+  "values": [
+    "erosion:magnetite_ore",
+    "erosion:hematite_ore",
+    "erosion:borax_deposit",
+    "erosion:calcite_malachite_ore",
+    "erosion:limonite_ore",
+    "erosion:bismuthinite_ore",
+    "erosion:sphalerite_ore",
+    "erosion:azurite_ore",
+    "erosion:dehydrated_limonite_ore",
+    "erosion:tetrahedrite_ore",
+    "erosion:arsenopyrite_ore",
+    "erosion:ruby_ore",
+    "erosion:sapphire_ore",
+    "erosion:pyrite_ore",
+    "erosion:anglesite_ore",
+    "erosion:halite_ore",
+    "erosion:galena_ore"
+  ]
+}

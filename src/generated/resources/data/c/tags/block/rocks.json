@@ -1,0 +1,22 @@
+{
+  "values": [
+    "erosion:native_copper",
+    "erosion:raw_limonite",
+    "erosion:raw_hematite",
+    "erosion:raw_magnetite",
+    "erosion:raw_malachite",
+    "erosion:native_gold",
+    "erosion:native_silver",
+    "erosion:raw_bismuthinite",
+    "erosion:raw_cassiterite",
+    "erosion:raw_sphalerite",
+    "erosion:raw_azurite",
+    "erosion:raw_tetrahedrite",
+    "erosion:raw_arsenopyrite",
+    "erosion:raw_pyrite",
+    "erosion:raw_anglesite",
+    "erosion:raw_galena",
+    "erosion:raw_halite",
+    "erosion:raw_dehydrated_limonite"
+  ]
+}

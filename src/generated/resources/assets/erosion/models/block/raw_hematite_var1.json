@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#texture"
+        },
+        "east": {
+          "texture": "#texture"
+        },
+        "north": {
+          "texture": "#texture"
+        },
+        "south": {
+          "texture": "#texture"
+        },
+        "up": {
+          "texture": "#texture"
+        },
+        "west": {
+          "texture": "#texture"
+        }
+      },
+      "from": [
+        9,
+        0,
+        9
+      ],
+      "to": [
+        13,
+        2,
+        13
+      ]
+    }
+  ],
+  "textures": {
+    "particle": "erosion:block/hematite_ore",
+    "texture": "erosion:block/hematite_ore"
+  }
+}
