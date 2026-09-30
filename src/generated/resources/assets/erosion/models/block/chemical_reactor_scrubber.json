@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "erosion:block/chemical_reactor_scrubber_bottom",
-    "side": "erosion:block/chemical_reactor_scrubber_side",
-    "top": "erosion:block/chemical_reactor_scrubber_top"
-  }
-}
