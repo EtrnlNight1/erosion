@@ -1,5 +1,6 @@
 {
   "values": [
+    "erosion:gas_desublimator",
     "erosion:material_purifier",
     "erosion:crucible",
     "erosion:chemical_reactor",
