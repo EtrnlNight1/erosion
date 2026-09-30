@@ -732,6 +732,13 @@ public class ErosionRegistry
             )
         ); static {
             GAS_DESUBLIMATOR
+            .blockTagResourceGenerator(() -> {
+                ErosionDataGeneratorsProgInterface.ErosionTags.Blocks.createSimpleMachine(
+                    ErosionModContentManager.getBlockTagResourceGenerator(),
+                    ErosionModContentManager.getBlockTagResourceGeneratorProvider(),
+                    ErosionRegistry.Blocks.GAS_DESUBLIMATOR.get()
+                );
+            })
             .blockStateResourceGenerator(() -> {
                 var m = ErosionDataGeneratorsProgInterface.ErosionCommonUtils
                 .createModelFromVoxelShape(
