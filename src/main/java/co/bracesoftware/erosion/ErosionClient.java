@@ -115,7 +115,7 @@ public class ErosionClient
 
         private static final List<DisplayEntry> MESSAGES = new ArrayList<>();
 
-        public static void addMessage(String t, Color col)
+        public static final void addMessage(String t, Color col)
         {
             synchronized(MESSAGES)
             {
@@ -132,8 +132,7 @@ public class ErosionClient
             return;
         }
 
-        @Override
-        public void render(GuiGraphics gg, DeltaTracker dt)
+        @Override public final void render(GuiGraphics gg, DeltaTracker dt)
         {
             Minecraft mc = Minecraft.getInstance();
             if(mc.player == null || mc.options.hideGui) return;
@@ -191,7 +190,7 @@ public class ErosionClient
     }
 
     @SubscribeEvent 
-    public static void GG(ScreenEvent.Render.Post e)
+    public static final void GG(ScreenEvent.Render.Post e)
     {
         if(e.getScreen() instanceof TitleScreen sc)
         {
@@ -207,7 +206,7 @@ public class ErosionClient
     }
 
     @SubscribeEvent 
-    public static void onTooltip(ItemTooltipEvent e)
+    public static final void onTooltip(ItemTooltipEvent e)
     {
         var currentItem = e.getItemStack().getItem();
         var tooltip = e.getToolTip();

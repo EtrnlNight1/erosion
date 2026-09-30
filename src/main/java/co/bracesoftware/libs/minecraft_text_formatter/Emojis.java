@@ -20,7 +20,7 @@ public class Emojis
     
     public static class Utils
     {
-        public static void repeat(int times, Runnable action)
+        public static final void repeat(int times, Runnable action)
         {
             for(int i = 0; i < times; i++)
             {
@@ -28,12 +28,12 @@ public class Emojis
             }
         }
         public static final int MAX_SIZE = 20;
-        public static String formatLoadingBar(int progress, int max)
+        public static final String formatLoadingBar(int progress, int max)
         {
             return formatLoadingBar(progress, max, "");
         }
 
-        public static String formatLoadingBar(int progress, int max, String extra)
+        public static final String formatLoadingBar(int progress, int max, String extra)
         {
             var b = new StringBuilder();
             if(progress > max)
