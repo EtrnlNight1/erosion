@@ -1,6 +1,7 @@
 package co.bracesoftware.erosion;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -273,5 +274,22 @@ public final class ErosionUtils
         {
             return createBoxCentered(h,w,l,0,y,0);
         }
+    }
+    public static final List<BlockPos> getRandomPositionsInRadius(BlockPos p, int count, int radius)
+    {
+        var l = new ArrayList<BlockPos>();
+        for(int i = 0; i < count; i++)
+        {
+            double ox = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * radius;
+            double oy = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * (radius * 0.5);
+            double oz = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * radius;
+
+            double x = p.getX() + 0.5 + ox;
+            double y = p.getY() + 0.5 + oy;
+            double z = p.getZ() + 0.5 + oz;
+
+            l.add(BlockPos.containing(x,y,z));
+        }
+        return l;
     }
 }

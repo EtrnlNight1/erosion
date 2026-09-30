@@ -128,13 +128,14 @@ public class ErosionNetworkSafeVariants
         {
             return (MapCodec) this.codecHolder;
         }
-
-        // =========================== DO NOT TOUCH!
-        //Theze are function overrides ported from BaseEntityBlock,put adapted to my network-safe variant
         @Override protected final RenderShape getRenderShape(BlockState state)
         {
             return RenderShape.MODEL;
         }
+
+        // =========================== DO NOT TOUCH!
+        //Theze are function overrides ported from BaseEntityBlock,put adapted to my network-safe variant
+        
         @Override protected boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int param) {
             super.triggerEvent(state, level, pos, id, param);
             BlockEntity blockentity = level.getBlockEntity(pos);

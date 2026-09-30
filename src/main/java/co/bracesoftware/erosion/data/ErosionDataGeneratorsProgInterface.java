@@ -35,6 +35,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -515,6 +516,29 @@ public class ErosionDataGeneratorsProgInterface
             g.simpleBlockItem(b, models.get(0));
             g.itemModels().basicItem(it);
             return;
+        }
+    }
+    public static final class ErosionCommonUtils
+    {
+        public static final BlockModelBuilder createModelFromVoxelShape(
+            ErosionBlockStateGen g,
+            String m, VoxelShape s, ResourceLocation t
+        )
+        {
+            var b = g.models().getBuilder(m);
+            b.texture("all", t);
+            b.texture("particle", t);
+
+            s.forAllBoxes(
+                (minX, minY, minZ, maxX, maxY, maxZ) -> {
+                    b.element()
+                    .from((float) (minX * 16.0), (float) (minY * 16.0), (float) (minZ * 16.0))
+                    .to((float) (maxX * 16.0), (float) (maxY * 16.0), (float) (maxZ * 16.0))
+                    .faces((dd, bb) -> bb.texture("#all"))
+                    .end();
+                }
+            );
+            return b;
         }
     }
 }

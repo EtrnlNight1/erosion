@@ -41,9 +41,12 @@ public class MaterialPurifierBlock extends ErosionNetworkSafeBaseEntityBlock<Mat
 
     public MaterialPurifierBlock(Properties p)
     {
-        super(p,() -> (
-            BlockEntityType<? extends ErosionNetworkSafeBlockEntity<?>>
-        ) ErosionRegistry.BlockEntities.MATERIAL_PURIFIER.getBlockEntityHolder().get(), MaterialPurifierBlock::new);
+        super(p,
+            () -> (
+                BlockEntityType<? extends ErosionNetworkSafeBlockEntity<?>>
+            ) ErosionRegistry.BlockEntities.MATERIAL_PURIFIER.getBlockEntityHolder().get(),
+            MaterialPurifierBlock::new
+        );
         this.registerDefaultState(
             this.stateDefinition.any()
             .setValue(FACING, Direction.NORTH)

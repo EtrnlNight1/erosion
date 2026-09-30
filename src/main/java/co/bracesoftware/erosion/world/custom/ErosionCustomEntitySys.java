@@ -11,6 +11,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,13 +20,15 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
+
 import co.bracesoftware.erosion.Erosion;
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionCustomEntityExceptions.ErosionGasInitException;
-import co.bracesoftware.erosion.ErosionMod;
 import co.bracesoftware.erosion.ErosionUtils;
 import co.bracesoftware.erosion.ErosionClient.ErosionScreenMessage;
 import co.bracesoftware.erosion.world.ErosionRegistry;
+import co.bracesoftware.erosion.world.blocks.gas_desublimator.GasDesublimatorBlockEntity;
 import co.bracesoftware.erosion.world.items.ErosionSimpleItems.GasMask;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 
@@ -58,11 +61,12 @@ public class ErosionCustomEntitySys
         private final SimpleParticleType particles;
         private final int particleCount;
         private final List<Holder<MobEffect>> effects;
+        private final Supplier<Item> desublimationProduct;
 
         public GasType(
             String i, String n, int in, boolean t,
             int r, SimpleParticleType p, int pc,
-            List<Holder<MobEffect>> e
+            List<Holder<MobEffect>> e, Supplier<Item> ds
         ) throws ErosionGasInitException
         {
             this.id = i;
@@ -73,6 +77,7 @@ public class ErosionCustomEntitySys
             this.particles = p;
             this.effects = e;
             this.particleCount = pc;
+            this.desublimationProduct = ds;
 
             this.validateGas();
         }
@@ -113,6 +118,11 @@ public class ErosionCustomEntitySys
         public List<Holder<MobEffect>> getGasEffects()
         {
             return this.effects;
+        }
+
+        public final Item getDesublimationProduct()
+        {
+            return this.desublimationProduct.get();
         }
     }
 
@@ -243,30 +253,22 @@ public class ErosionCustomEntitySys
             return;
         }
 
-        private static void renderGasParticles(ServerLevel l, BlockPos p, GasType t)
+        private static void renderGasParticles(ServerLevel l, BlockPos p, GasType t, List<BlockPos> bpl)
         {
             if(ErosionConfig.ErosionDebugger.CRAZY_DEBUG_MODE)
             {
                 ErosionUtils.Log("Spawning gas particles -> " + p);
             }
             
-            for(int i = 0; i < t.getGasParticleCount(); i++)
+            for(var bp : bpl)
             {
-                double ox = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * t.getGasDiffusionRadius();
-                double oy = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * (t.getGasDiffusionRadius() * 0.5);
-                double oz = (ErosionMod.RANDOM.nextDouble() * 2.0 - 1.0) * t.getGasDiffusionRadius();
-
-                double x = p.getX() + 0.5 + ox;
-                double y = p.getY() + 0.5 + oy;
-                double z = p.getZ() + 0.5 + oz;
-
                 ClientboundLevelParticlesPacket pp = new ClientboundLevelParticlesPacket(
-                    t.getParticleType(), true, x,y,z,
+                    t.getParticleType(), true, bp.getX(), bp.getY(), bp.getZ(),
                     0.0f,0.0f,0.0f,0.005f,1
                 );
 
                 l.getChunkSource().chunkMap.getPlayers(
-                    new ChunkPos(BlockPos.containing(x, y, z)), false
+                    new ChunkPos(bp), false
                 ).forEach(pl -> pl.connection.send(pp));
             }
         }
@@ -312,7 +314,13 @@ public class ErosionCustomEntitySys
             }
             if(g.getRemaining() % 5 == 0)
             {
-                Gas.renderGasParticles(l, pos, ty);
+                var bpl = ErosionUtils.getRandomPositionsInRadius(pos, ty.getGasParticleCount(), ty.getGasDiffusionRadius());
+                Gas.renderGasParticles(l, pos, ty, bpl);
+                for(var bp : bpl)
+                {
+                    boolean r = GasDesublimatorBlockEntity.handleGasDesublimation(l, bp, ty);
+                    if(r) break;
+                }
             }
         }
 

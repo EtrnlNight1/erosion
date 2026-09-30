@@ -14,6 +14,7 @@ import co.bracesoftware.erosion.world.blocks.chemical_reactor.ChemicalReactorSys
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.cooling_system.ChemicalReactorCoolingSystemBlock;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.module.ChemicalReactorModuleBlock;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.scrubber.ChemicalReactorScrubberBlock;
+import co.bracesoftware.erosion.world.blocks.gas_desublimator.GasDesublimatorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -121,6 +122,18 @@ implements IErosionChemicalReactorMultiBlockComponent
                     if(cf > 0) return new ChemicalReactorMultiBlockComponentPosPacket(true, pozz.asLong());
                 }
             }
+            else if(c == GasDesublimatorBlock.class && e.desublimatorCached)
+            {
+                var pozz = BlockPos.of(e.cachedDesublimatorPos);
+                var s = l.getBlockState(pozz);
+                if(s.getBlock() instanceof GasDesublimatorBlock)
+                {
+                    if(l.getBlockState(pozz.relative(Direction.DOWN)).getBlock() instanceof ChemicalReactorModuleBlock)
+                    {
+                        return new ChemicalReactorMultiBlockComponentPosPacket(true, pozz.asLong());
+                    }
+                }
+            }
 
             var visited = new HashSet<BlockPos>();
             var queue = new LinkedList<BlockPos>();
@@ -161,6 +174,14 @@ implements IErosionChemicalReactorMultiBlockComponent
                             {
                                 e.cachedCoolingSystemPos = pozz.asLong();
                                 e.coolingSysCached = true;
+                                return new ChemicalReactorMultiBlockComponentPosPacket(true, pozz.asLong());
+                            }
+                            continue;
+                        }
+                        else if(blok instanceof GasDesublimatorBlock)
+                        {
+                            if(l.getBlockState(pozz.relative(Direction.DOWN)).getBlock() instanceof ChemicalReactorModuleBlock)
+                            {
                                 return new ChemicalReactorMultiBlockComponentPosPacket(true, pozz.asLong());
                             }
                             continue;

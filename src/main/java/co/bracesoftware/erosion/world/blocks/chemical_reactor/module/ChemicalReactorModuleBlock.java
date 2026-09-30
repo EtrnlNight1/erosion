@@ -10,6 +10,7 @@ import co.bracesoftware.erosion.world.blocks.chemical_reactor.ChemicalReactorBlo
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.ChemicalReactorSystemCore.IErosionChemicalReactorMultiBlockComponent;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.cooling_system.ChemicalReactorCoolingSystemBlock;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.scrubber.ChemicalReactorScrubberBlock;
+import co.bracesoftware.erosion.world.blocks.gas_desublimator.GasDesublimatorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,6 +38,7 @@ implements IErosionChemicalReactorMultiBlockComponent, IErosionBlockWithTip
         int reactorsFound = 0;
         int scrubbersFound = 0;
         int coolingSystemsFound = 0;
+        int desublimatorsFound = 0;
         var visited = new HashSet<BlockPos>();
         var queue = new LinkedList<BlockPos>();
 
@@ -67,6 +69,13 @@ implements IErosionChemicalReactorMultiBlockComponent, IErosionBlockWithTip
                 {
                     coolingSystemsFound++;
                 }
+                else if(blok instanceof GasDesublimatorBlock)
+                {
+                    if(p.level().getBlockState(pozz.relative(Direction.DOWN)).getBlock() instanceof ChemicalReactorModuleBlock)
+                    {
+                        desublimatorsFound++;
+                    }
+                }
                 //else we search
                 else if(
                     blok instanceof ChemicalReactorModuleBlock
@@ -85,7 +94,7 @@ implements IErosionChemicalReactorMultiBlockComponent, IErosionBlockWithTip
             p, reactorsFound + " reactor(s) connected",
             ErosionScreenMessage.Color.DARK_GREEN
         );
-
+        // ----------------------------------------------- //
         if(scrubbersFound == 0) ErosionUtils.displayMessage(
             p, "No scrubbers are connected",
             ErosionScreenMessage.Color.DARK_RED
@@ -94,13 +103,22 @@ implements IErosionChemicalReactorMultiBlockComponent, IErosionBlockWithTip
             p, scrubbersFound + " scrubber(s) connected",
             ErosionScreenMessage.Color.DARK_GREEN
         );
-
+        // ----------------------------------------------- //
         if(coolingSystemsFound == 0) ErosionUtils.displayMessage(
             p, "No cooling systems are connected",
             ErosionScreenMessage.Color.DARK_RED
         );
         else ErosionUtils.displayMessage(
             p, coolingSystemsFound + " cooling system(s) connected",
+            ErosionScreenMessage.Color.DARK_GREEN
+        );
+        // ----------------------------------------------- //
+        if(desublimatorsFound == 0) ErosionUtils.displayMessage(
+            p, "No gas desublimators are connected",
+            ErosionScreenMessage.Color.DARK_RED
+        );
+        else ErosionUtils.displayMessage(
+            p, desublimatorsFound + " gas desublimator(s) connected",
             ErosionScreenMessage.Color.DARK_GREEN
         );
 

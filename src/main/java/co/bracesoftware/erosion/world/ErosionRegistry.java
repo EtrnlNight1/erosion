@@ -1,6 +1,10 @@
 package co.bracesoftware.erosion.world;
 
+import java.util.Collections;
 import java.util.List;
+
+import org.checkerframework.checker.units.qual.m;
+
 import co.bracesoftware.erosion.Erosion;
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionUtils;
@@ -39,6 +43,8 @@ import co.bracesoftware.erosion.world.blocks.chemical_reactor.cooling_system.Che
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.module.ChemicalReactorModuleBlock;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.scrubber.ChemicalReactorScrubberBlock;
 import co.bracesoftware.erosion.world.blocks.crucible.*;
+import co.bracesoftware.erosion.world.blocks.gas_desublimator.GasDesublimatorBlock;
+import co.bracesoftware.erosion.world.blocks.gas_desublimator.GasDesublimatorBlockEntity;
 import co.bracesoftware.erosion.world.blocks.material_purifier.*;
 import co.bracesoftware.erosion.world.ErosionModContentManager.ErosionModContent;
 import co.bracesoftware.erosion.world.ErosionModContentManager.ErosionModContentResourceLocation;
@@ -184,6 +190,11 @@ public class ErosionRegistry
             "Chemical Reactor Cooling System"
         );
 
+        public static final ErosionModContentResourceLocation GAS_DESUBLIMATOR = new ErosionModContentResourceLocation(
+            "gas_desublimator",
+            "Gas Desublimator"
+        );
+
         //MANUAL ADVANCEMENTS
         public static class ManualAdvancements
         {
@@ -290,7 +301,8 @@ public class ErosionRegistry
             List.of(
                 MobEffects.CONFUSION,
                 MobEffects.POISON
-            )
+            ),
+            () -> ErosionRegistry.Items.SULFUR_SLAG.get()
         );
         public static final GasType ARSENIC_TRIOXIDE = new GasType(
             RawRegistry.ARSENIC_TRIOXIDE.getId(),
@@ -301,14 +313,15 @@ public class ErosionRegistry
                 MobEffects.WITHER,
                 MobEffects.CONFUSION,
                 MobEffects.MOVEMENT_SLOWDOWN
-            )
+            ),
+            () -> null
         );
         public static final GasType WATER_VAPOR = new GasType(
             RawRegistry.WATER_VAPOR.getId(),
             RawRegistry.WATER_VAPOR.getName(),
             100, false, 3,
             ParticleTypes.CAMPFIRE_COSY_SMOKE, 5,
-            List.of()
+            List.of(), () -> null
         );
         public static final GasType LEAD_MONOXIDE = new GasType(
             RawRegistry.LEAD_MONOXIDE.getId(),
@@ -322,8 +335,18 @@ public class ErosionRegistry
                 MobEffects.DIG_SLOWDOWN,
                 MobEffects.POISON,
                 MobEffects.OOZING
-            )
+            ),
+            () -> ErosionRegistry.Items.LEAD_CHUNK.get()
         );
+
+        private static final List<GasType> GAS_TYPE_LIST = List.of(
+            WATER_VAPOR, LEAD_MONOXIDE, ARSENIC_TRIOXIDE, SULFUR_DIOXIDE
+        );
+
+        public static final List<GasType> getGasTypes()
+        {
+            return Collections.unmodifiableList(GAS_TYPE_LIST);
+        }
     }
 
     public static class Menus
@@ -703,6 +726,44 @@ public class ErosionRegistry
             .addKnownBlock(CHEMICAL_REACTOR_COOLING_SYSTEM)
             .dummy();
         }
+
+        public static final ErosionModContent.ErosionBlock GAS_DESUBLIMATOR = new ErosionModContent.ErosionBlock(
+            RawRegistry.GAS_DESUBLIMATOR,
+            () -> new GasDesublimatorBlock(
+                BlockBehaviour.Properties.of().strength(1.5f, 6.0f)
+                .requiresCorrectToolForDrops()
+            )
+        ); static {
+            GAS_DESUBLIMATOR
+            .blockStateResourceGenerator(() -> {
+                var m = ErosionDataGeneratorsProgInterface.ErosionCommonUtils
+                .createModelFromVoxelShape(
+                    ErosionModContentManager.getBlockStateResourceGenerator(),
+                    RawRegistry.GAS_DESUBLIMATOR.getId(),
+                    GasDesublimatorBlock.SHAPE,
+                    ErosionModContentManager.getBlockStateResourceGenerator().modLoc(
+                        RawRegistry.GAS_DESUBLIMATOR.getId()
+                    )
+                );
+
+                ErosionModContentManager.getBlockStateResourceGenerator()
+                .simpleBlock(ErosionRegistry.Blocks.GAS_DESUBLIMATOR.get(), m);
+                ErosionModContentManager.getBlockStateResourceGenerator()
+                .simpleBlockItem(ErosionRegistry.Blocks.GAS_DESUBLIMATOR.get(), m);
+            })
+            .languageResourceGenerator(() -> {
+                ErosionModContentManager.getLanguageResourceGenerator()
+                .add(GAS_DESUBLIMATOR.get(), RawRegistry.GAS_DESUBLIMATOR.getName());
+            })
+            .lootResourceGenerator(() -> {
+                ErosionModContentManager.getLootResourceGeneratorSubProvider()
+                .dropSelf(
+                    ErosionRegistry.Blocks.GAS_DESUBLIMATOR.get()
+                );
+            })
+            .addKnownBlock(GAS_DESUBLIMATOR)
+            .dummy();
+        }
         //----------------------------------------------
         //SIMPLE BLOCKS
         public static final ErosionModContent.ErosionBlock DRIED_DIRT = new ErosionModContent.ErosionBlock(
@@ -967,6 +1028,11 @@ public class ErosionRegistry
         public static final ErosionModContent.ErosionItem CRUCIBLE = new ErosionModContent.ErosionItem(
             RawRegistry.CRUCIBLE, () -> new BlockItem(
                 Blocks.CRUCIBLE.get(), new Item.Properties()
+            )
+        );
+        public static final ErosionModContent.ErosionItem GAS_DESUBLIMATOR = new ErosionModContent.ErosionItem(
+            RawRegistry.GAS_DESUBLIMATOR, () -> new BlockItem(
+                Blocks.GAS_DESUBLIMATOR.get(), new Item.Properties()
             )
         );
         //------------------------------------------------------
@@ -1319,6 +1385,13 @@ public class ErosionRegistry
             RawRegistry.CHEMICAL_REACTOR,
             ChemicalReactorBlockEntity::new,
             ErosionRegistry.Blocks.CHEMICAL_REACTOR
+        );
+
+        public static final ErosionModContent.ErosionBlockEntity<GasDesublimatorBlockEntity> GAS_DESUBLIMATOR = new ErosionModContent
+        .ErosionBlockEntity<GasDesublimatorBlockEntity>(
+            RawRegistry.GAS_DESUBLIMATOR,
+            GasDesublimatorBlockEntity::new,
+            ErosionRegistry.Blocks.GAS_DESUBLIMATOR
         );
     }
 

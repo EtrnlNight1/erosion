@@ -10,6 +10,8 @@ import co.bracesoftware.erosion.world.ErosionRegistry;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.ChemicalReactorSystemCore.IErosionChemicalReactorSystemComponent;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.cooling_system.ChemicalReactorCoolingSystemBlock;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.scrubber.ChemicalReactorScrubberBlock;
+import co.bracesoftware.erosion.world.blocks.gas_desublimator.GasDesublimatorBlock;
+import co.bracesoftware.erosion.world.blocks.gas_desublimator.GasDesublimatorBlockEntity;
 import co.bracesoftware.erosion.world.custom.ErosionCustomEntitySys.Gas;
 import co.bracesoftware.erosion.world.custom.ErosionCustomEntitySys.GasType;
 import net.minecraft.core.BlockPos;
@@ -217,14 +219,26 @@ public class ChemicalReactorMenu extends AbstractContainerMenu implements IErosi
         else ChemicalReactorBlock.consumeSomeCoolingFluid(l, BlockPos.of(result.pos));
     }
 
-    public void handleGasEmission()
+    public final void handleGasEmission()
     {
         if(this.gasesToBeEmitted == null) return;
         if(this.gasesToBeEmitted.isEmpty()) return;
         for(var g : this.gasesToBeEmitted)
         {
             var l = (ServerLevel) this.player.level();
+
+            boolean desublimed = false;
             var result = ChemicalReactorBlock.getNearestChemicalReactorMultiBlockComponent(
+                l, this.position, GasDesublimatorBlock.class
+            );
+            if(result.yes)
+            {
+                desublimed = GasDesublimatorBlockEntity.handleGasDesublimation(l, this.position, g);
+            }
+
+            if(desublimed) continue;
+
+            result = ChemicalReactorBlock.getNearestChemicalReactorMultiBlockComponent(
                 l, this.position, ChemicalReactorScrubberBlock.class
             );
             if(!result.yes)

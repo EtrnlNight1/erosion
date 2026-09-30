@@ -245,8 +245,6 @@ public class ErosionCommandProcessor
         }
     }
 
-    
-
     public static final void setCfg(CommandSourceStack s, List<String> args)
     {
         if(args.size() != 2)

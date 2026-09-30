@@ -1,6 +1,7 @@
 package co.bracesoftware.erosion.world.blocks.chemical_reactor;
 
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.module.ChemicalReactorModuleBlock;
+import co.bracesoftware.erosion.world.blocks.gas_desublimator.GasDesublimatorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
@@ -27,6 +28,13 @@ public class ChemicalReactorSystemCore
                 {
                     return false;
                 }
+            }
+
+            //if it is a gas desublimator
+            if(this instanceof GasDesublimatorBlock)
+            {
+                return l.getBlockState(bp.relative(Direction.DOWN)).getBlock() instanceof ChemicalReactorModuleBlock
+                && l.getBlockState(bp.relative(Direction.UP)).isAir();
             }
 
             //since the top is air, we search only horizontally or under
