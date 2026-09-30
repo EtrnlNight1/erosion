@@ -40,10 +40,22 @@ public class ErosionRecipeGen extends RecipeProvider implements IConditionBuilde
         .pattern("DGD")
         .pattern("OOO")
         .define('I', Items.IRON_INGOT)
-        .define('M', ErosionRegistry.Blocks.MATERIAL_PURIFIER.get())
+        .define('M', ErosionRegistry.Items.MATERIAL_PURIFIER.get())
         .define('G', Items.GLASS)
         .define('D', Items.DEEPSLATE)
         .define('O', Items.OBSIDIAN)
+        .unlockedBy("has_purifier", has(ErosionRegistry.Blocks.MATERIAL_PURIFIER.get()))
+        .save(output);
+
+        ShapedRecipeBuilder.shaped(
+            RecipeCategory.BREWING, ErosionRegistry.Blocks.GAS_DESUBLIMATOR.get()
+        )
+        .pattern("IFI")
+        .pattern("IMI")
+        .pattern("III")
+        .define('I', Items.IRON_INGOT)
+        .define('M', ErosionRegistry.Items.MATERIAL_PURIFIER.get())
+        .define('F', ErosionRegistry.Items.GAS_FILTER.get())
         .unlockedBy("has_purifier", has(ErosionRegistry.Blocks.MATERIAL_PURIFIER.get()))
         .save(output);
 
@@ -54,7 +66,7 @@ public class ErosionRecipeGen extends RecipeProvider implements IConditionBuilde
         .pattern("DKD")
         .pattern("ONO")
         .define('I', Items.IRON_INGOT)
-        .define('M', ErosionRegistry.Blocks.MATERIAL_PURIFIER.get())
+        .define('M', ErosionRegistry.Items.MATERIAL_PURIFIER.get())
         .define('K', Items.ITEM_FRAME)
         .define('D', Items.NETHERITE_SCRAP)
         .define('O', Items.OBSIDIAN)
