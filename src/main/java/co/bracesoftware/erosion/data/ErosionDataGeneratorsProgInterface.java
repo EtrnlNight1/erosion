@@ -520,7 +520,7 @@ public class ErosionDataGeneratorsProgInterface
     }
     public static final class ErosionCommonUtils
     {
-        public static final BlockModelBuilder createModelFromVoxelShape(
+        public static final BlockModelBuilder createModelFromVoxelShapeLegacy(
             ErosionBlockStateGen g,
             String m, VoxelShape s,
             ResourceLocation top,
@@ -553,6 +553,49 @@ public class ErosionDataGeneratorsProgInterface
                     .end();
                 }
             );
+            return b;
+        }
+        public static BlockModelBuilder createModelFromVoxelShape(
+            ErosionBlockStateGen g,
+            String m, VoxelShape s,
+            ResourceLocation top,
+            ResourceLocation side,
+            ResourceLocation bottom
+        )
+        {
+            var b = g.models().getBuilder(m);
+            
+            b.parent(g.models().getExistingFile(g.mcLoc("block/block")));
+
+            b.texture("particle", side);
+            b.texture("top", top);
+            b.texture("side", side);
+            b.texture("bottom", bottom);
+
+            s.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
+                float x1 = (float) (minX * 16.0);
+                float y1 = (float) (minY * 16.0);
+                float z1 = (float) (minZ * 16.0);
+                float x2 = (float) (maxX * 16.0);
+                float y2 = (float) (maxY * 16.0);
+                float z2 = (float) (maxZ * 16.0);
+
+                b.element()
+                    .from(x1, y1, z1)
+                    .to(x2, y2, z2)
+                    .faces((dd, bb) -> {
+                        switch(dd) {
+                            case UP -> bb.texture("#top").uvs(x1, z1, x2, z2);
+                            case DOWN -> bb.texture("#bottom").uvs(x1, 16.0f - z2, x2, 16.0f - z1);
+                            case NORTH -> bb.texture("#side").uvs(16.0f - x2, 16.0f - y2, 16.0f - x1, 16.0f - y1);
+                            case SOUTH -> bb.texture("#side").uvs(x1, 16.0f - y2, x2, 16.0f - y1);
+                            case WEST -> bb.texture("#side").uvs(z1, 16.0f - y2, z2, 16.0f - y1);
+                            case EAST -> bb.texture("#side").uvs(16.0f - z2, 16.0f - y2, 16.0f - z1, 16.0f - y1);
+                        }
+                    })
+                    .end();
+            });
+
             return b;
         }
     }
