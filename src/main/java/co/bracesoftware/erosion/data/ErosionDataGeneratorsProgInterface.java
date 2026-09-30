@@ -583,7 +583,7 @@ public class ErosionDataGeneratorsProgInterface
                 b.element()
                     .from(x1, y1, z1)
                     .to(x2, y2, z2)
-                    .faces((dd, bb) -> {
+                    .allFaces((dd, bb) -> {
                         switch(dd) {
                             case UP -> bb.texture("#top").uvs(x1, z1, x2, z2);
                             case DOWN -> bb.texture("#bottom").uvs(x1, 16.0f - z2, x2, 16.0f - z1);
