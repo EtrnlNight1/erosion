@@ -2,6 +2,7 @@ package co.bracesoftware.erosion.world.blocks.gas_desublimator;
 
 import javax.annotation.Nullable;
 
+import co.bracesoftware.erosion.ErosionExceptions.ErosionException;
 import co.bracesoftware.erosion.network.server.ErosionNetworkSafeVariants.ErosionNetworkSafeBlockEntity;
 import co.bracesoftware.erosion.world.ErosionRegistry;
 import co.bracesoftware.erosion.world.custom.ErosionCustomEntitySys.GasType;
@@ -106,5 +107,12 @@ implements MenuProvider, Container
             return true;
         }
         return false;
+    }
+
+    @Override public boolean onBlockEntityTickOnServer(
+        GasDesublimatorBlockEntity e, ErosionBlockEntityTickPacket p
+    ) throws ErosionException
+    {
+        return true;
     }
 }
