@@ -227,16 +227,13 @@ public class ChemicalReactorMenu extends AbstractContainerMenu implements IErosi
         {
             var l = (ServerLevel) this.player.level();
 
-            boolean desublimed = false;
             var result = ChemicalReactorBlock.getNearestChemicalReactorMultiBlockComponent(
                 l, this.position, GasDesublimatorBlock.class
             );
             if(result.yes)
             {
-                desublimed = GasDesublimatorBlockEntity.handleGasDesublimation(l, this.position, g);
+                GasDesublimatorBlockEntity.handleGasDesublimation(l, this.position, g);
             }
-
-            if(desublimed) continue;
 
             result = ChemicalReactorBlock.getNearestChemicalReactorMultiBlockComponent(
                 l, this.position, ChemicalReactorScrubberBlock.class
