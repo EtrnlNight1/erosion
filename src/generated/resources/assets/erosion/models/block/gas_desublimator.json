@@ -70,6 +70,6 @@
     "bottom": "erosion:block/gas_desublimator_bottom",
     "particle": "erosion:block/gas_desublimator_side",
     "side": "erosion:block/gas_desublimator_side",
-    "top": "erosion:block/gas_desublimator_top"
+    "top": "erosion:block/__erosion_generated__/gas_desublimator_top"
   }
 }
