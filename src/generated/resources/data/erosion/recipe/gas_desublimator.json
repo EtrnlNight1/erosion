@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "erosion:gas_filter"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "M": {
+      "item": "erosion:material_purifier"
+    }
+  },
+  "pattern": [
+    "IFI",
+    "IMI",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "erosion:gas_desublimator"
+  }
+}
