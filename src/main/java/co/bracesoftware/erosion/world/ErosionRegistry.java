@@ -2,9 +2,6 @@ package co.bracesoftware.erosion.world;
 
 import java.util.Collections;
 import java.util.List;
-
-import org.checkerframework.checker.units.qual.m;
-
 import co.bracesoftware.erosion.Erosion;
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionUtils;
@@ -742,7 +739,13 @@ public class ErosionRegistry
                     RawRegistry.GAS_DESUBLIMATOR.getId(),
                     GasDesublimatorBlock.SHAPE,
                     ErosionModContentManager.getBlockStateResourceGenerator().modLoc(
-                        RawRegistry.GAS_DESUBLIMATOR.getId()
+                        "block/" + RawRegistry.GAS_DESUBLIMATOR.getId() + "_top"
+                    ),
+                    ErosionModContentManager.getBlockStateResourceGenerator().modLoc(
+                        "block/" + RawRegistry.GAS_DESUBLIMATOR.getId() + "_side"
+                    ),
+                    ErosionModContentManager.getBlockStateResourceGenerator().modLoc(
+                        "block/" + RawRegistry.GAS_DESUBLIMATOR.getId() + "_bottom"
                     )
                 );
 

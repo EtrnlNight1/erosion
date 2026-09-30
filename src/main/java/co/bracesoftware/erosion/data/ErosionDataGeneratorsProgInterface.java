@@ -522,19 +522,34 @@ public class ErosionDataGeneratorsProgInterface
     {
         public static final BlockModelBuilder createModelFromVoxelShape(
             ErosionBlockStateGen g,
-            String m, VoxelShape s, ResourceLocation t
+            String m, VoxelShape s,
+            ResourceLocation top,
+            ResourceLocation side,
+            ResourceLocation bottom
         )
         {
             var b = g.models().getBuilder(m);
-            b.texture("all", t);
-            b.texture("particle", t);
+            
+            b.texture("particle", side);
+            b.texture("top", top);
+            b.texture("side", side);
+            b.texture("bottom", bottom);
 
             s.forAllBoxes(
                 (minX, minY, minZ, maxX, maxY, maxZ) -> {
                     b.element()
                     .from((float) (minX * 16.0), (float) (minY * 16.0), (float) (minZ * 16.0))
                     .to((float) (maxX * 16.0), (float) (maxY * 16.0), (float) (maxZ * 16.0))
-                    .faces((dd, bb) -> bb.texture("#all"))
+                    .faces(
+                        (dd, bb) -> {
+                            switch(dd)
+                            {
+                                case UP -> bb.texture("#top");
+                                case DOWN -> bb.texture("#bottom");
+                                default -> bb.texture("#side");
+                            }
+                        }
+                    )
                     .end();
                 }
             );
