@@ -1,6 +1,7 @@
 package co.bracesoftware.erosion;
 
 import co.bracesoftware.erosion.world.ErosionRegistry;
+import co.bracesoftware.erosion.world.ErosionRegistry.RawRegistry;
 import co.bracesoftware.erosion.world.blocks.chemical_reactor.ChemicalReactorMenu;
 import co.bracesoftware.erosion.world.custom.ErosionCustomEntitySys.GasType;
 import co.bracesoftware.erosion.world.items.ErosionSimpleItems;
@@ -2542,6 +2543,7 @@ public class ErosionCore
                     "- Can be connected to: " +
                     ErosionRegistry.RawRegistry.CHEMICAL_REACTOR_MODULE.getName() + ", " +
                     ErosionRegistry.RawRegistry.CHEMICAL_REACTOR_SCRUBBER.getName() + ", " +
+                    ErosionRegistry.RawRegistry.GAS_DESUBLIMATOR.getName() + ", " +
                     ErosionRegistry.RawRegistry.CHEMICAL_REACTOR_COOLING_SYSTEM.getName() + ", " +
                     ErosionRegistry.RawRegistry.CHEMICAL_REACTOR.getName()
                 )
@@ -2553,6 +2555,25 @@ public class ErosionCore
             desc.add(
                 Component.literal("A filter designed to fit into a " + ErosionRegistry.RawRegistry.CHEMICAL_REACTOR_SCRUBBER.getName() + ".")
                 .withStyle(ChatFormatting.YELLOW)
+            );
+        }
+        else if(currentItem == ErosionRegistry.Items.GAS_DESUBLIMATOR.get())
+        {
+            desc.add(
+                Component.literal("A machine designed to efficiently convert matter from a gaseous state to a solid state.")
+                .withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.BOLD)
+            );
+            desc.add(
+                Component.literal(
+                    "- Can be used as a standalone apparatus by being placed near a gas leaking source, such as the " +
+                    RawRegistry.CRUCIBLE.getName() + " or a " + RawRegistry.CHEMICAL_REACTOR.getName()
+                ).withStyle(ChatFormatting.GRAY)
+            );
+            desc.add(
+                Component.literal(
+                    "- To work with a reactor multiblock system, desublimator has to be placed on top of a " +
+                    RawRegistry.CHEMICAL_REACTOR_MODULE.getName() + " to establish a functional gas pipe link."
+                ).withStyle(ChatFormatting.DARK_PURPLE)
             );
         }
 
@@ -3276,8 +3297,24 @@ public class ErosionCore
 
         //gathering misc info
         boolean saltable = ErosionRecipeRegistry.Misc.SaltableFoodsSystem.isSaltableFood(currentItem);
+        boolean acquiredViaDesublimation = false;
+        List<GasType> gases = new ArrayList<>();
 
-        if(saltable)
+        for(var g : ErosionRegistry.GasTypes.getGasTypes())
+        {
+            if(currentItem == g.getDesublimationProduct())
+            {
+                acquiredViaDesublimation = true;
+                gases.add(g);
+            }
+        }
+
+
+        // ------------------------------- //
+        if(
+            saltable ||
+            acquiredViaDesublimation
+        )
         {
             hasMiscInfo = true;
         }
@@ -3298,6 +3335,21 @@ public class ErosionCore
                     Component.literal("- This is a food item that can be salted.")
                     .withStyle(ChatFormatting.GRAY)
                 );
+            }
+
+            if(acquiredViaDesublimation)
+            {
+                desc.add(
+                    Component.literal("- Can be acquired via desublimation of the following substance(s):")
+                    .withStyle(ChatFormatting.GRAY)
+                );
+                for(var g : gases)
+                {
+                    desc.add(
+                        Component.literal(TAB).withStyle(ChatFormatting.GRAY)
+                        .append(Component.literal(g.getName()).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD))
+                    );
+                }
             }
         }
 
