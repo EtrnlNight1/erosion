@@ -3,16 +3,16 @@ package co.bracesoftware.libs.minecraft_text_formatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Text
+public final class Text
 {
-    private static class Const
+    private static final class Const
     {
-        public static class Misc
+        public static final class Misc
         {
             public static final String FORMAT_SYMBOL = "§";
         }
     }
-    public static class InternalClass
+    public static final class InternalClass
     {
         public int Code = 0;
         public char Char = '?';
@@ -23,12 +23,12 @@ public class Text
             this.Char = c2;
         }
 
-        public int get()
+        public final int get()
         {
             return this.Code;
         }
     }
-    public class Col
+    public static final class Col
     {
         public static final InternalClass BLACK = new InternalClass(1, '0');//
         public static final InternalClass DARK_BLUE = new InternalClass(2, '1');//2;//'1';
@@ -53,7 +53,7 @@ public class Text
             YELLOW, WHITE
         );
     }
-    public class Style
+    public static final class Style
     {
         public static final InternalClass OBFUSCATED = new InternalClass(17,'k');//17;//'k';
         public static final InternalClass BOLD = new InternalClass(18,'l');//18;//'l';
@@ -66,15 +66,15 @@ public class Text
             OBFUSCATED, BOLD, STRIKETHROUGH, UNDERLINE, ITALIC, RESET
         );
     }
-    public static String Format()
+    public static final String Format()
     {
         return "";
     }
-    public static String Format(InternalClass l)
+    public static final String Format(InternalClass l)
     {
         return Const.Misc.FORMAT_SYMBOL + l.Char;
     }
-    public static String Format(Integer l)
+    public static final String Format(Integer l)
     {
         String result = "";
         for(int k = 0; k < Style.LIST.size(); ++k)
@@ -95,7 +95,7 @@ public class Text
         }
         return result;
     }
-    public static String Format(InternalClass... l)
+    public static final String Format(InternalClass... l)
     {
         List<Integer> g = new ArrayList<>();
         for(InternalClass item : l)
@@ -104,11 +104,11 @@ public class Text
         }
         return Format(g);
     }
-    public static String Format(Integer... l)
+    public static final String Format(Integer... l)
     {
         return Format(List.of(l));
     }
-    public static String Format(List<Integer> l)
+    public static final String Format(List<Integer> l)
     {
         String result = "";
         if(l.isEmpty())

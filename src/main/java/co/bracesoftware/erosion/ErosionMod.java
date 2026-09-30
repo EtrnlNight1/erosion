@@ -193,7 +193,7 @@ public final class ErosionMod
         int tick = e.getServer().getTickCount();
         ErosionCore.processPendingPriority(e.getServer().getLevel(Level.OVERWORLD));
 
-        if(tick % 20 == 0)
+        if(tick % 10 == 0)
         {
             ErosionStatusSyncPacket packet = new ErosionStatusSyncPacket(
                 ErosionCore.getPendingSize(),
@@ -217,7 +217,9 @@ public final class ErosionMod
             {
                 PacketDistributor.sendToPlayer(p, packet);
             }
-
+        }
+        else if(tick % 20 == 0)
+        {
             ErosionServerData.ALTERATION_RATE = 0;
         }
         return;

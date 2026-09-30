@@ -21,7 +21,6 @@ import it.unimi.dsi.fastutil.longs.LongSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-
 import co.bracesoftware.erosion.Erosion;
 import co.bracesoftware.erosion.ErosionConfig;
 import co.bracesoftware.erosion.ErosionExceptions.ErosionCustomEntityExceptions.ErosionGasInitException;
@@ -33,7 +32,7 @@ import co.bracesoftware.erosion.world.items.ErosionSimpleItems.GasMask;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 
 @EventBusSubscriber(modid = Erosion.MODID)
-public class ErosionCustomEntitySys
+public final class ErosionCustomEntitySys
 {
     private static final List<Gas> GAS_LIST = new ArrayList<>();
 

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class ChemicalReactorProductSlot extends Slot implements IErosionChemicalReactorSystemComponent
+public final class ChemicalReactorProductSlot extends Slot implements IErosionChemicalReactorSystemComponent
 {
     private final Runnable watToDo;
 
@@ -19,14 +19,8 @@ public class ChemicalReactorProductSlot extends Slot implements IErosionChemical
         this.watToDo = onTakeAction;
     }
 
-    @Override
-    public boolean mayPlace(ItemStack stack)
-    {
-        return false;
-    }
-
-    @Override
-    public void onTake(Player player, ItemStack stack)
+    @Override public final boolean mayPlace(ItemStack s) { return false; }
+    @Override public final void onTake(Player player, ItemStack stack)
     {
         if(player.level().isClientSide()) return;
         this.watToDo.run();
