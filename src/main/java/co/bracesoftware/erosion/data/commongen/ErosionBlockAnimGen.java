@@ -46,6 +46,12 @@ public class ErosionBlockAnimGen
             36, 2, false,
             assetsGenerated,assetsGenerated
         );
+
+        generateAnim(
+            ErosionRegistry.RawRegistry.GAS_DESUBLIMATOR.getId(), "top",
+            36, 1, false,
+            assetsGenerated,assetsGenerated
+        );
         return;
     }
 

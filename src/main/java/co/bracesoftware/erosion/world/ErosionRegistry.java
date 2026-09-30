@@ -746,7 +746,7 @@ public class ErosionRegistry
                     RawRegistry.GAS_DESUBLIMATOR.getId(),
                     GasDesublimatorBlock.SHAPE,
                     ErosionModContentManager.getBlockStateResourceGenerator().modLoc(
-                        "block/" + RawRegistry.GAS_DESUBLIMATOR.getId() + "_top"
+                        "block/" + ErosionUtils.getGeneratedFolder() + RawRegistry.GAS_DESUBLIMATOR.getId() + "_top"
                     ),
                     ErosionModContentManager.getBlockStateResourceGenerator().modLoc(
                         "block/" + RawRegistry.GAS_DESUBLIMATOR.getId() + "_side"

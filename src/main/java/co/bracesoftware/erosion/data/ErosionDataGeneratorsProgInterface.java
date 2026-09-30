@@ -342,6 +342,24 @@ public class ErosionDataGeneratorsProgInterface
                 output = generatedResourcesPath + BLOCKID + "_" + what + "_" + idx + PNG;
                 ErosionTextureGen.combine(new File(base), List.of(new File(layer)), new File(output));
             }
+
+            //GAS DESUBLIMATOR
+            BLOCKID = ErosionRegistry.RawRegistry.GAS_DESUBLIMATOR.getId();
+            ErosionUtils.Log("Generating custom texture for -> " + BLOCKID);
+            what = "top";
+            base = resourcePath + BLOCKID + "_" + what + PNG;
+            howMany = 36;
+            for(int i = 0; i < howMany; i++)
+            {
+                int idx = i + 1;
+                layer = createRotatedTexture(
+                    resourcePath + "layers/fan2" + PNG,
+                    generatedResourcesPath + "fan2_" + idx + PNG,
+                    i * 10
+                );
+                output = generatedResourcesPath + BLOCKID + "_" + what + "_" + idx + PNG;
+                ErosionTextureGen.combine(new File(base), List.of(new File(layer)), new File(output));
+            }
             return;
         }
 
