@@ -218,7 +218,8 @@ public final class ErosionMod
                 PacketDistributor.sendToPlayer(p, packet);
             }
         }
-        else if(tick % 20 == 0)
+        
+        if(tick % 20 == 0)
         {
             ErosionServerData.ALTERATION_RATE = 0;
         }
