@@ -247,7 +247,7 @@ public class ChemicalReactorMenu extends AbstractContainerMenu implements IErosi
         return;
     }
 
-    private void clearProducts()
+    private final void clearProducts()
     {
         for(int i = 0; i < this.products.getContainerSize(); i++)
         {
@@ -256,7 +256,7 @@ public class ChemicalReactorMenu extends AbstractContainerMenu implements IErosi
         return;
     }
 
-    private void addPlayerInventory(Inventory pinv)
+    private final void addPlayerInventory(Inventory pinv)
     {
         final int y = 102;
         for(int i = 0; i < 3; ++i)
@@ -269,7 +269,7 @@ public class ChemicalReactorMenu extends AbstractContainerMenu implements IErosi
         return;
     }
 
-    private void addPlayerHotbar(Inventory pinv)
+    private final void addPlayerHotbar(Inventory pinv)
     {
         final int y = 160;
         for(int k = 0; k < 9; ++k)
@@ -279,20 +279,17 @@ public class ChemicalReactorMenu extends AbstractContainerMenu implements IErosi
         return;
     }
 
-    @Override 
-    public ItemStack quickMoveStack(Player p, int idx)
+    @Override public final ItemStack quickMoveStack(Player p, int idx)
     {
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public boolean stillValid(Player p)
+    @Override public final boolean stillValid(Player p)
     {
         return this.reactants.stillValid(p) && this.products.stillValid(p);
     }
 
-    @Override 
-    public void removed(Player p)
+    @Override public final void removed(Player p)
     {
         super.removed(p);
         this.clearContainer(p, this.products);

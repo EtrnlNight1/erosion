@@ -38,7 +38,13 @@ public class ChemicalReactorSystemCore
             }
 
             //since the top is air, we search only horizontally or under
-            for(var d : new Direction[] {Direction.NORTH, Direction.SOUTH, Direction.DOWN, Direction.WEST, Direction.EAST})
+            for(var d : new Direction[] {
+                Direction.NORTH,
+                Direction.SOUTH,
+                Direction.DOWN,
+                Direction.WEST,
+                Direction.EAST
+            })
             {
                 var pos = bp.relative(d);
                 var state = l.getBlockState(pos);

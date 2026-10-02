@@ -27,6 +27,7 @@ implements IErosionChemicalReactorMultiBlockComponent
         ErosionUtils.ModelRendering.createBoxCentered(3, 16, 16, 0),
         ErosionUtils.ModelRendering.createBoxCentered(16, 12, 12, 0)
     );
+    
     public GasDesublimatorBlock(Block.Properties p)
     {
         super(p,
