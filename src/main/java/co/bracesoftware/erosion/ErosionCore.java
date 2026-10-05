@@ -1737,7 +1737,459 @@ public class ErosionCore
         public static final RefinableMaterial LIMONITE_ORE = new RefinableMaterial.MaterialPurifier(
             ErosionRegistry.RawRegistry.LIMONITE_ORE.getName(),
             () -> ErosionRegistry.Items.LIMONITE_ORE.get(),
-            () -> List.o…5372 tokens truncated…ERABLE_MATERIALS_LIST_ORIGINAL = List.of(
+            () -> List.of(
+                ErosionRegistry.Items.RAW_LIMONITE.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+        public static final RefinableMaterial CASSITERITE_DEPOSIT = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.CASSITERITE_DEPOSIT.getName(),
+            () -> ErosionRegistry.Items.CASSITERITE_DEPOSIT.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_CASSITERITE.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+
+        public static final RefinableMaterial.Crucible RAW_CASSITERITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_CASSITERITE.getName(),
+            () -> ErosionRegistry.Items.RAW_CASSITERITE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.TIN_CHUNK.get()
+            ), BlockEntityRecipeRegistries.CRUCIBLE, List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(), List.of()
+        );
+        public static final RefinableMaterial.Crucible NATIVE_SILVER = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.NATIVE_SILVER.getName(),
+            () -> ErosionRegistry.Items.NATIVE_SILVER.get(),
+            () -> List.of(
+                ErosionRegistry.Items.SILVER_CHUNK.get()
+            ), BlockEntityRecipeRegistries.CRUCIBLE, List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(), List.of()
+        );
+
+        public static final RefinableMaterial NATIVE_SILVER_DEPOSIT = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.NATIVE_SILVER_DEPOSIT.getName(),
+            () -> ErosionRegistry.Items.NATIVE_SILVER_DEPOSIT.get(),
+            () -> List.of(
+                ErosionRegistry.Items.NATIVE_SILVER.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible RAW_BISMUTHINITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_BISMUTHINITE.getName(),
+            () -> ErosionRegistry.Items.RAW_BISMUTHINITE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.BISMUTH_CHUNK.get()
+            ), BlockEntityRecipeRegistries.CRUCIBLE, List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.CRUSHED_EGG_SHELL,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(
+                ErosionRegistry.Items.SULFUR_SLAG.get()
+            ), List.of(
+                ErosionRegistry.GasTypes.SULFUR_DIOXIDE
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial BISMUTHINITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.BISMUTHINITE_ORE.getName(),
+            () -> ErosionRegistry.Items.BISMUTHINITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_BISMUTHINITE.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+
+        //turn mined ore into pure ore
+        public static final RefinableMaterial RAW_SPHALERITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_SPHALERITE.getName(),
+            () -> ErosionRegistry.Items.RAW_SPHALERITE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.ZINC_CHUNK.get()
+            ), BlockEntityRecipeRegistries.CRUCIBLE, List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.CRUSHED_EGG_SHELL,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(), List.of(
+                ErosionRegistry.GasTypes.SULFUR_DIOXIDE
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial SPHALERITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.SPHALERITE_ORE.getName(),
+            () -> ErosionRegistry.Items.SPHALERITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_SPHALERITE.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible RAW_AZURITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_AZURITE.getName(),
+            () -> ErosionRegistry.Items.RAW_AZURITE.get(),
+            () -> List.of(
+                Items.RAW_COPPER
+            ), BlockEntityRecipeRegistries.CRUCIBLE, List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.CRUSHED_EGG_SHELL,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(), List.of()
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial AZURITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.AZURITE_ORE.getName(),
+            () -> ErosionRegistry.Items.AZURITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_AZURITE.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible RAW_TETRAHEDRITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_TETRAHEDRITE.getName(),
+            () -> ErosionRegistry.Items.RAW_TETRAHEDRITE.get(),
+            () -> List.of(
+                Items.RAW_COPPER
+            ), BlockEntityRecipeRegistries.CRUCIBLE, List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.CRUSHED_EGG_SHELL,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(
+                ErosionRegistry.Items.SULFUR_SLAG.get(),
+                ErosionRegistry.Items.ANTIMONY_SLAG.get()
+            ), List.of(
+                ErosionRegistry.GasTypes.SULFUR_DIOXIDE
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial TETRAHEDRITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.TETRAHEDRITE_ORE.getName(),
+            () -> ErosionRegistry.Items.TETRAHEDRITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_TETRAHEDRITE.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible RAW_ARSENOPYRITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_ARSENOPYRITE.getName(),
+            () -> ErosionRegistry.Items.RAW_ARSENOPYRITE.get(),
+            () -> List.of(
+                Items.IRON_NUGGET
+            ), List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(
+                ErosionRegistry.Items.SULFUR_SLAG.get()
+            ), List.of(
+                ErosionRegistry.GasTypes.SULFUR_DIOXIDE,
+                ErosionRegistry.GasTypes.ARSENIC_TRIOXIDE
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial ARSENOPYRITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.ARSENOPYRITE_ORE.getName(),
+            () -> ErosionRegistry.Items.ARSENOPYRITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_ARSENOPYRITE.get()
+            )
+        );
+
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible RAW_PYRITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_PYRITE.getName(),
+            () -> ErosionRegistry.Items.RAW_PYRITE.get(),
+            () -> List.of(
+                Items.IRON_NUGGET
+            ), List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(
+                ErosionRegistry.Items.SULFUR_SLAG.get()
+            ), List.of(
+                ErosionRegistry.GasTypes.SULFUR_DIOXIDE
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial PYRITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.PYRITE_ORE.getName(),
+            () -> ErosionRegistry.Items.PYRITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_PYRITE.get()
+            )
+        );
+
+        //-------------------------------------------------------
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible RAW_GOETHITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_GOETHITE.getName(),
+            () -> ErosionRegistry.Items.RAW_GOETHITE.get(),
+            () -> List.of(
+                Items.IRON_NUGGET
+            ), List.of(
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(
+            ), List.of(
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial GOETHITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.GOETHITE_ORE.getName(),
+            () -> ErosionRegistry.Items.GOETHITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_GOETHITE.get()
+            )
+        );
+
+        //-------------------------------------------------------
+        //-------------------------------------------------------
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible RAW_ANGLESITE = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_ANGLESITE.getName(),
+            () -> ErosionRegistry.Items.RAW_ANGLESITE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.LEAD_CHUNK.get()
+            ), List.of(
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(
+            ), List.of(
+                ErosionRegistry.GasTypes.LEAD_MONOXIDE,
+                ErosionRegistry.GasTypes.SULFUR_DIOXIDE
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial ANGLESITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.ANGLESITE_ORE.getName(),
+            () -> ErosionRegistry.Items.ANGLESITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_ANGLESITE.get()
+            )
+        );
+        //-------------------------------------------------------
+        //-------------------------------------------------------
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible RAW_GALENA = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.RAW_GALENA.getName(),
+            () -> ErosionRegistry.Items.RAW_GALENA.get(),
+            () -> List.of(
+                ErosionRegistry.Items.LEAD_CHUNK.get()
+            ), List.of(
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL
+            ), () -> List.of(
+            ), List.of(
+                ErosionRegistry.GasTypes.SULFUR_DIOXIDE,
+                ErosionRegistry.GasTypes.LEAD_MONOXIDE
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial GALENA_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.GALENA_ORE.getName(),
+            () -> ErosionRegistry.Items.GALENA_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_GALENA.get()
+            )
+        );
+        //-------------------------------------------------------
+
+        //-------------------------------------------------------
+        //turn mined ore into pure ore
+        public static final RefinableMaterial.Crucible NATIVE_COPPER = new RefinableMaterial.Crucible(
+            ErosionRegistry.RawRegistry.NATIVE_COPPER.getName(),
+            () -> ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get(),
+            () -> List.of(
+                Items.RAW_COPPER
+            ), List.of(
+                CrucibleCatalysts.DEHYDRATED_BORAX,
+                CrucibleCatalysts.BORIC_ACID_CRYSTAL,
+                CrucibleCatalysts.FLUX,
+                CrucibleCatalysts.CRUSHED_EGG_SHELL
+            ), () -> List.of(
+            ), List.of(
+            )
+        );
+
+        //turn block into its raw ore if mined with silk touch
+        public static final RefinableMaterial NATIVE_COPPER_DEPOSIT = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.NATIVE_COPPER_DEPOSIT.getName(),
+            () -> ErosionRegistry.Items.NATIVE_COPPER_ORE.getSource().get(),
+            () -> List.of(
+                ErosionRegistry.Items.NATIVE_COPPER_ORE.getDrop().get()
+            )
+        );
+        //-------------------------------------------------------
+
+        public static final RefinableMaterial RUBY_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.RUBY_ORE.getName(),
+            () -> ErosionRegistry.Items.RUBY_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RUBY.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+        public static final RefinableMaterial SAPPHIRE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.SAPPHIRE_ORE.getName(),
+            () -> ErosionRegistry.Items.SAPPHIRE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.SAPPHIRE.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+
+        public static final RefinableMaterial BORAX = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.BORAX.getName(),
+            () -> ErosionRegistry.Items.BORAX.get(),
+            () -> List.of(
+                ErosionRegistry.Items.DEHYDRATED_BORAX.get()
+            ), BlockEntityRecipeRegistries.MATERIAL_PURIFIER
+        );
+        // -------------------------------------------------------------
+        //turn ore into its mined variant if mined with silk touch
+        public static final RefinableMaterial HALITE_ORE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.HALITE_ORE.getName(),
+            () -> ErosionRegistry.Items.HALITE_ORE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.RAW_HALITE.get()
+            )
+        );
+
+        //we purify halite into salt
+        //melting salt is inefficient
+        public static final RefinableMaterial RAW_HALITE = new RefinableMaterial.MaterialPurifier(
+            ErosionRegistry.RawRegistry.RAW_HALITE.getName(),
+            () -> ErosionRegistry.Items.RAW_HALITE.get(),
+            () -> List.of(
+                ErosionRegistry.Items.SALT.get()
+            )
+        );
+        // -------------------------------------------------------------
+    }
+    // ========================== CHEMICAL REACTIONS
+
+    public static final class ChemicalReactions
+    {
+        public static final ChemicalReaction DIRT_HYDRATION = new ChemicalReaction(
+            ErosionRegistry.RawRegistry.ChemicalReactions.DIRT_HYDRATION.getName(),
+            () -> List.of(
+                Items.DIRT, Items.WATER_BUCKET
+            ), () -> List.of(
+                Items.MUD, Items.BUCKET
+            ),
+            () -> List.of(Items.MUD),
+            List.of(
+                ErosionRegistry.GasTypes.WATER_VAPOR
+            ),false
+        );
+
+        public static final ChemicalReaction SULFURIC_ACID_SYNTHESIS = new ChemicalReaction(
+            ErosionRegistry.RawRegistry.ChemicalReactions.SULFURIC_ACID_SYNTHESIS.getName(),
+            () -> List.of(
+                ErosionRegistry.Items.SULFUR_SLAG.get(),
+                Items.WATER_BUCKET
+            ), () -> List.of(
+                ErosionRegistry.Items.BUCKET_OF_SULFURIC_ACID.get()
+            ),
+            () -> List.of(
+                ErosionRegistry.Items.BUCKET_OF_SULFURIC_ACID.get()
+            ), List.of(),true
+        );
+
+        public static final ChemicalReaction BORIC_ACID_SYNTHESIS = new ChemicalReaction(
+            ErosionRegistry.RawRegistry.ChemicalReactions.BORIC_ACID_SYNTHESIS.getName(),
+            () -> List.of(
+                ErosionRegistry.Items.BORAX.get(),
+                ErosionRegistry.Items.BUCKET_OF_SULFURIC_ACID.get()
+            ), () -> List.of(
+                ErosionRegistry.Items.BORIC_ACID_CRYSTAL.get(),
+                Items.BUCKET
+            ), () -> List.of(
+                ErosionRegistry.Items.BORIC_ACID_CRYSTAL.get()
+            ), List.of(),true
+        );
+
+        public static final ChemicalReaction ANHYDROUS_BORAX_HYDRATION = new ChemicalReaction(
+            ErosionRegistry.RawRegistry.ChemicalReactions.ANHYDROUS_BORAX_HYDRATION.getName(),
+            () -> List.of(
+                Items.WATER_BUCKET, ErosionRegistry.Items.DEHYDRATED_BORAX.get()
+            ), () -> List.of(
+                ErosionRegistry.Items.BORAX.get(),
+                Items.BUCKET
+            ), () -> List.of(
+                ErosionRegistry.Items.BORAX.get()
+            ), List.of(
+                ErosionRegistry.GasTypes.WATER_VAPOR
+            ),false
+        );
+    }
+    
+
+    // ------------------------------- COOLING FLUIDS
+    public static final class ChemicalReactorCoolingFluids
+    {
+        public static final ChemicalReactorCoolingFluid WATER = new ChemicalReactorCoolingFluid(
+            Items.WATER_BUCKET.getDescription().getString(),
+            () -> Items.WATER_BUCKET,
+            () -> Items.BUCKET
+        );
+    }
+
+    // -------------------------------- SALTABLE FOODS
+    public static final class SaltableFoods
+    {
+        public static final SaltableFood COOKED_BEEF = new SaltableFood(
+            Items.COOKED_BEEF.getDescription().toString(),
+            () -> Items.COOKED_BEEF
+        );
+        public static final SaltableFood COOKED_CHICKEN = new SaltableFood(
+            Items.COOKED_CHICKEN.getDescription().toString(),
+            () -> Items.COOKED_CHICKEN
+        );
+        public static final SaltableFood COOKED_COD = new SaltableFood(
+            Items.COOKED_COD.getDescription().toString(),
+            () -> Items.COOKED_COD
+        );
+        public static final SaltableFood COOKED_MUTTON = new SaltableFood(
+            Items.COOKED_MUTTON.getDescription().toString(),
+            () -> Items.COOKED_MUTTON
+        );
+        public static final SaltableFood COOKED_PORKCHOP = new SaltableFood(
+            Items.COOKED_PORKCHOP.getDescription().toString(),
+            () -> Items.COOKED_PORKCHOP
+        );
+        public static final SaltableFood COOKED_RABBIT = new SaltableFood(
+            Items.COOKED_RABBIT.getDescription().toString(),
+            () -> Items.COOKED_RABBIT
+        );
+        public static final SaltableFood COOKED_SALMON = new SaltableFood(
+            Items.COOKED_SALMON.getDescription().toString(),
+            () -> Items.COOKED_SALMON
+        );
+    }
+
+    // ========================== REGISTRY
+
+    private static final List<AlterableMaterial> ALTERABLE_MATERIALS_LIST_ORIGINAL = List.of(
         AlterableMaterials.GRASS_BLOCK,
         AlterableMaterials.DIRT,
         AlterableMaterials.SAND,
