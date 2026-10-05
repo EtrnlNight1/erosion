@@ -257,6 +257,24 @@ public class ErosionCommandProcessor
         String value = args.get(1);
         String newValue = null;
 
+        if(ErosionPerformanceConfig.contains(config))
+        {
+            try
+            {
+                ErosionPerformanceConfig.set(config, value);
+                ErosionPerformanceConfig.save(
+                    java.nio.file.Path.of(ErosionConfig.ServerConfig.CONFIG_FOLDER, "performance.properties"),
+                    ErosionUtils::Log);
+                ErosionUtils.Misc.sendMsg(s, "Changed " + config + " to " + ErosionPerformanceConfig.get(config)
+                    + ". Check the log for any file-save errors.");
+            }
+            catch(IllegalArgumentException e)
+            {
+                ErosionUtils.Misc.sendMsg(s, "Invalid value: " + e.getMessage());
+            }
+            return;
+        }
+
         for(var c : ErosionConfig.ServerConfig.MOD_CONFIG)
         {
             if(c.id.equals(config))

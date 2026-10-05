@@ -30,7 +30,6 @@ public class ErosionRetrogen
     private static boolean LOADED = false;
     public static class RetrogenFeature
     {
-        public static final int MAX_REPLACEMENTS_PER_CHUNK = 10;
         public static int RETROGEN_PERFORMED = 0;
 
         private String id;
@@ -199,7 +198,7 @@ public class ErosionRetrogen
         
         var v = new ArrayList<BlockPos>();
         var v2 = getRandomSurfacePositionsAround(
-            l, p, 4, RetrogenFeature.MAX_REPLACEMENTS_PER_CHUNK
+            l, p, 4, ErosionPerformanceConfig.get("retrogen_attempts_per_chunk")
         );
 
         for(var pos : v2)
