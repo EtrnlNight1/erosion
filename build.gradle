@@ -149,9 +149,27 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' 
 }
 
+tasks.register('verifyPerformanceConfig', JavaExec) {
+    group = 'verification'
+    description = 'Checks settings validation, reload, persistence and recovery.'
+    dependsOn tasks.named('testClasses')
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'co.bracesoftware.erosion.ErosionPerformanceConfigTest'
+}
+
+// Config checks run through verifyPerformanceConfig rather than a JUnit test engine.
+tasks.named('test', Test) {
+    failOnNoDiscoveredTests = false
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('verifyPerformanceConfig')
+}
+
 idea {
     module {
         downloadSources = true
         downloadJavadoc = true
     }
 }
+

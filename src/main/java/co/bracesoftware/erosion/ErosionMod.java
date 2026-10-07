@@ -103,7 +103,7 @@ public final class ErosionMod
             return;
         }
 
-        Task.schedule(ErosionConfig.EVENT_DELAY, () -> {
+        Task.schedule(ErosionPerformanceConfig.get("event_delay_ticks"), () -> {
             var pos = event.getPos();
             var liquidPos = event.getLiquidPos();
 
@@ -146,7 +146,7 @@ public final class ErosionMod
             return;
         }
 
-        Task.schedule(ErosionConfig.EVENT_DELAY, () -> {
+        Task.schedule(ErosionPerformanceConfig.get("event_delay_ticks"), () -> {
             var pos = event.getPos();
 
             ErosionCore.addCandidate(level, pos);
@@ -205,7 +205,7 @@ public final class ErosionMod
                 ErosionCore.getPendingDelayedSize(),
                 ErosionUtils.getTicksRemainingUntil(
                     tick, ErosionUtils.minutesToTick(
-                        ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS
+                        ErosionPerformanceConfig.get("delayed_processing_interval_minutes")
                     )
                 ),
                 Task.getActiveTasks(),

@@ -28,10 +28,6 @@ public final class ErosionConfig
         }
     }
     public static final boolean CRUCIBLE_COPRODUCT_DEBUG = true;
-    public static final int MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK = 15;
-
-    public static final int EVENT_DELAY = 12;
-
     public static final int MAX_PENDING_SIZE = 30000;
     public static final int MAX_PENDING_FAST_SIZE = 20000;
     public static final int MAX_PENDING_DELAYED_SIZE = 1000;
@@ -42,7 +38,6 @@ public final class ErosionConfig
     public static final int PURIFIER_SECONDS = 10;
     public static final int CRUCIBLE_SECONDS = 15;
     public static final int CHUNK_SIZE = 16;
-    public static final int PROCESS_PENDING_AGAIN_INTERVAL_MINS = 2;
 
     public static final boolean SOMETHING_WENT_WRONG = false;
 
@@ -51,18 +46,6 @@ public final class ErosionConfig
     public static final class ForCommands
     {
         public static final String EMPTY_ARGUMENTS = "</>";
-    }
-
-    public static final class Clusters
-    {
-        public static final int MIN_SPAWN_DISTANCE = 24;
-        public static final int SIZE = 8;
-        public static final int COUNT_PER_TICK = 5;
-    }
-
-    public static final class GeochemicalAlteration
-    {
-        public static final int CHECK_FOR_FLOWING_FLUID_PERCENT = 30;
     }
 
     public static final class Libs
@@ -227,6 +210,7 @@ public final class ErosionConfig
 
         public static void LoadModConfig()
         {
+            ErosionPerformanceConfig.load(Path.of(CONFIG_FOLDER, "performance.properties"), ErosionUtils::Log);
             try
             {
                 Files.createDirectories(Path.of(ErosionConfig.ServerConfig.CONFIG_FOLDER));
@@ -273,6 +257,8 @@ public final class ErosionConfig
         public static final List<Component> viewConfiguration()
         {
             var l = new ArrayList<Component>();
+            ErosionPerformanceConfig.entries().forEach((key, value) ->
+                l.add(Component.literal("   " + key + ": " + value).withStyle(ChatFormatting.GOLD)));
             for(var g : ErosionConfig.ServerConfig.MOD_CONFIG)
             {
                 if(g.getConfigClass().equals(Boolean.class)) l.add(

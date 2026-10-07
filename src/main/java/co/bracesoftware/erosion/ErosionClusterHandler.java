@@ -16,6 +16,7 @@ public class ErosionClusterHandler
     {
         var server = ServerLifecycleHooks.getCurrentServer();
         if(server == null) return;
+        if(server.getTickCount() % ErosionPerformanceConfig.get("cluster_interval_ticks") != 0) return;
 
         var overworld = server.overworld();
         
@@ -30,12 +31,12 @@ public class ErosionClusterHandler
 
     private static void selectVein(ServerLevel level, BlockPos playerPos, int maxRadius)
     {
-        int minRadiusSq = ErosionConfig.Clusters.MIN_SPAWN_DISTANCE * ErosionConfig.Clusters.MIN_SPAWN_DISTANCE;
+        int minRadiusSq = ErosionPerformanceConfig.get("cluster_min_distance_blocks") * ErosionPerformanceConfig.get("cluster_min_distance_blocks");
         int maxRadiusSq = maxRadius * maxRadius;
-        int clusterRadius = ErosionConfig.Clusters.SIZE / 2;
+        int clusterRadius = ErosionPerformanceConfig.get("cluster_size") / 2;
         int clusterRadiusSq = clusterRadius * clusterRadius;
 
-        for(int c = 0; c < ErosionConfig.Clusters.COUNT_PER_TICK; c++)
+        for(int c = 0; c < ErosionPerformanceConfig.get("cluster_count_per_pass"); c++)
         {
             int baseOffsetX = 0, baseOffsetZ = 0, distanceSq = 0;
             int attempts = 0;
@@ -61,6 +62,8 @@ public class ErosionClusterHandler
                         if(x * x + y * y + z * z <= clusterRadiusSq)
                         {
                             var targetPos = clusterCenter.offset(x, y, z);
+                            if(ErosionPerformanceConfig.get("cluster_loaded_chunks_only") == 1
+                                && !level.getChunkSource().hasChunk(targetPos.getX() >> 4, targetPos.getZ() >> 4)) continue;
                             for(var f : ErosionRetrogen.RETROGEN_FEATURES)
                             {
                                 ErosionRetrogen.applyFeatureToChunk(level, targetPos, f);

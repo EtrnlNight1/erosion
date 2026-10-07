@@ -3416,7 +3416,7 @@ public class ErosionCore
                 else
                 {
                     int proc = 0;
-                    while(proc < (ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK / 3))
+                    while(proc < (ErosionPerformanceConfig.get("alterations_per_tick") / 3))
                     {
                         if(Pending.isEmpty()) break;
                         gpos = Pending.getAndRemove(0);
@@ -3475,7 +3475,7 @@ public class ErosionCore
         if(l.dimension() != Level.OVERWORLD) return;
       
         int tick = e.getLevel().getServer().getTickCount();
-        if(tick % ErosionUtils.minutesToTick(ErosionConfig.PROCESS_PENDING_AGAIN_INTERVAL_MINS) == 0)
+        if(tick % ErosionUtils.minutesToTick(ErosionPerformanceConfig.get("delayed_processing_interval_minutes")) == 0)
         {
             processDelayedAlterations(l);
             Task.schedule(679, () -> {
@@ -3487,19 +3487,19 @@ public class ErosionCore
 
     public static void processPending(ServerLevel l)
     {
-        processPendingCore(PENDING, l, ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK, false);
+        processPendingCore(PENDING, l, ErosionPerformanceConfig.get("alterations_per_tick"), false);
     }
 
     public static void processPendingPriority(ServerLevel l)
     {
-        processPendingCore(PENDING_FAST, l, ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK + 1, true);//lmao
+        processPendingCore(PENDING_FAST, l, ErosionPerformanceConfig.get("alterations_per_tick") + 1, true);//lmao
     }
 
     public static final void processDelayedAlterations(ServerLevel l)
     {
         processPendingCore(
             PENDING_DELAYED, l,
-            ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK * 2,
+            ErosionPerformanceConfig.get("alterations_per_tick") * 2,
             false
         );
         
@@ -3508,7 +3508,7 @@ public class ErosionCore
             int m = ErosionMod.RANDOM.nextInt(20);
             processPendingCore(
                 PENDING_DELAYED, l,
-                ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK + m,
+                ErosionPerformanceConfig.get("alterations_per_tick") + m,
                 false
             );
         });
@@ -3517,7 +3517,7 @@ public class ErosionCore
             int m = ErosionMod.RANDOM.nextInt(6);
             processPendingCore(
                 PENDING_DELAYED, l,
-                ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK - m,
+                ErosionPerformanceConfig.get("alterations_per_tick") - m,
                 false
             );
         });
@@ -3586,7 +3586,7 @@ public class ErosionCore
     public static boolean hasWaterNearby(ServerLevel l, BlockPos p)
     {
         if(ErosionUtils.Misc.randomWithChanceToBe(true, 
-            ErosionConfig.GeochemicalAlteration.CHECK_FOR_FLOWING_FLUID_PERCENT
+            ErosionPerformanceConfig.get("flowing_fluid_check_percent")
         ))
         {
             return isFluidNearby(l, p, Fluids.FLOWING_WATER);
@@ -3628,7 +3628,7 @@ public class ErosionCore
     public static boolean hasLavaNearby(ServerLevel l, BlockPos p)
     {
         if(ErosionUtils.Misc.randomWithChanceToBe(true, 
-            ErosionConfig.GeochemicalAlteration.CHECK_FOR_FLOWING_FLUID_PERCENT
+            ErosionPerformanceConfig.get("flowing_fluid_check_percent")
         ))
         {
             return isFluidNearby(l, p, Fluids.FLOWING_LAVA);
@@ -3763,7 +3763,7 @@ public class ErosionCore
     {
         public static final void bulkProcess(ServerLevel level)
         {
-            for(int i = 0; i < ErosionConfig.MAX_GEOCHEMICAL_ALTERATIONS_PER_TICK / 2; ++i)
+            for(int i = 0; i < ErosionPerformanceConfig.get("alterations_per_tick") / 2; ++i)
             {
                 ErosionCore.processPending(level);
                 ErosionCore.processPendingPriority(level);
